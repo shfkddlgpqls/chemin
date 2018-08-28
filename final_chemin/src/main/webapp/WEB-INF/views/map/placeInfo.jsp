@@ -283,7 +283,7 @@ $(function() {
       <img alt="" src="http://placehold.it/250x180">
     </li>
   </ol>
-</div>
+</div>d
 	      	</div> 
 	      </div>
       </div> 
