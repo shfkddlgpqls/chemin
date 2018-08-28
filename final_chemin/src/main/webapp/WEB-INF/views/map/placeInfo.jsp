@@ -3,41 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>  
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
- <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
 <c:set value="${pageContext.request.contextPath }" var="path"/>
-<script>
-/* font-size 자동조절 함수 */
-/* $(function () {
-    var autoFont = function () {
-        $("h1").css('font-size', Math.max(Math.min($("h1").width() / (1.1 * 10))));
-    }
-    autoFont();
-    $(window).resize(function () {
-        autoFont();
-    });
-}); */
-/* function fn_sweet(){
-	swal({
-		  title: "Good job!",
-		  text: "You clicked the button!",
-		  icon: "success",
-		});
-} */
+<script src="jquery.star-rating-svg.js"></script>
+<link rel="stylesheet" type="text/css" href="star-rating-svg.css">
 
-$(function() {
-    $('.carousel').each(function(){
-        $(this).carousel({
-            interval: false
-        });
-    });
-})​
-
-</script>
 <style>
       .box {
         min-height: 150px;
@@ -45,7 +15,6 @@ $(function() {
   		margin-right:auto;
   		
       }
-
       .detail_box {
         background-color: white;
        /*  color: #efefef; */
@@ -71,13 +40,6 @@ $(function() {
  	   	 box-shadow: 0px 2px 5px #BDBDBD;
  	   	 border:solid 1px #E5E8E8;
  	   }
-      /*
-      These are the responsive styles. Throw some breakpoints in here!
-      */
-     /*  .container {
-        display: flex;
-        flex-wrap: wrap; 
-      } */
 
       .box {
         width: 80%;      
@@ -108,48 +70,111 @@ $(function() {
 	    text-transform:uppercase;
 	    display: block;   
 	}
-/* 	span{
-		/* font-family:"Impact"; */
-   /**
-/* Main carousel style */
-.carousel {
-    width: 600px;
+	.review_box{
+		background-color: white;
+       /*  color: #efefef; */
+        margin-bottom:3%;
+        height:45%;
+        border:solid 1px #E5E8E8;
+	}
+	.review_sub_box{
+		border:solid 1px #E5E8E8;
+		  margin-left:auto;
+  		margin-right:auto;
+  		
+  		height:70%;
+	}
 }
 
-/* Indicators list style */
-.article-slide .carousel-indicators {
-    bottom: 0;
-    left: 0;
-    margin-left: 5px;
-    width: 100%;
+.rating-stars ul {
+  list-style-type:none;
+  padding:0;
+  
+  -moz-user-select:none;
+  -webkit-user-select:none;
 }
-/* Indicators list style */
-.article-slide .carousel-indicators li {
-    border: medium none;
-    border-radius: 0;
-    float: left;
-    height: 54px;
-    margin-bottom: 5px;
-    margin-left: 0;
-    margin-right: 5px !important;
-    margin-top: 0;
-    width: 100px;
+.rating-stars ul > li.star {
+  display:inline-block;
+  
 }
-/* Indicators images style */
-.article-slide .carousel-indicators img {
-    border: 2px solid #FFFFFF;
-    float: left;
-    height: 54px;
-    left: 0;
-    width: 100px;
+
+/* Idle State of the stars */
+.rating-stars ul > li.star > i.fa {
+  font-size:2em; /* Change the size of the stars */
+  color:#ccc; /* Color on idle state */
 }
-/* Indicators active image style */
-.article-slide .carousel-indicators .active img {
-    border: 2px solid #428BCA;
-    opacity: 0.7;
+
+/* Hover state of the stars */
+.rating-stars ul > li.star.hover > i.fa {
+  color:#FFCC36;
 }
-}  
+
+/* Selected state of the stars */
+.rating-stars ul > li.star.selected > i.fa {
+  color:#FF912C;
+}
 </style>
+
+<script>
+
+$(function(){
+	  /* 1. Visualizing things on Hover - See next part for action on click */
+	  $('#stars li').on('mouseover', function(){
+	    var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+	   
+	    // Now highlight all the stars that's not after the current hovered star
+	    $(this).parent().children('li.star').each(function(e){
+	      if (e < onStar) {
+	        $(this).addClass('hover');
+	      }
+	      else {
+	        $(this).removeClass('hover');
+	      }
+	    });
+	    
+	  }).on('mouseout', function(){
+	    $(this).parent().children('li.star').each(function(e){
+	      $(this).removeClass('hover');
+	    });
+	  });
+	  
+	  
+	  /* 2. Action to perform on click */
+	  $('#stars li').on('click', function(){
+	    var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+	    var stars = $(this).parent().children('li.star');
+	    
+	    for (i = 0; i < stars.length; i++) {
+	      $(stars[i]).removeClass('selected');
+	    }
+	    
+	    for (i = 0; i < onStar; i++) {
+	      $(stars[i]).addClass('selected');
+	    }
+	    
+	    // JUST RESPONSE (Not needed)
+	    var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+	    var msg = "";
+	    if (ratingValue > 1) {
+	        msg =  ratingValue;
+	    }
+	    else {
+	        msg =ratingValue ;
+	    }
+	    responseMessage(msg);
+	    
+	  });
+	  
+	  
+	});
+
+
+	 function responseMessage(msg) {
+	  $('.success-box').fadeIn(200);  
+	/*    $('.success-box div.text-message').html("<span>" + msg + "</span>");   */
+	 $('[name=star]').val(msg);
+	 }
+</script>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <div class="container-fluid" style="background:#F3F3F3;">
 <section>
@@ -211,27 +236,27 @@ $(function() {
       			</tr>
       			<tr>
       				<td>낙곱새</td>
-      				<td>&nbsp;---------------------&nbsp;</td>
+      				<td>&nbsp;--------------------------------------&nbsp;</td>
       				<td>10000원</td>
       			</tr>
       			<tr>
       				<td>용호전골</td>
-      				<td>&nbsp;---------------------&nbsp;</td>
+      				<td>&nbsp;--------------------------------------&nbsp;</td>
       				<td>10000원</td>
       			</tr>
       			<tr>
       				<td>낙새</td>
-      				<td>&nbsp;---------------------&nbsp;</td>
+      				<td>&nbsp;--------------------------------------&nbsp;</td>
       				<td>10000원</td>
       			</tr>
       			<tr>
       				<td>라면 · 우동</td>
-      				<td>&nbsp;---------------------&nbsp;</td>
+      				<td>&nbsp;--------------------------------------&nbsp;</td>
       				<td>2000원</td>
       			</tr>
       			<tr>
       				<td>사이다 · 콜라</td>
-      				<td>&nbsp;---------------------&nbsp;</td>
+      				<td>&nbsp;--------------------------------------&nbsp;</td>
       				<td>2000원</td>
       			</tr>
       		</table>
@@ -241,6 +266,7 @@ $(function() {
       </div> 
       
       
+     <!-- 사진 내용 -->
        <div class="box detail_box">
 	       <div style="height:10%; margin-top:5%; margin-bottom:2%">
 		      	<div style="margin-left:13%; float:left">
@@ -248,48 +274,118 @@ $(function() {
 		      	</div>
 	      	</div>
 	      	
-	      	<div class="row">
-	      	<div style="margin-left:15%;float:left;">
-				<div class="carousel slide article-slide" id="article-photo-carousel">
+	      	<div class="row" style="width:80%;margin-left:auto;margin-right:auto;">
+	      	<div style="float:left;">
 
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner cont-slider">
-
-    <div class="item active">
-      <img alt="" title="" src="http://placehold.it/600x400">
-    </div>
-    <div class="item">
-      <img alt="" title="" src="http://placehold.it/600x400">
-    </div>
-    <div class="item">
-      <img alt="" title="" src="http://placehold.it/600x400">
-    </div>
-    <div class="item">
-      <img alt="" title="" src="http://placehold.it/600x400">
-    </div>
-  </div>
-  <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li class="active" data-slide-to="0" data-target="#article-photo-carousel">
-      <img alt="" src="http://placehold.it/250x180">
-    </li>
-    <li class="" data-slide-to="1" data-target="#article-photo-carousel">
-      <img alt="" src="http://placehold.it/250x180">
-    </li>
-    <li class="" data-slide-to="2" data-target="#article-photo-carousel">
-      <img alt="" src="http://placehold.it/250x180">
-    </li>
-    <li class="" data-slide-to="3" data-target="#article-photo-carousel">
-      <img alt="" src="http://placehold.it/250x180">
-    </li>
-  </ol>
-</div>d
+    <!-- main slider carousel -->
+    
+        <div id="ThumbnailCarousel" class="carousel slide col-xs-12" data-ride="carousel">
+			  <div class="carousel-inner">
+			    <div class="carousel-item active">
+			      <div class="row">
+			          <div class="col-md-3 col-sm-6"><a href="#x" class="thumbnail"><img src="${path}/resources/base/img/menu.jpg" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			          <div class="col-md-3 col-sm-6"><a href="#x" class="thumbnail"><img src="${path}/resources/base/img/menu.jpg" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			          <div class="col-md-3"><a href="#x" class="thumbnail"><img src="${path}/resources/base/img/menu.jpg" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			          <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="${path}/resources/base/img/menu.jpg" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			      </div>
+			    </div>
+			    <div class="carousel-item">
+			      <div class="row">
+			          <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="https://www.ikea.com/kr/ko/images/products/vardagen-baleudagen-gyelyangkeob__0462815_PE608339_S4.JPG" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			          <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="https://www.ikea.com/kr/ko/images/products/tokig-tokigeu-chaesotalsugi-hwaiteu__0095891_PE235176_S4.JPG" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			          <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="https://www.ikea.com/kr/ko/images/products/plastis-peullaseutiseu-eol-eumteul-teokwoijeu__0092975_PE229787_S4.JPG" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			           <div class="col-md-3"><a href="#x" class="thumbnail"><img src="https://www.ikea.com/kr/ko/images/products/dekad-dekadeu-allamsigye-beullaeg__0110719_PE262840_S4.JPG" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			      </div>
+			    </div>
+			    <div class="carousel-item">
+			      <div class="row">
+			          <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="https://www.ikea.com/PIAimages/0566046_PE664563_S3.JPG" alt="Image" class="img-fluid img-thumbnail"></a>
+			          </div>
+			          <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="https://www.ikea.com/kr/ko/images/products/fado-pado-tagsangseutaendeu-pingkeu__0606975_PE682644_S4.JPG" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			          <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="https://www.ikea.com/kr/ko/images/products/koarp-koaleupeu-amcheeo-beiji__0522280_PE643185_S4.JPG" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			          <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="https://www.ikea.com/kr/ko/images/products/bumerang-bumelang-osgeol-i-hwaiteu__0192382_PE347080_S4.JPG" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			      </div>
+			    </div>
+			  </div>
+			  
+			  <a class="carousel-control-prev "  href="#ThumbnailCarousel" role="button" data-slide="prev">
+			    <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+			    <span class="sr-only ">Previous</span>
+			  </a>
+			  
+			  <a class="carousel-control-next" href="#ThumbnailCarousel" role="button" data-slide="next">
+			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="sr-only">Next</span>
+			  </a>
+		</div>
+        	</div>
 	      	</div> 
 	      </div>
+	      
+	      
+	      <!-- 평가 리뷰 -->
+	      <div class="box review_box">
+	       <div style="height:10%; margin-top:5%; margin-bottom:2%">
+		      	<div style="margin-left:13%; float:left">
+		      		<span style="font-size:20px;text-transform:uppercase;"><strong>평가하기</strong></span>
+		      	</div>
+	      	</div>
+	      	
+	      	<div class="row">
+	     
+				<div class="review_sub_box" style="width:80%;margin-left:13%; float:left;">
+					
+					<div style="width:100%;height:20%; float:left;border-bottom:solid 1px #E5E8E8;">
+						<section class='rating-widget'>
+  
+					  <!-- Rating Stars Box -->
+					  <div class='rating-stars col'>
+					    <ul id='stars'>
+					      <li class='star'  title='Poor' data-value='1'>
+					        <i class='fa fa-star fa-fw'></i>
+					      </li>
+					      <li class='star' title='Fair' data-value='2'>
+					        <i class='fa fa-star fa-fw'></i>
+					      </li>
+					      <li class='star'  title='Good' data-value='3'>
+					        <i class='fa fa-star fa-fw'></i>
+					      </li>
+					      <li class='star'  title='Excellent' data-value='4'>
+					        <i class='fa fa-star fa-fw'></i>
+					      </li>
+					      <li class='star'  title='WOW!!!' data-value='5'>
+					        <i class='fa fa-star fa-fw'></i>
+					      </li>
+					      
+					    </ul>
+						     <div class='success-box'>
+						    <div class='clearfix'></div>
+						    
+						    <div class='text-message'></div>
+						    <input type="hidden" name="star" value=""/>
+						    <div class='clearfix'></div>
+						  </div>
+					  </div>
+					  
+					</section>
+					</div>
+				</div>		
+    
+	      	</div> 
+	      </div>
+	      
       </div> 
-      
     </div>
 
-</section>
-</div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
