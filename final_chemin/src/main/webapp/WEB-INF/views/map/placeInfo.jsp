@@ -3,41 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>  
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
- <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
 <c:set value="${pageContext.request.contextPath }" var="path"/>
-<script>
-/* font-size 자동조절 함수 */
-/* $(function () {
-    var autoFont = function () {
-        $("h1").css('font-size', Math.max(Math.min($("h1").width() / (1.1 * 10))));
-    }
-    autoFont();
-    $(window).resize(function () {
-        autoFont();
-    });
-}); */
-/* function fn_sweet(){
-	swal({
-		  title: "Good job!",
-		  text: "You clicked the button!",
-		  icon: "success",
-		});
-} */
-
-$(function() {
-    $('.carousel').each(function(){
-        $(this).carousel({
-            interval: false
-        });
-    });
-})​
-
-</script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=eb4ae7857a625ec0a907f8f742645cfb&libraries=services"></script>
+    
 <style>
       .box {
         min-height: 150px;
@@ -45,18 +14,17 @@ $(function() {
   		margin-right:auto;
   		
       }
-
       .detail_box {
         background-color: white;
        /*  color: #efefef; */
-        margin-bottom:3%;
+        margin-bottom:1%;
         height:35%;
         border:solid 1px #E5E8E8;
       }
       .menu_box{
        background-color: white;
        /*  color: #efefef; */
-        margin-bottom:3%;
+        margin-bottom:1%;
         height:30%;
         border:solid 1px #E5E8E8;
       }
@@ -71,13 +39,6 @@ $(function() {
  	   	 box-shadow: 0px 2px 5px #BDBDBD;
  	   	 border:solid 1px #E5E8E8;
  	   }
-      /*
-      These are the responsive styles. Throw some breakpoints in here!
-      */
-     /*  .container {
-        display: flex;
-        flex-wrap: wrap; 
-      } */
 
       .box {
         width: 80%;      
@@ -108,55 +69,50 @@ $(function() {
 	    text-transform:uppercase;
 	    display: block;   
 	}
-/* 	span{
-		/* font-family:"Impact"; */
-   /**
-/* Main carousel style */
-.carousel {
-    width: 600px;
+.review_box{
+		background-color: white;
+       /*  color: #efefef; */
+        margin-bottom:1%;
+        height:50%;
+        border:solid 1px #E5E8E8;
+	}
+	.review_sub_box{
+		border:solid 1px #E5E8E8;
+		  margin-left:auto;
+  		margin-right:auto;
+  		height:46%;
+	}
+	.star-rating {
+  font-size:1.55em;
 }
-
-/* Indicators list style */
-.article-slide .carousel-indicators {
-    bottom: 0;
-    left: 0;
-    margin-left: 5px;
-    width: 100%;
-}
-/* Indicators list style */
-.article-slide .carousel-indicators li {
-    border: medium none;
-    border-radius: 0;
-    float: left;
-    height: 54px;
-    margin-bottom: 5px;
-    margin-left: 0;
-    margin-right: 5px !important;
-    margin-top: 0;
-    width: 100px;
-}
-/* Indicators images style */
-.article-slide .carousel-indicators img {
-    border: 2px solid #FFFFFF;
-    float: left;
-    height: 54px;
-    left: 0;
-    width: 100px;
-}
-/* Indicators active image style */
-.article-slide .carousel-indicators .active img {
-    border: 2px solid #428BCA;
-    opacity: 0.7;
-}
-}  
+.star-rating .fa-star{color: #F05F40;}
+.rating-value{
+	 width:2%;
+	  border:none 	  
+  }
 </style>
+
+
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <div class="container-fluid" style="background:#F3F3F3;">
 <section>
 <div class="container">
       <div class="title_box">
       	<h1 style="margin-top:3%;font-size:50px"><strong>용호낙지 강남점</strong></h1>
-      	<h5 style="margin-top:2%;">평점 5 · 리뷰(45)</h5>
+      	<div class="row" style="width:40%;margin-left:auto; margin-right:auto">
+      	<span style="margin:2%;font-size:1.09em">평점 </span> 	
+      			<div class="star-rating" style=" font-size:1.3em;margin:1%">
+					        <span class="fa fa-star-o" data-rating="1"></span>
+					        <span class="fa fa-star-o" data-rating="2"></span>
+					        <span class="fa fa-star-o" data-rating="3"></span>
+					        <span class="fa fa-star-o" data-rating="4"></span>
+					        <span class="fa fa-star-o" data-rating="5"></span>
+					        <span class="rating-value" value="3">
+					   </div>&nbsp;&nbsp;
+					   <input type="text" name="whatever1" class="rating-value" value="3" style="width:3%;border:none;font-size:1.09em"/>
+					   <span style="border:none;margin-top:2%;font-size:1.09em">점</span>&nbsp;
+			   <span style="margin:2%"> ·&nbsp;&nbsp;리뷰(45)</span>
+		  </div>
       </div>
       
       <div class="box detail_box">
@@ -211,27 +167,27 @@ $(function() {
       			</tr>
       			<tr>
       				<td>낙곱새</td>
-      				<td>&nbsp;---------------------&nbsp;</td>
+      				<td>&nbsp;---------------------------------------------------&nbsp;</td>
       				<td>10000원</td>
       			</tr>
       			<tr>
       				<td>용호전골</td>
-      				<td>&nbsp;---------------------&nbsp;</td>
+      				<td>&nbsp;---------------------------------------------------&nbsp;</td>
       				<td>10000원</td>
       			</tr>
       			<tr>
       				<td>낙새</td>
-      				<td>&nbsp;---------------------&nbsp;</td>
+      				<td>&nbsp;---------------------------------------------------&nbsp;</td>
       				<td>10000원</td>
       			</tr>
-      			<tr>
+      			<tr >
       				<td>라면 · 우동</td>
-      				<td>&nbsp;---------------------&nbsp;</td>
+      				<td>&nbsp;---------------------------------------------------&nbsp;</td>
       				<td>2000원</td>
       			</tr>
       			<tr>
       				<td>사이다 · 콜라</td>
-      				<td>&nbsp;---------------------&nbsp;</td>
+      				<td>&nbsp;---------------------------------------------------&nbsp;</td>
       				<td>2000원</td>
       			</tr>
       		</table>
@@ -241,6 +197,7 @@ $(function() {
       </div> 
       
       
+     <!-- 사진 내용 -->
        <div class="box detail_box">
 	       <div style="height:10%; margin-top:5%; margin-bottom:2%">
 		      	<div style="margin-left:13%; float:left">
@@ -248,48 +205,181 @@ $(function() {
 		      	</div>
 	      	</div>
 	      	
-	      	<div class="row">
-	      	<div style="margin-left:15%;float:left;">
-				<div class="carousel slide article-slide" id="article-photo-carousel">
+	      	<div class="row" style="width:80%;margin-left:auto;margin-right:auto;">
+	      	<div style="float:left;">
 
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner cont-slider">
-
-    <div class="item active">
-      <img alt="" title="" src="http://placehold.it/600x400">
-    </div>
-    <div class="item">
-      <img alt="" title="" src="http://placehold.it/600x400">
-    </div>
-    <div class="item">
-      <img alt="" title="" src="http://placehold.it/600x400">
-    </div>
-    <div class="item">
-      <img alt="" title="" src="http://placehold.it/600x400">
-    </div>
-  </div>
-  <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li class="active" data-slide-to="0" data-target="#article-photo-carousel">
-      <img alt="" src="http://placehold.it/250x180">
-    </li>
-    <li class="" data-slide-to="1" data-target="#article-photo-carousel">
-      <img alt="" src="http://placehold.it/250x180">
-    </li>
-    <li class="" data-slide-to="2" data-target="#article-photo-carousel">
-      <img alt="" src="http://placehold.it/250x180">
-    </li>
-    <li class="" data-slide-to="3" data-target="#article-photo-carousel">
-      <img alt="" src="http://placehold.it/250x180">
-    </li>
-  </ol>
-</div>d
+    <!-- main slider carousel -->
+    
+        <div id="ThumbnailCarousel" class="carousel slide col-xs-12" data-ride="carousel">
+			  <div class="carousel-inner">
+			    <div class="carousel-item active">
+			      <div class="row">
+			          <div class="col-md-3 col-sm-6"><a href="#x" class="thumbnail"><img src="${path}/resources/base/img/menu.jpg" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			          <div class="col-md-3 col-sm-6"><a href="#x" class="thumbnail"><img src="${path}/resources/base/img/menu.jpg" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			          <div class="col-md-3"><a href="#x" class="thumbnail"><img src="${path}/resources/base/img/menu.jpg" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			          <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="${path}/resources/base/img/menu.jpg" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			      </div>
+			    </div>
+			    <div class="carousel-item">
+			      <div class="row">
+			          <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="https://www.ikea.com/kr/ko/images/products/vardagen-baleudagen-gyelyangkeob__0462815_PE608339_S4.JPG" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			          <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="https://www.ikea.com/kr/ko/images/products/tokig-tokigeu-chaesotalsugi-hwaiteu__0095891_PE235176_S4.JPG" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			          <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="https://www.ikea.com/kr/ko/images/products/plastis-peullaseutiseu-eol-eumteul-teokwoijeu__0092975_PE229787_S4.JPG" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			           <div class="col-md-3"><a href="#x" class="thumbnail"><img src="https://www.ikea.com/kr/ko/images/products/dekad-dekadeu-allamsigye-beullaeg__0110719_PE262840_S4.JPG" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			      </div>
+			    </div>
+			    <div class="carousel-item">
+			      <div class="row">
+			          <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="https://www.ikea.com/PIAimages/0566046_PE664563_S3.JPG" alt="Image" class="img-fluid img-thumbnail"></a>
+			          </div>
+			          <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="https://www.ikea.com/kr/ko/images/products/fado-pado-tagsangseutaendeu-pingkeu__0606975_PE682644_S4.JPG" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			          <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="https://www.ikea.com/kr/ko/images/products/koarp-koaleupeu-amcheeo-beiji__0522280_PE643185_S4.JPG" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			          <div class="col-sm-3"><a href="#x" class="thumbnail"><img src="https://www.ikea.com/kr/ko/images/products/bumerang-bumelang-osgeol-i-hwaiteu__0192382_PE347080_S4.JPG" alt="Image" class=" img-thumbnail"></a>
+			          </div>
+			      </div>
+			    </div>
+			  </div>
+			  
+			  <a class="carousel-control-prev "  href="#ThumbnailCarousel" role="button" data-slide="prev">
+			    <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+			    <span class="sr-only ">Previous</span>
+			  </a>
+			  
+			  <a class="carousel-control-next" href="#ThumbnailCarousel" role="button" data-slide="next">
+			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="sr-only">Next</span>
+			  </a>
+		</div>
+        	</div>
 	      	</div> 
 	      </div>
-      </div> 
-      
-    </div>
+	      
+	      
+	      <!-- 찾아오기 -->
+	      <div class="box review_box">
+	       <div style="height:10%; margin-top:5%; margin-bottom:2%">
+		      	<div style="margin-left:13%; float:left">
+		      		<span style="font-size:20px;text-transform:uppercase;"><strong>찾아가는 길</strong></span>
+		      	</div>
+	      	</div>
+	      	
+	      	<div class="row" style="width:75%;margin-left:auto;margin-right:auto;">
+				<div id="map" style="width:100%;height:55%;"></div>
+	      	</div> 
+	      </div>
+	      
+	      
+	      
+	      
+	      <!-- 평가 리뷰 -->
+	      <div class="box review_box">
+	       <div style="height:10%; margin-top:5%; margin-bottom:2%">
+		      	<div style="margin-left:13%; float:left">
+		      		<span style="font-size:20px;text-transform:uppercase;"><strong>평가하기</strong></span>
+		      	</div>
+	      	</div>
+	      	
+	      	<div class="row" ">
+				<div class="review_sub_box" style="width:72%; float:left;">					
+					<div style="width:100%;height:20%; border-bottom:solid 1px #E5E8E8;">
+						<div class="star-rating" style="margin:2%">
+					        <span class="fa fa-star-o" data-rating="1"></span>
+					        <span class="fa fa-star-o" data-rating="2"></span>
+					        <span class="fa fa-star-o" data-rating="3"></span>
+					        <span class="fa fa-star-o" data-rating="4"></span>
+					        <span class="fa fa-star-o" data-rating="5"></span>
+					        <input type="text" name="star-value" class="rating-value" value="3">/5 
+					        &nbsp;<span style="font-size:0.85em"> 평가해주세요!</span>
+					      </div>
+					</div>
+					<textarea rows="5" style="width:100%;border-bottom:1px solid #E5E8E8;border-top:0px;border-left:0px;border-right:0px" 
+					placeholder="&#13;&#10;&#13;&#10;&nbsp;여기의 어떤 점이 마음에 드셨나요?" id="content" maxlength="1000"></textarea>
+					
+				  <div  style="width:100%;height:18%;">
+				  <button  style="height:100%;width:10%;float:right;">등록</button>
+				  	 <span id="counter" style="font-size:1.2em;margin:1%;float:right;">###</span>&nbsp; 					
+				  </div>
+				</div>		
+    
+	      	</div> 
+	      </div>
+    
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
 
-</section>
-</div>
+// 지도를 생성합니다    
+var map = new daum.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new daum.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch('서울 강남구 테헤란로 119', function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === daum.maps.services.Status.OK) {
+
+        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new daum.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+       /*  // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new daum.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+        });
+        infowindow.open(map, marker); */
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});    
+</script>
+    <script>
+    var $star_rating = $('.star-rating .fa');
+
+    var SetRatingStar = function() {
+      return $star_rating.each(function() {
+        if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
+          return $(this).removeClass('fa-star-o').addClass('fa-star');
+        } else {
+          return $(this).removeClass('fa-star').addClass('fa-star-o');
+        }
+      });
+    };
+
+    $star_rating.on('click', function() {
+      $star_rating.siblings('input.rating-value').val($(this).data('rating'));
+      return SetRatingStar();
+    });
+
+    SetRatingStar();
+   
+    
+    $(function() {
+        $('#content').keyup(function (e){
+            var content = $(this).val();
+             /* $(this).height(((content.split('\n').length + 1) * 1.5) + 'em');  */
+            $('#counter').html(content.length + '/1000');
+        });
+        $('#content').keyup();
+    });
+    </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

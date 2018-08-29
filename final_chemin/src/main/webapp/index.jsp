@@ -131,13 +131,14 @@
     
  	<section style="background-color:#B7BEC9;">
  	 <div class="container-fluid">
-        <div class="row">
+        <div class="row" >
           <div class="col-lg-12 text-center">
             <h4 class="section-heading nanumFont" style="color:white;">지금 이 시간, Mall의 best 상품들입니다</h4>
         	<hr>
           </div>
         </div>
-
+        <div class="container">
+		<div class="row" style="margin-left:auto;margin-right:auto;">
 			<div id="ThumbnailCarousel" class="carousel slide col-xs-12" data-ride="carousel">
 			  <div class="carousel-inner">
 			    <div class="carousel-item active">
@@ -188,6 +189,8 @@
 			    <span class="sr-only">Next</span>
 			  </a>
 			</div>
+			</div>
+		 </div>
 		</div>
 	
 	</section>

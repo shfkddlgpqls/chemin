@@ -5,9 +5,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 
 
-          <a href="#top" id="upTag" style="margin-left:95%;" >
+           <a href="#page-top" id="upTag" class="js-scroll-trigger" style="margin-left:95%;" >
          <i class="fa fa-4x fa-angle-double-up" aria-hidden="true"></i>
-         </a>    
+         </a>   
       
    <footer class="footerMain">
          <div class="container text-center">
