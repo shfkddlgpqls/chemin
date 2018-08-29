@@ -10,32 +10,49 @@
 		</layout>
 	</appender>
 	
-	<!-- Application Loggers -->
-	<logger name="com.kh.chemin">
-		<level value="info" />
+	<logger name="com.kh.chemin.common.aop.LoggerAspect" additivity="false">
+		<level value="debug"/>
+<!-- 		<appender-ref ref="loginLogger"/> -->
 	</logger>
-	
-	<!-- 3rdparty Loggers -->
-	<logger name="org.springframework.core">
-		<level value="info" />
-	</logger>
-	
-	<logger name="org.springframework.beans">
-		<level value="info" />
-	</logger>
-	
-	<logger name="org.springframework.context">
-		<level value="info" />
-	</logger>
+   <logger name="jdbc.sqlonly" additivity="false">
+      <level value="info"/>
+      <appender-ref ref="sqlLogger"/>
+   </logger>
+   <logger name="jdbc.resultsettable" additivity="false">
+      <level value="info"/>
+      <appender-ref ref="sqlLogger"/>
+   </logger>
+   <logger name="com.kh.chemin">
+      <level value="debug" />
+   </logger>
+<!--    <logger name="com.kh.spring.Log4jTest" additivity="true">
+      <level value="info"/>
+      <appender-ref ref="console"/>
+   </logger> -->
+   
+   <!-- 3rdparty Loggers -->
+   <logger name="org.springframework.core">
+      <level value="info" />
+   </logger>
+   
+   <logger name="org.springframework.beans">
+      <level value="info" />
+   </logger>
+   
+   <logger name="org.springframework.context">
+      <level value="info" />
+   </logger>
 
-	<logger name="org.springframework.web">
-		<level value="info" />
-	</logger>
-
-	<!-- Root Logger -->
-	<root>
-		<priority value="warn" />
-		<appender-ref ref="console" />
-	</root>
+   <logger name="org.springframework.web">
+      <level value="info" />
+   </logger>
 	
+   <!-- Root Logger -->
+   <root>
+      <priority value="warn" />
+      <appender-ref ref="console" />
+      <!-- 어펜더 레퍼런스 파일로거 추가 -->
+      <appender-ref ref="filelogger"/>
+   </root>
+   
 </log4j:configuration>
