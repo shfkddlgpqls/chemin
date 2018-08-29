@@ -5,9 +5,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>  
 
 <c:set value="${pageContext.request.contextPath }" var="path"/>
-<script src="jquery.star-rating-svg.js"></script>
-<link rel="stylesheet" type="text/css" href="star-rating-svg.css">
-
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=eb4ae7857a625ec0a907f8f742645cfb&libraries=services"></script>
+    
 <style>
       .box {
         min-height: 150px;
@@ -18,14 +17,14 @@
       .detail_box {
         background-color: white;
        /*  color: #efefef; */
-        margin-bottom:3%;
+        margin-bottom:1%;
         height:35%;
         border:solid 1px #E5E8E8;
       }
       .menu_box{
        background-color: white;
        /*  color: #efefef; */
-        margin-bottom:3%;
+        margin-bottom:1%;
         height:30%;
         border:solid 1px #E5E8E8;
       }
@@ -70,118 +69,50 @@
 	    text-transform:uppercase;
 	    display: block;   
 	}
-	.review_box{
+.review_box{
 		background-color: white;
        /*  color: #efefef; */
-        margin-bottom:3%;
-        height:45%;
+        margin-bottom:1%;
+        height:50%;
         border:solid 1px #E5E8E8;
 	}
 	.review_sub_box{
 		border:solid 1px #E5E8E8;
 		  margin-left:auto;
   		margin-right:auto;
-  		
-  		height:70%;
+  		height:46%;
 	}
+	.star-rating {
+  font-size:1.55em;
 }
-
-.rating-stars ul {
-  list-style-type:none;
-  padding:0;
-  
-  -moz-user-select:none;
-  -webkit-user-select:none;
-}
-.rating-stars ul > li.star {
-  display:inline-block;
-  
-}
-
-/* Idle State of the stars */
-.rating-stars ul > li.star > i.fa {
-  font-size:2em; /* Change the size of the stars */
-  color:#ccc; /* Color on idle state */
-}
-
-/* Hover state of the stars */
-.rating-stars ul > li.star.hover > i.fa {
-  color:#FFCC36;
-}
-
-/* Selected state of the stars */
-.rating-stars ul > li.star.selected > i.fa {
-  color:#FF912C;
-}
+.star-rating .fa-star{color: #F05F40;}
+.rating-value{
+	 width:2%;
+	  border:none 	  
+  }
 </style>
 
-<script>
 
-$(function(){
-	  /* 1. Visualizing things on Hover - See next part for action on click */
-	  $('#stars li').on('mouseover', function(){
-	    var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
-	   
-	    // Now highlight all the stars that's not after the current hovered star
-	    $(this).parent().children('li.star').each(function(e){
-	      if (e < onStar) {
-	        $(this).addClass('hover');
-	      }
-	      else {
-	        $(this).removeClass('hover');
-	      }
-	    });
-	    
-	  }).on('mouseout', function(){
-	    $(this).parent().children('li.star').each(function(e){
-	      $(this).removeClass('hover');
-	    });
-	  });
-	  
-	  
-	  /* 2. Action to perform on click */
-	  $('#stars li').on('click', function(){
-	    var onStar = parseInt($(this).data('value'), 10); // The star currently selected
-	    var stars = $(this).parent().children('li.star');
-	    
-	    for (i = 0; i < stars.length; i++) {
-	      $(stars[i]).removeClass('selected');
-	    }
-	    
-	    for (i = 0; i < onStar; i++) {
-	      $(stars[i]).addClass('selected');
-	    }
-	    
-	    // JUST RESPONSE (Not needed)
-	    var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
-	    var msg = "";
-	    if (ratingValue > 1) {
-	        msg =  ratingValue;
-	    }
-	    else {
-	        msg =ratingValue ;
-	    }
-	    responseMessage(msg);
-	    
-	  });
-	  
-	  
-	});
-
-
-	 function responseMessage(msg) {
-	  $('.success-box').fadeIn(200);  
-	/*    $('.success-box div.text-message').html("<span>" + msg + "</span>");   */
-	 $('[name=star]').val(msg);
-	 }
-</script>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <div class="container-fluid" style="background:#F3F3F3;">
 <section>
 <div class="container">
       <div class="title_box">
       	<h1 style="margin-top:3%;font-size:50px"><strong>용호낙지 강남점</strong></h1>
-      	<h5 style="margin-top:2%;">평점 5 · 리뷰(45)</h5>
+      	<div class="row" style="width:40%;margin-left:auto; margin-right:auto">
+      	<span style="margin:2%;font-size:1.09em">평점 </span> 	
+      			<div class="star-rating" style=" font-size:1.3em;margin:1%">
+					        <span class="fa fa-star-o" data-rating="1"></span>
+					        <span class="fa fa-star-o" data-rating="2"></span>
+					        <span class="fa fa-star-o" data-rating="3"></span>
+					        <span class="fa fa-star-o" data-rating="4"></span>
+					        <span class="fa fa-star-o" data-rating="5"></span>
+					        <span class="rating-value" value="3">
+					   </div>&nbsp;&nbsp;
+					   <input type="text" name="whatever1" class="rating-value" value="3" style="width:3%;border:none;font-size:1.09em"/>
+					   <span style="border:none;margin-top:2%;font-size:1.09em">점</span>&nbsp;
+			   <span style="margin:2%"> ·&nbsp;&nbsp;리뷰(45)</span>
+		  </div>
       </div>
       
       <div class="box detail_box">
@@ -236,27 +167,27 @@ $(function(){
       			</tr>
       			<tr>
       				<td>낙곱새</td>
-      				<td>&nbsp;--------------------------------------&nbsp;</td>
+      				<td>&nbsp;---------------------------------------------------&nbsp;</td>
       				<td>10000원</td>
       			</tr>
       			<tr>
       				<td>용호전골</td>
-      				<td>&nbsp;--------------------------------------&nbsp;</td>
+      				<td>&nbsp;---------------------------------------------------&nbsp;</td>
       				<td>10000원</td>
       			</tr>
       			<tr>
       				<td>낙새</td>
-      				<td>&nbsp;--------------------------------------&nbsp;</td>
+      				<td>&nbsp;---------------------------------------------------&nbsp;</td>
       				<td>10000원</td>
       			</tr>
-      			<tr>
+      			<tr >
       				<td>라면 · 우동</td>
-      				<td>&nbsp;--------------------------------------&nbsp;</td>
+      				<td>&nbsp;---------------------------------------------------&nbsp;</td>
       				<td>2000원</td>
       			</tr>
       			<tr>
       				<td>사이다 · 콜라</td>
-      				<td>&nbsp;--------------------------------------&nbsp;</td>
+      				<td>&nbsp;---------------------------------------------------&nbsp;</td>
       				<td>2000원</td>
       			</tr>
       		</table>
@@ -334,6 +265,22 @@ $(function(){
 	      </div>
 	      
 	      
+	      <!-- 찾아오기 -->
+	      <div class="box review_box">
+	       <div style="height:10%; margin-top:5%; margin-bottom:2%">
+		      	<div style="margin-left:13%; float:left">
+		      		<span style="font-size:20px;text-transform:uppercase;"><strong>찾아가는 길</strong></span>
+		      	</div>
+	      	</div>
+	      	
+	      	<div class="row" style="width:75%;margin-left:auto;margin-right:auto;">
+				<div id="map" style="width:100%;height:55%;"></div>
+	      	</div> 
+	      </div>
+	      
+	      
+	      
+	      
 	      <!-- 평가 리뷰 -->
 	      <div class="box review_box">
 	       <div style="height:10%; margin-top:5%; margin-bottom:2%">
@@ -342,50 +289,97 @@ $(function(){
 		      	</div>
 	      	</div>
 	      	
-	      	<div class="row">
-	     
-				<div class="review_sub_box" style="width:80%;margin-left:13%; float:left;">
-					
-					<div style="width:100%;height:20%; float:left;border-bottom:solid 1px #E5E8E8;">
-						<section class='rating-widget'>
-  
-					  <!-- Rating Stars Box -->
-					  <div class='rating-stars col'>
-					    <ul id='stars'>
-					      <li class='star'  title='Poor' data-value='1'>
-					        <i class='fa fa-star fa-fw'></i>
-					      </li>
-					      <li class='star' title='Fair' data-value='2'>
-					        <i class='fa fa-star fa-fw'></i>
-					      </li>
-					      <li class='star'  title='Good' data-value='3'>
-					        <i class='fa fa-star fa-fw'></i>
-					      </li>
-					      <li class='star'  title='Excellent' data-value='4'>
-					        <i class='fa fa-star fa-fw'></i>
-					      </li>
-					      <li class='star'  title='WOW!!!' data-value='5'>
-					        <i class='fa fa-star fa-fw'></i>
-					      </li>
-					      
-					    </ul>
-						     <div class='success-box'>
-						    <div class='clearfix'></div>
-						    
-						    <div class='text-message'></div>
-						    <input type="hidden" name="star" value=""/>
-						    <div class='clearfix'></div>
-						  </div>
-					  </div>
-					  
-					</section>
+	      	<div class="row" ">
+				<div class="review_sub_box" style="width:72%; float:left;">					
+					<div style="width:100%;height:20%; border-bottom:solid 1px #E5E8E8;">
+						<div class="star-rating" style="margin:2%">
+					        <span class="fa fa-star-o" data-rating="1"></span>
+					        <span class="fa fa-star-o" data-rating="2"></span>
+					        <span class="fa fa-star-o" data-rating="3"></span>
+					        <span class="fa fa-star-o" data-rating="4"></span>
+					        <span class="fa fa-star-o" data-rating="5"></span>
+					        <input type="text" name="star-value" class="rating-value" value="3">/5 
+					        &nbsp;<span style="font-size:0.85em"> 평가해주세요!</span>
+					      </div>
 					</div>
+					<textarea rows="5" style="width:100%;border-bottom:1px solid #E5E8E8;border-top:0px;border-left:0px;border-right:0px" 
+					placeholder="&#13;&#10;&#13;&#10;&nbsp;여기의 어떤 점이 마음에 드셨나요?" id="content" maxlength="1000"></textarea>
+					
+				  <div  style="width:100%;height:18%;">
+				  <button  style="height:100%;width:10%;float:right;">등록</button>
+				  	 <span id="counter" style="font-size:1.2em;margin:1%;float:right;">###</span>&nbsp; 					
+				  </div>
 				</div>		
     
 	      	</div> 
 	      </div>
-	      
-      </div> 
-    </div>
+    
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
 
+// 지도를 생성합니다    
+var map = new daum.maps.Map(mapContainer, mapOption); 
+
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new daum.maps.services.Geocoder();
+
+// 주소로 좌표를 검색합니다
+geocoder.addressSearch('서울 강남구 테헤란로 119', function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === daum.maps.services.Status.OK) {
+
+        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new daum.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+       /*  // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new daum.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+        });
+        infowindow.open(map, marker); */
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});    
+</script>
+    <script>
+    var $star_rating = $('.star-rating .fa');
+
+    var SetRatingStar = function() {
+      return $star_rating.each(function() {
+        if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
+          return $(this).removeClass('fa-star-o').addClass('fa-star');
+        } else {
+          return $(this).removeClass('fa-star').addClass('fa-star-o');
+        }
+      });
+    };
+
+    $star_rating.on('click', function() {
+      $star_rating.siblings('input.rating-value').val($(this).data('rating'));
+      return SetRatingStar();
+    });
+
+    SetRatingStar();
+   
+    
+    $(function() {
+        $('#content').keyup(function (e){
+            var content = $(this).val();
+             /* $(this).height(((content.split('\n').length + 1) * 1.5) + 'em');  */
+            $('#counter').html(content.length + '/1000');
+        });
+        $('#content').keyup();
+    });
+    </script>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

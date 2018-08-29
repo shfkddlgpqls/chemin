@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>  
  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <c:set value="${pageContext.request.contextPath }" var="path"/>
  <style>
@@ -318,4 +319,5 @@ function changeMarker(type){
     } 
 } 
 </script>
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
