@@ -71,7 +71,7 @@
               <a class="nav-link js-scroll-trigger" href="${path }/mall/detail.do">Mall</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#">Community</a>
+             <a class="nav-link js-scroll-trigger" href="${path}/community/communityList.do">Good Tip</a>
             </li>
             
             
