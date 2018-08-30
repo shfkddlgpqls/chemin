@@ -146,7 +146,7 @@ $(function() {
 <section>
 	<div class="container" style=" box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 		<div class="row" style="margin-top:55px">
-
+			<form action="" method="post" onsubmit="return validate();"  enctype="multipart/form-data">
 		    	 <h1 class="text-uppercase nanumFont">
 		    		<i class="fa fa-edit"></i> 장소 등록
 		    	</h1>
@@ -157,7 +157,7 @@ $(function() {
 			    			<span>업종</span>
 			    		</div>
 			    		<div class="col-md-10">
-			    			 <select class="form-control smallSzie"  name="category">
+			    			 <select class="form-control smallSzie"  name="pcName">
 			   						<option value="eat">식사</option>
 			   						<option value="alcohol">술</option>
 			   						<option value="mic">노래방</option>
@@ -173,7 +173,7 @@ $(function() {
 			    			<span>업체명</span>
 			    		</div>
 			    		<div class="col-md-10">	    		
-							<input class="form-control middleSize"  type="text"  placeholder=" 업체명을 입력해주세요 ">
+							<input class="form-control middleSize" name="plaName"  type="text"  placeholder="업체명을 입력해주세요 ">
 			    		</div>
 		    		</div>
 		    		
@@ -185,7 +185,7 @@ $(function() {
 			    		<div class="col-md-10">
 			    			<div class="input-group mb-3 middleSize" >	 
 				                <div class="custom-file" >
-				                    <input type="file" class="custom-file-input" name="upFile" id="upFile">
+				                    <input type="file" class="custom-file-input" name="mainImg" id="upFile">
 				                    <label class="custom-file-label" for="upFile1" >파일을 선택하세요</label>
 				                </div>	               
 			           		 </div>
@@ -200,7 +200,7 @@ $(function() {
 			    		</div>
 			    		<div class="col-md-10">
 			    			<div class="form-inline">	
-							 <select class="form-control" id="phone" name="phoneNum">
+							 <select class="form-control" id="phone" name="phoneFirst">
 			   						<option value="02">02</option>
 			   						<option value="031">031</option>
 			   						<option value="032">032</option>
@@ -210,8 +210,8 @@ $(function() {
 			   						<option value="1577">1577</option>
 			   					</select> 
 			   			  
-			   				<input class="form-control "id="phone" type="text" >
-			   				<input class="form-control " id="phone"type="text" > 
+			   				<input class="form-control " name="phoneMiddle" type="text" >
+			   				<input class="form-control " name="phoneEnd" type="text" > 
 			   				
 			   				</div>	
 			    		</div>
@@ -223,12 +223,12 @@ $(function() {
 			    		</div>
 			    		<div class="col-md-10">
 			    			<div class="form-inline">	
-				    			<input class="form-control addr" type="text" id='postcode' placeholder="우편번호" readonly>
+				    			<input class="form-control addr" type="text" id='postcode' name="postCode" placeholder="우편번호" readonly>
 				    			<input class="btn btn-primary" type="button" value="우편번호 찾기" onclick="execDaumPostcode()">
 							</div>
 							<div class="form-inline" style="margin-top:2%">	
-								<input class="form-control" style="width:50%" type="text" id="roadAddress" placeholder="도로명주소" readonly>
-								<input class="form-control " style="width:25%; margin-left:1% "  type="text" id="jibunAddress" placeholder="지번주소" readonly>
+								<input class="form-control" style="width:50%" type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소" readonly>
+								<input class="form-control " style="width:25%; margin-left:1% " name="jibunAddress" type="text" id="jibunAddress" placeholder="지번주소" readonly>
 								<span id="guide" style="color:#999"></span>
 							</div>
 			    		</div>
@@ -239,22 +239,22 @@ $(function() {
 			    			<span>이용시간</span>
 			    		</div>
 			    		<div class="col-md-10 form-inline" >
-				    			 <select class="form-control"  id="phone" name="day">
+				    			 <select class="form-control" name="day">
 			   						<option value="daily">매일</option>
 			   						<option value="weekday">평일</option>
 			   						<option value="weekend">주말</option>
 			   					</select> 
-			   					 <select class="form-control"  id="phone" name="startTime">
+			   					 <select class="form-control"  name="startTime">
 			   						<option value="daily">00:00</option>
 			   						<option value="weekday">01:00</option>
 			   						<option value="weekend">02:00</option>
 			   					</select>
-			   					<select class="form-control"  id="phone" name="endTime">
+			   					<select class="form-control"  name="endTime">
 			   						<option value="daily">01:00</option>
 			   						<option value="weekday">02:00</option>
 			   						<option value="weekend">03:00</option>
 			   					</select>
-			   					<input class="form-control" style="width:25%"  type="text" placeholder="ex)1월 1일 휴무"/>
+			   					<input class="form-control" style="width:25%" name="subcON" type="text" placeholder="ex)1월 1일 휴무"/>
 							</div>			    		
 		    		</div>
 		    		
@@ -264,24 +264,24 @@ $(function() {
 			    			<span>가격정보</span>
 			    		</div>
 			    		<div class="col-md-10 form-inline" >
-			   					<input class="form-control addr"  type="text" placeholder="ex)아메리카노"/>
-			   					<input class="form-control addr"  type="text" placeholder="ex)2500원"/>
+			   					<input class="form-control addr" name="menuName" type="text" placeholder="ex)아메리카노"/>
+			   					<input class="form-control addr" name="menuPrice"  type="text" placeholder="ex)2500원"/>
 			   					<input type="button" class="btn btn-primary" value="추가" onclick="add_item()"/>
 			    		</div>
 		    		</div>
 		    		
 		    		<!-- 추가버튼 클릭시 추가되는 div -->
 		    		<div class="row margin-bottom-sub">
-		    			<div class="col-md-2">
-			    		</div>
+		    			<div class="col-md-2"></div>
 			    		<div class="col-md-10" id="field">
 			    			
-			    		</div>
+			    	</div>
+			    	
 		    		</div>
 					<!-- 추가 되는 div 내용물 -->		    		
 						<div id="pre_set" style="display:none">
-		   					<input class="form-control addr"  type="text" placeholder="ex)아메리카노"/>
-		   					<input class="form-control addr"  type="text" placeholder="ex)2500원"/>
+		   					<input class="form-control addr" name="menuName"  type="text" placeholder="ex)아메리카노"/>
+		   					<input class="form-control addr"  name="menuPrice" type="text" placeholder="ex)2500원"/>
 		   					<input type="button" class="btn btn-primary" value="삭제" onclick="remove_item(this)"/>
 						</div>		    		
 			    	
@@ -292,7 +292,7 @@ $(function() {
 			    		</div>
 			    		<div class="col-md-10 " >
 			    			<div class="middleSize">
-			   					 <textarea class="form-control" rows="6" id="content" maxlength="2000"></textarea>	
+			   					 <textarea class="form-control" name="content" rows="6" id="content" maxlength="2000"></textarea>	
 			   					 <span id="counter" style="margin-left:89%">###</span>		   					  
 			   				</div>
 			   				
@@ -316,11 +316,11 @@ $(function() {
 			    			<span>대표키워드</span>
 			    		</div>
 			    		<div class="col-md-10 form-inline">
-			    			<input class="form-control" id="phone" type="text" placeholder="ex)홍대맛집"/>
-			    			<input class="form-control" id="phone" type="text" />
-							<input class="form-control" id="phone" type="text" />
-							<input class="form-control" id="phone" type="text" />
-							<input class="form-control" id="phone" type="text" />
+			    			<input class="form-control" name="plaKeyword" type="text" placeholder="ex)홍대맛집"/>
+			    			<input class="form-control" type="text" />
+							<input class="form-control" type="text" />
+							<input class="form-control" type="text" />
+							<input class="form-control" type="text" />
 			    		</div>
 		    		</div> 
 		    		
@@ -329,6 +329,7 @@ $(function() {
 
 		    		</div> 
 		    	</div>
+		    </form>
 		</div>
 	</div>
 </section>

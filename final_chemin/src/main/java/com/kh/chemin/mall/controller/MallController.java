@@ -11,13 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.chemin.mall.model.service.MallService;
+/*import com.kh.chemin.mall.model.service.MallService;*/
 
-@Controller
+
 public class MallController 
 {
 	@Autowired
-	MallService service;
+/*	MallService service;*/
 	
 	// 메인 쇼핑몰로 이동
 	@RequestMapping("/mall/mainMall.do")
@@ -31,9 +31,9 @@ public class MallController
 		Map<String,String> map = new HashMap<String, String>();
 		
 		
-		List<Map<String,String>> list = service.selectMallList();
+	/*	List<Map<String,String>> list = service.selectMallList();*/
 		
-		mv.addObject("list", list);
+		/*mv.addObject("list", list);*/
 		mv.setViewName("mall/mainMall");
 		
 		return mv;
