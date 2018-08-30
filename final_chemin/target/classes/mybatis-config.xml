@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.kh.chemin.member.model.vo.Member" alias="member"/>   
 		<typeAlias type="com.kh.chemin.common.StringArrayType" alias="strArr"/>            
 	</typeAliases>
+=======
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+<typeAliases>
+		<typeAlias type="com.kh.chemin.community.model.vo.Community" alias="community"/>
+		<typeAlias type="com.kh.chemin.common.StringArrayType" alias="strArr"/>
+</typeAliases>
+>>>>>>> branch 'master' of https://github.com/shfkddlgpqls/chemin.git
 </configuration>
