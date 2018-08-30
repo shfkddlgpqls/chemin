@@ -19,7 +19,8 @@
     <title>Creative - Start Bootstrap Theme</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" 
+    href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css">
 
 
     <!-- Custom fonts for this template -->
@@ -76,28 +77,28 @@
             
             
             <!-- 세션에 로그인한 정보가 없으면 보여지게 -->
-            <%-- <c:if test="${memberLoggedIn==null }"> --%>
+            <c:if test="${memberLoggedIn==null }">
                 <li class="nav-item">
-           		  <a class="nav-link js-scroll-trigger" href="#">Login</a>
+           		  <a class="nav-link js-scroll-trigger" href="${path }/login/login.do">Login</a>
         	    </li>      
-            <%-- </c:if> --%>
+            </c:if> 
             
-            <%-- <c:if test="${memberLoggedIn!=null }"> --%>
+            <c:if test="${memberLoggedIn!=null }"> 
                <li class="nav-item">
            		  <a class="nav-link js-scroll-trigger" href="#">MyPage</a>
         	    </li> 
         	    <li class="nav-item">
-           		  <a class="nav-link js-scroll-trigger" href="#">LogOut</a>
+           		  <a class="nav-link js-scroll-trigger" href="${path }/login/memberlogout.do">LogOut</a>
         	    </li> 
-           <%--  </c:if>
-             --%>
+           </c:if>
+             
              
              <li class="nav-item">
            		  <a class="nav-link js-scroll-trigger" href="#">Admin</a>
         	    </li> 
-            
           </ul>
         </div>
       </div>
     </nav>
+    
 </header>
