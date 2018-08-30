@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>  
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 <c:set value="${pageContext.request.contextPath }" var="path"/>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=eb4ae7857a625ec0a907f8f742645cfb&libraries=services"></script>
     
@@ -90,6 +91,41 @@
 	 width:2%;
 	  border:none 	  
   }
+  @font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+    url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+    url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+}
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
 </style>
 
 
@@ -99,7 +135,7 @@
 <div class="container">
       <div class="title_box">
       	<h1 style="margin-top:3%;font-size:50px"><strong>용호낙지 강남점</strong></h1>
-      	<div class="row" style="width:40%;margin-left:auto; margin-right:auto">
+      	<div class="row" style="width:40%;margin-left:auto; margin-right:auto;text-align:center">
       	<span style="margin:2%;font-size:1.09em">평점 </span> 	
       			<div class="star-rating" style=" font-size:1.3em;margin:1%">
 					        <span class="fa fa-star-o" data-rating="1"></span>
@@ -112,7 +148,19 @@
 					   <input type="text" name="whatever1" class="rating-value" value="3" style="width:3%;border:none;font-size:1.09em"/>
 					   <span style="border:none;margin-top:2%;font-size:1.09em">점</span>&nbsp;
 			   <span style="margin:2%"> ·&nbsp;&nbsp;리뷰(45)</span>
+			   <div class="row" style="width:100%;margin-left:auto; margin-right:auto;">
+				 <div style="margin-left:auto; margin-right:auto;">
+				 	<i class="material-icons" style="font-size:2.5em;color:#FB6E9D">call_split</i>
+				 	<p>길찾기</p>
+				 </div>
+			   	 <div style="margin-left:auto; margin-right:auto;">
+			   	 <i class = "material-icons" style="font-size:2.5em;color:#FB6E9D"> pin_drop</i> 
+			   	 <p>위치</p>
+		 		</div>
+			   </div>
+			  
 		  </div>
+		
       </div>
       
       <div class="box detail_box">
@@ -147,6 +195,7 @@
       		<span >02-1564-5441</span>
       	</div> 
       	</div>	
+      	
       </div> 
       
       <!-- 메뉴  content -->
@@ -169,7 +218,9 @@
       				<td>낙곱새</td>
       				<td>&nbsp;---------------------------------------------------&nbsp;</td>
       				<td>10000원</td>
+      			
       			</tr>
+      			
       			<tr>
       				<td>용호전골</td>
       				<td>&nbsp;---------------------------------------------------&nbsp;</td>
