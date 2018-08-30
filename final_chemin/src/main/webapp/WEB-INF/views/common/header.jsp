@@ -16,8 +16,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Creative - Start Bootstrap Theme</title>
+    <title>Free Fleuri</title>
 
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css">
 
@@ -46,6 +48,31 @@
 	
 	<!-- Sweet alert -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	
+	<!-- mall css -->
+    <link rel="stylesheet" type="text/css" href="${path }/resources/mall/fonts/themify/themify-icons.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/fonts/elegant-font/html-css/style.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/slick/slick.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/lightbox2/css/lightbox.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/noui/nouislider.min.css">
+    <link rel="stylesheet" type="text/css" href="${path }/resources/mall/css/util.css">
+    <link rel="stylesheet" type="text/css" href="${path }/resources/mall/css/mall.css">
 
   </head>
 
@@ -55,7 +82,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger handwriteFont" href="#page-top">Chemin Fleuri</a>
+        <a class="navbar-brand js-scroll-trigger handwriteFont" href="${path }">Free Fleuri</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -68,7 +95,10 @@
               <a class="nav-link js-scroll-trigger" href="${path }/map/mapView.do">Map</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="${path }/mall/detail.do">Mall</a>
+              <a class="nav-link js-scroll-trigger" href="${path }/mall/mainMall.do">Mall</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="${path }/mall/cartList.do">cart</a>
             </li>
             <li class="nav-item">
              <a class="nav-link js-scroll-trigger" href="${path}/community/communityList.do">Good Tip</a>
