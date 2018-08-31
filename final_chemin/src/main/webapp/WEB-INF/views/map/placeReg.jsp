@@ -149,7 +149,7 @@ function validate(){
 	var phoneEnd =$('[name=phoneEnd]').val();
 	var menuName =$('.menuName').val();
 	var menuPrice =$('.menuPrice').val();
-	alert(menuName)
+
 		if(plaName.trim().length==0){
 			swal({
 				  text: "업체명을 입력해주세요",
@@ -194,7 +194,7 @@ function validate(){
 <section>
 	<div class="container" style=" box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 		<div class="row" style="margin-top:55px">
-			<form action="${path}/map/placeInsert.do" method="get" onsubmit="return validate();"  enctype="multipart/form-data">
+			<form action="${path}/map/placeInsert.do" method="post" onsubmit="return validate();" enctype="multipart/form-data">
 		    	 <h1 class="text-uppercase nanumFont">
 		    		<i class="fa fa-edit"></i> 장소 등록
 		    	</h1>
@@ -214,8 +214,7 @@ function validate(){
 			   					</select> 
 			    		</div>
 		    		</div>
-		    		
-		    		
+	
 		    		<div class="row margin-bottom">
 			    		<div class="col-md-2">
 			    			<span>업체명</span>
@@ -231,12 +230,16 @@ function validate(){
 			    			<span>대표이미지</span>
 			    		</div>
 			    		<div class="col-md-10">
-			    			<div class="input-group mb-3 middleSize" >	 
-				                <div class="custom-file" >
-				                    <input type="file" class="custom-file-input" name="mainImg" id="mainImg">
-				                    <label class="custom-file-label" for="mainImg" >파일을 선택하세요</label>
-				                </div>	               
-			           		 </div>
+			    			  <div class="input-group mb-3" style="padding:0px;">
+                <div class="input-group-prepend" style="padding:0px;">
+                    <span class="input-group-text">첨부파일1</span>
+                </div>
+                <div class="custom-file" >
+                    <input type="file" class="custom-file-input" name="mainImg" id="mainImg1">
+                    <label class="custom-file-label" for="mainImg1">파일을 선택하세요</label>
+                </div>
+               
+            </div>
 			    		</div>
 		    		</div>
 
