@@ -78,7 +78,7 @@ color:#fff;
   <div class="category col-md-2">
         <ul class="list-group">
         	<li class="list-group-item">
-        		<button onclick="location.href='${path}/map/placeReg.do'">값등록</button>
+        		<button onclick="location.href='${path}/map/placeReg.do'" style="backgroud:red">값등록</button>
         	</li>
             <li class="list-group-item" id="coffeeMenu" onclick="changeMarker('coffee')">
                <i class="material-icons">restaurant</i>

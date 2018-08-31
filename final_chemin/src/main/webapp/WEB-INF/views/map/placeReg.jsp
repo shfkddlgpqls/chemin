@@ -141,12 +141,60 @@ $(function() {
     });
     $('#content').keyup();
 });
+
+function validate(){
+	var plaName =$('[name=plaName]').val();
+	var mainImg =$('[name=mainImg]').val();
+	var phoneMiddle =$('[name=phoneMiddle]').val();
+	var phoneEnd =$('[name=phoneEnd]').val();
+	var menuName =$('.menuName').val();
+	var menuPrice =$('.menuPrice').val();
+	alert(menuName)
+		if(plaName.trim().length==0){
+			swal({
+				  text: "업체명을 입력해주세요",
+				  icon: "warning",
+				  button: "확인",
+				});
+			return false;
+		}else if(mainImg.trim()==0){
+			swal({
+				  text: "대표 사진을 등록해주세요",
+				  icon: "warning",
+				  button: "확인",
+				});
+			return false;
+		}else if(phoneMiddle.trim==0||phoneEnd.trim==0){
+			swal({
+				  text: "번호를 입력해주세요",
+				  icon: "warning",
+				  button: "확인",
+				});
+			return false;
+		}else if(menuName==0||menuName==null){
+			swal({
+				  text: "메뉴명을 입력해주세요.",
+				  icon: "warning",
+				  button: "확인",
+				});
+			return false;
+		}else if(menuPrice==0||menuPrice==null){
+			swal({
+				  text: "메뉴 가격을 입력해주세요.",
+				  icon: "warning",
+				  button: "확인",
+				});
+			return false;
+		}
+		return true;	
+	}
+
 </script>
 
 <section>
 	<div class="container" style=" box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 		<div class="row" style="margin-top:55px">
-			<form action="${path}/" method="post" onsubmit="return validate();"  enctype="multipart/form-data">
+			<form action="${path}/map/placeInsert.do" method="get" onsubmit="return validate();"  enctype="multipart/form-data">
 		    	 <h1 class="text-uppercase nanumFont">
 		    		<i class="fa fa-edit"></i> 장소 등록
 		    	</h1>
@@ -185,8 +233,8 @@ $(function() {
 			    		<div class="col-md-10">
 			    			<div class="input-group mb-3 middleSize" >	 
 				                <div class="custom-file" >
-				                    <input type="file" class="custom-file-input" name="mainImg" id="upFile">
-				                    <label class="custom-file-label" for="upFile1" >파일을 선택하세요</label>
+				                    <input type="file" class="custom-file-input" name="mainImg" id="mainImg">
+				                    <label class="custom-file-label" for="mainImg" >파일을 선택하세요</label>
 				                </div>	               
 			           		 </div>
 			    		</div>
@@ -227,8 +275,8 @@ $(function() {
 				    			<input class="btn btn-primary" type="button" value="우편번호 찾기" onclick="execDaumPostcode()">
 							</div>
 							<div class="form-inline" style="margin-top:2%">	
-								<input class="form-control" style="width:50%" type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소" readonly>
-								<input class="form-control " style="width:25%; margin-left:1% " name="jibunAddress" type="text" id="jibunAddress" placeholder="지번주소" readonly>
+								<input class="form-control" style="width:50%" type="text" name="roadAddr" id="roadAddress" placeholder="도로명주소" readonly>
+								<input class="form-control " style="width:25%; margin-left:1% " name="jibunAddr" type="text" id="jibunAddress" placeholder="지번주소" readonly>
 								<span id="guide" style="color:#999"></span>
 							</div>
 			    		</div>
@@ -240,19 +288,19 @@ $(function() {
 			    		</div>
 			    		<div class="col-md-10 form-inline" >
 				    			 <select class="form-control" name="day">
-			   						<option value="daily">매일</option>
-			   						<option value="weekday">평일</option>
-			   						<option value="weekend">주말</option>
+			   						<option value="매일">매일</option>
+			   						<option value="평일">평일</option>
+			   						<option value="주말">주말</option>
 			   					</select> 
 			   					 <select class="form-control"  name="startTime">
-			   						<option value="daily">00:00</option>
-			   						<option value="weekday">01:00</option>
-			   						<option value="weekend">02:00</option>
+			   						<option value="00:00">00:00</option>
+			   						<option value="01:00">01:00</option>
+			   						<option value="02:00">02:00</option>
 			   					</select>
 			   					<select class="form-control"  name="endTime">
-			   						<option value="daily">01:00</option>
-			   						<option value="weekday">02:00</option>
-			   						<option value="weekend">03:00</option>
+			   						<option value="00:00">01:00</option>
+			   						<option value="01:00">02:00</option>
+			   						<option value="02:00">02:00</option>
 			   					</select>
 			   					<input class="form-control" style="width:25%" name="subcON" type="text" placeholder="ex)1월 1일 휴무"/>
 							</div>			    		
@@ -264,9 +312,10 @@ $(function() {
 			    			<span>가격정보</span>
 			    		</div>
 			    		<div class="col-md-10 form-inline" >
-			   					<input class="form-control addr" name="menuName" type="text" placeholder="ex)아메리카노"/>
-			   					<input class="form-control addr" name="menuPrice"  type="text" placeholder="ex)2500원"/>
+			   					<input class="form-control addr menuName"  name="menuName" type="text" placeholder="ex)아메리카노"/>
+			   					<input class="form-control addr menuPrice"  name="menuPrice"  type="text" placeholder="ex)2500원"/>
 			   					<input type="button" class="btn btn-primary" value="추가" onclick="add_item()"/>
+			   					 <label style="padding:0%;width:12%"><input type="checkbox" value="">대표</label>
 			    		</div>
 		    		</div>
 		    		
@@ -283,6 +332,7 @@ $(function() {
 		   					<input class="form-control addr" name="menuName"  type="text" placeholder="ex)아메리카노"/>
 		   					<input class="form-control addr"  name="menuPrice" type="text" placeholder="ex)2500원"/>
 		   					<input type="button" class="btn btn-primary" value="삭제" onclick="remove_item(this)"/>
+		   					 <label style="padding:0%;width:12%"><input type="checkbox" value="" >대표</label>
 						</div>		    		
 			    	
 			  
@@ -292,7 +342,7 @@ $(function() {
 			    		</div>
 			    		<div class="col-md-10 " >
 			    			<div class="middleSize">
-			   					 <textarea class="form-control" name="content" rows="6" id="content" maxlength="2000"></textarea>	
+			   					 <textarea class="form-control" name="plaContent" rows="6" id="content" maxlength="2000"></textarea>	
 			   					 <span id="counter" style="margin-left:89%">###</span>		   					  
 			   				</div>
 			   				
@@ -316,11 +366,11 @@ $(function() {
 			    			<span>대표키워드</span>
 			    		</div>
 			    		<div class="col-md-10 form-inline">
-			    			<input class="form-control" name="plaKeyword" type="text" placeholder="ex)홍대맛집"/>
-			    			<input class="form-control" type="text" />
-							<input class="form-control" type="text" />
-							<input class="form-control" type="text" />
-							<input class="form-control" type="text" />
+			    			<input class="form-control" name="keyword1" type="text" placeholder="ex)홍대맛집"/>
+			    			<input class="form-control" name="keyword2" type="text" />
+							<input class="form-control" name="keyword3" type="text" />
+							<input class="form-control" name="keyword4" type="text" />
+							<input class="form-control" name="keyword5" type="text" />
 			    		</div>
 		    		</div> 
 		    		
