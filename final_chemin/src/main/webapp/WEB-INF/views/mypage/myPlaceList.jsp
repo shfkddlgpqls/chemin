@@ -91,14 +91,14 @@ function fn_modal(plaNo){
 		{
 			console.log(data.attachList);
 			console.log(data.menuList);
-			alert
-			  for(i=0; i<data.attachList.length; i++){
+			alert(data.attachList[4]);
+			/*   for(i=0; i<data.attachList.length; i++){
 				 for(orImg in data.attachList[i]){
 					 alert(data.attachList[i][orImg]);
 				 }
 				
 			}  
-			
+			 */
 			/*  if(data.trim()==false){
 				alert('하하');
 			 	$('[name=area]').val('하하'); 
