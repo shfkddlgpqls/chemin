@@ -8,17 +8,25 @@
 <c:set value="${pageContext.request.contextPath }" var="path"/>
   <jsp:include page="/WEB-INF/views/common/header.jsp"/>
   <style>
-
+  	.container{
+  		width:50%;
+  	}
+	.box {
+        min-height: 150px;
+         margin-left:auto;
+  		margin-right:auto;
+  		width:80%;
+      }
   	.col-md-10{
   		height:100%;
   		
   	}
- 	.col-md-10 hr{
+ 	/* .col-md-10 hr{
  		border:solid 1px #BCBCBC
- 	}
+ 	} */
  	.info{
  	    backgroud:#FDFDFD;
- 		border:solid 1px #E5E8E8;
+ 		/* border:solid 1px #E5E8E8; */
  	}
 	.col-md-2 {
 		 text-align: left;
@@ -45,9 +53,9 @@
 		margin-right:2%
 	}
 	.middleSize{
-		width:50%;
+		width:76%;
 	}
-	 .addr{
+	.addr{
 		width:25%;
 		margin-right:2%
 	} 
@@ -55,10 +63,15 @@
 		width:15%
 	}
 	#center{
-		width:50%;
-		margin:0 auto;
+		width:100%;
+		height:50%;
+		margin-left:auto;
+		margin-right:auto;
 	}
-	
+	#time{
+	width:15%;
+	margin-right:2%;
+	}
   </style>
 <!--   <script>
 $ (document) .on ( "ready", function () {
@@ -141,12 +154,67 @@ $(function() {
     });
     $('#content').keyup();
 });
+
+function validate(){
+	var plaName =$('[name=plaName]').val();
+	var mainImg =$('[name=mainImg]').val();
+	var phoneMiddle =$('[name=phoneMiddle]').val();
+	var phoneEnd =$('[name=phoneEnd]').val();
+
+		if(plaName.trim().length==0){
+			swal({
+				  text: "업체명을 입력해주세요",
+				  icon: "warning",
+				  button: "확인",
+				});
+			return false;
+		}else if(mainImg.trim()==0){
+			swal({
+				  text: "대표 사진을 등록해주세요",
+				  icon: "warning",
+				  button: "확인",
+				});
+			return false;
+		}else if(phoneMiddle.trim==0||phoneEnd.trim==0){
+			swal({
+				  text: "번호를 입력해주세요",
+				  icon: "warning",
+				  button: "확인",
+				});
+			return false;
+		}else if(menuName==0||menuName==null){
+			swal({
+				  text: "메뉴명을 입력해주세요.",
+				  icon: "warning",
+				  button: "확인",
+				});
+			return false;
+		}else if(menuPrice==0||menuPrice==null){
+			swal({
+				  text: "메뉴 가격을 입력해주세요.",
+				  icon: "warning",
+				  button: "확인",
+				});
+			return false;
+		}
+		return true;	
+	}
+
+
+/* $(function(){
+	$("#check_all").click(function(){
+		var chk = $(this).is(":checked");//.attr('checked');
+		if(chk) $("[name=menuCheck]").val('Y');
+		else  
+	});
+}); */
+
 </script>
 
 <section>
 	<div class="container" style=" box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
 		<div class="row" style="margin-top:55px">
-
+			<form action="${path}/map/placeInsert.do" method="post" onsubmit="return validate();" enctype="multipart/form-data">
 		    	 <h1 class="text-uppercase nanumFont">
 		    		<i class="fa fa-edit"></i> 장소 등록
 		    	</h1>
@@ -154,10 +222,25 @@ $(function() {
 		    	<div class="info col-md-12">
 		    		<div class="row frist">
 			    		<div class="col-md-2">
+			    			<span>지역선택</span>
+			    		</div>
+			    		<div class="col-md-10">
+			    			 <select class="form-control smallSzie"  name="plaArea">
+			   						<option value="ma">마포구</option>
+			   						<option value="kang">강남구</option>
+			   						<option value="seo">서초구</option>
+			   						<option value="song">송파구</option>
+			   					</select> 
+			    		</div>
+		    		</div>
+		    		
+		    		
+		    		<div class="row margin-bottom">
+		    			<div class="col-md-2">
 			    			<span>업종</span>
 			    		</div>
 			    		<div class="col-md-10">
-			    			 <select class="form-control smallSzie"  name="category">
+			    			 <select class="form-control smallSzie"  name="plaCategory">
 			   						<option value="eat">식사</option>
 			   						<option value="alcohol">술</option>
 			   						<option value="mic">노래방</option>
@@ -167,13 +250,13 @@ $(function() {
 			    		</div>
 		    		</div>
 		    		
-		    		
+	
 		    		<div class="row margin-bottom">
 			    		<div class="col-md-2">
 			    			<span>업체명</span>
 			    		</div>
 			    		<div class="col-md-10">	    		
-							<input class="form-control middleSize"  type="text"  placeholder=" 업체명을 입력해주세요 ">
+							<input class="form-control" style="width:50%" name="plaName"  type="text"  placeholder="업체명을 입력해주세요 ">
 			    		</div>
 		    		</div>
 		    		
@@ -183,24 +266,21 @@ $(function() {
 			    			<span>대표이미지</span>
 			    		</div>
 			    		<div class="col-md-10">
-			    			<div class="input-group mb-3 middleSize" >	 
-				                <div class="custom-file" >
-				                    <input type="file" class="custom-file-input" name="upFile" id="upFile">
-				                    <label class="custom-file-label" for="upFile1" >파일을 선택하세요</label>
-				                </div>	               
-			           		 </div>
+				                 <div class="custom-file" >
+				                    <input style="width:50%" type="file" class="custom-file-input" name="mainImg" id="mainImg1">
+				                    <label style="width:50%" class="custom-file-label" for="mainImg1">파일을 선택하세요</label>
+				                </div>        
+           			 		 
 			    		</div>
 		    		</div>
 
-		    		
-		    		
 		    		<div class="row margin-bottom">
 			    		<div class="col-md-2">
 			    			<span>전화번호</span>
 			    		</div>
 			    		<div class="col-md-10">
 			    			<div class="form-inline">	
-							 <select class="form-control" id="phone" name="phoneNum">
+							 <select class="form-control" id="phone" name="phoneFirst">
 			   						<option value="02">02</option>
 			   						<option value="031">031</option>
 			   						<option value="032">032</option>
@@ -210,8 +290,8 @@ $(function() {
 			   						<option value="1577">1577</option>
 			   					</select> 
 			   			  
-			   				<input class="form-control "id="phone" type="text" >
-			   				<input class="form-control " id="phone"type="text" > 
+			   				<input class="form-control " id="phone" name="phoneMiddle" type="text" >
+			   				<input class="form-control " id="phone" name="phoneEnd" type="text" > 
 			   				
 			   				</div>	
 			    		</div>
@@ -223,12 +303,12 @@ $(function() {
 			    		</div>
 			    		<div class="col-md-10">
 			    			<div class="form-inline">	
-				    			<input class="form-control addr" type="text" id='postcode' placeholder="우편번호" readonly>
+				    			<input class="form-control addr" type="text" id='postcode' name="postCode" placeholder="우편번호" readonly>
 				    			<input class="btn btn-primary" type="button" value="우편번호 찾기" onclick="execDaumPostcode()">
 							</div>
 							<div class="form-inline" style="margin-top:2%">	
-								<input class="form-control" style="width:50%" type="text" id="roadAddress" placeholder="도로명주소" readonly>
-								<input class="form-control " style="width:25%; margin-left:1% "  type="text" id="jibunAddress" placeholder="지번주소" readonly>
+								<input class="form-control" style="width:50%" type="text" name="roadAddr" id="roadAddress" placeholder="도로명주소" readonly>
+								<input class="form-control " style="width:25%; margin-left:1% " name="jibunAddr" type="text" id="jibunAddress" placeholder="지번주소" readonly>
 								<span id="guide" style="color:#999"></span>
 							</div>
 			    		</div>
@@ -239,22 +319,22 @@ $(function() {
 			    			<span>이용시간</span>
 			    		</div>
 			    		<div class="col-md-10 form-inline" >
-				    			 <select class="form-control"  id="phone" name="day">
-			   						<option value="daily">매일</option>
-			   						<option value="weekday">평일</option>
-			   						<option value="weekend">주말</option>
+				    			 <select class="form-control" id="time"  name="day">
+			   						<option value="매일">매일</option>
+			   						<option value="평일">평일</option>
+			   						<option value="주말">주말</option>
 			   					</select> 
-			   					 <select class="form-control"  id="phone" name="startTime">
-			   						<option value="daily">00:00</option>
-			   						<option value="weekday">01:00</option>
-			   						<option value="weekend">02:00</option>
+			   					 <select class="form-control" id="time"  name="startTime">
+			   						<option value="00:00">00:00</option>
+			   						<option value="01:00">01:00</option>
+			   						<option value="02:00">02:00</option>
 			   					</select>
-			   					<select class="form-control"  id="phone" name="endTime">
-			   						<option value="daily">01:00</option>
-			   						<option value="weekday">02:00</option>
-			   						<option value="weekend">03:00</option>
+			   					<select class="form-control" id="time"  name="endTime">
+			   						<option value="00:00">01:00</option>
+			   						<option value="01:00">02:00</option>
+			   						<option value="02:00">02:00</option>
 			   					</select>
-			   					<input class="form-control" style="width:25%"  type="text" placeholder="ex)1월 1일 휴무"/>
+			   					<input class="form-control" style="width:25%" name="subcON" type="text" placeholder="ex)1월 1일 휴무"/>
 							</div>			    		
 		    		</div>
 		    		
@@ -264,25 +344,27 @@ $(function() {
 			    			<span>가격정보</span>
 			    		</div>
 			    		<div class="col-md-10 form-inline" >
-			   					<input class="form-control addr"  type="text" placeholder="ex)아메리카노"/>
-			   					<input class="form-control addr"  type="text" placeholder="ex)2500원"/>
+			   					<input class="form-control addr menuName"  name="menuName" type="text" placeholder="ex)아메리카노"/>
+			   					<input class="form-control addr menuPrice"  name="menuPrice"  type="text" placeholder="ex)2500원"/>
 			   					<input type="button" class="btn btn-primary" value="추가" onclick="add_item()"/>
+			   					<!--  <label style="padding:0%;width:12%"><input id="check_all" type="checkbox" name="menuCheck">대표</label> -->
 			    		</div>
 		    		</div>
 		    		
 		    		<!-- 추가버튼 클릭시 추가되는 div -->
 		    		<div class="row margin-bottom-sub">
-		    			<div class="col-md-2">
-			    		</div>
+		    			<div class="col-md-2"></div>
 			    		<div class="col-md-10" id="field">
 			    			
-			    		</div>
+			    	</div>
+			    	
 		    		</div>
 					<!-- 추가 되는 div 내용물 -->		    		
 						<div id="pre_set" style="display:none">
-		   					<input class="form-control addr"  type="text" placeholder="ex)아메리카노"/>
-		   					<input class="form-control addr"  type="text" placeholder="ex)2500원"/>
+		   					<input class="form-control addr" name="menuName"  type="text" placeholder="ex)아메리카노"/>
+		   					<input class="form-control addr"  name="menuPrice" type="text" placeholder="ex)2500원"/>
 		   					<input type="button" class="btn btn-primary" value="삭제" onclick="remove_item(this)"/>
+		   					<!--  <label style="padding:0%;width:12%"><input id="check_all" type="checkbox" name="menuCheck">대표</label> -->
 						</div>		    		
 			    	
 			  
@@ -292,7 +374,7 @@ $(function() {
 			    		</div>
 			    		<div class="col-md-10 " >
 			    			<div class="middleSize">
-			   					 <textarea class="form-control" rows="6" id="content" maxlength="2000"></textarea>	
+			   					 <textarea class="form-control" name="plaContent" rows="6" id="content" maxlength="2000"></textarea>	
 			   					 <span id="counter" style="margin-left:89%">###</span>		   					  
 			   				</div>
 			   				
@@ -305,7 +387,7 @@ $(function() {
 			    		</div>
 			    		<div class="col-md-10">
 			    			 <div class="form-group middleSize">
-									<input id="file-demo" type="file" class="file" multiple=true data-preview-file-type="any">
+									 <input id="input-ru" type="file" class="file btn-sm" name="file" multiple="multiple" data-preview-file-type="any">
 							</div> 
 		
 			    		</div>
@@ -316,19 +398,21 @@ $(function() {
 			    			<span>대표키워드</span>
 			    		</div>
 			    		<div class="col-md-10 form-inline">
-			    			<input class="form-control" id="phone" type="text" placeholder="ex)홍대맛집"/>
-			    			<input class="form-control" id="phone" type="text" />
-							<input class="form-control" id="phone" type="text" />
-							<input class="form-control" id="phone" type="text" />
-							<input class="form-control" id="phone" type="text" />
+			    			<input class="form-control" id="time" name="keyword1" type="text" placeholder="ex)홍대맛집"/>
+			    			<input class="form-control" id="time" name="keyword2" type="text" />
+							<input class="form-control" id="time" name="keyword3" type="text" />
+							<input class="form-control" id="time" name="keyword4" type="text" />
+							<input class="form-control" id="time" name="keyword5" type="text" />
 			    		</div>
 		    		</div> 
 		    		
 		    		 <div class="margin-bottom" id="center">
-			    		<input class="btn btn-primary" type="submit" value="등록하기"/>
-
+		    		 	<div style="width:30%;margin-left:auto;margin-right:auto;height:100%">
+			    			<input style="width:100%;height:100%" class="btn btn-primary" type="submit" value="등록하기"/>
+			    		</div>
 		    		</div> 
 		    	</div>
+		    </form>
 		</div>
 	</div>
 </section>
