@@ -4,13 +4,10 @@
 <typeAliases>
 		<typeAlias type="com.kh.chemin.community.model.vo.Community" alias="community"/>
 		<typeAlias type="com.kh.chemin.common.StringArrayType" alias="strArr"/>
-<<<<<<< HEAD
-		<typeAlias type="com.kh.chemin.mall.model.vo.Product" alias="product"/>
-=======
 		<typeAlias type="com.kh.chemin.map.model.vo.Place" alias="place"/>
 		<typeAlias type="com.kh.chemin.map.model.vo.PlaceAttachment" alias="placeAttach"/>
 		<typeAlias type="com.kh.chemin.map.model.vo.PlaceMenu" alias="placeMenu"/>
->>>>>>> branch 'master' of https://github.com/shfkddlgpqls/chemin.git
+		<typeAlias type="com.kh.chemin.mall.model.vo.Product" alias="product"/>
 </typeAliases>
  
 
