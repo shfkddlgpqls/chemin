@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 
 
-           <a href="#page-top" id="upTag" class="js-scroll-trigger" style="margin-left:95%;" >
+           <a href="#page-top" id="upTag" class="js-scroll-trigger" style="margin-left:95%;" draggable="false">
          <i class="fa fa-4x fa-angle-double-up" aria-hidden="true"></i>
          </a>   
       

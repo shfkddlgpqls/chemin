@@ -269,7 +269,6 @@ label {
   height: 60%; 
   margin-left: 20%;
   -webkit-filter: grayscale(0%);
-  filter: none;
 }
 
 label .fa {

@@ -17,6 +17,9 @@
     <meta name="author" content="">
 
     <title>Free Fleuri</title>
+    
+    <!-- favicon -->
+    <link rel="icon" href="${path }/resources/upload/icon.ico">
 
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     

@@ -4,5 +4,6 @@
 <typeAliases>
 		<typeAlias type="com.kh.chemin.community.model.vo.Community" alias="community"/>
 		<typeAlias type="com.kh.chemin.common.StringArrayType" alias="strArr"/>
+		<typeAlias type="com.kh.chemin.mall.model.vo.Product" alias="product"/>
 </typeAliases>
 </configuration>
