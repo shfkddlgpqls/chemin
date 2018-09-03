@@ -4,12 +4,21 @@ import java.util.Date;
 
 public class PlaceAttachment {
 	private int attachmentNo;
-	private int placeNo;
+	private int plaNo;
 	private String orImg;
 	private String reImg;
 	private Date attachDate;
 	
 	public PlaceAttachment() {}
+
+	public PlaceAttachment(int attachmentNo, int plaNo, String orImg, String reImg, Date attachDate) {
+		super();
+		this.attachmentNo = attachmentNo;
+		this.plaNo = plaNo;
+		this.orImg = orImg;
+		this.reImg = reImg;
+		this.attachDate = attachDate;
+	}
 
 	public int getAttachmentNo() {
 		return attachmentNo;
@@ -19,12 +28,12 @@ public class PlaceAttachment {
 		this.attachmentNo = attachmentNo;
 	}
 
-	public int getPlaceNo() {
-		return placeNo;
+	public int getPlaNo() {
+		return plaNo;
 	}
 
-	public void setPlaceNo(int placeNo) {
-		this.placeNo = placeNo;
+	public void setPlaNo(int plaNo) {
+		this.plaNo = plaNo;
 	}
 
 	public String getOrImg() {
@@ -53,8 +62,8 @@ public class PlaceAttachment {
 
 	@Override
 	public String toString() {
-		return "PlaceAttachment [attachmentNo=" + attachmentNo + ", placeNo=" + placeNo + ", orImg=" + orImg
-				+ ", reImg=" + reImg + ", attachDate=" + attachDate + "]";
+		return "PlaceAttachment [attachmentNo=" + attachmentNo + ", plaNo=" + plaNo + ", orImg=" + orImg + ", reImg="
+				+ reImg + ", attachDate=" + attachDate + "]";
 	}
 	
 	

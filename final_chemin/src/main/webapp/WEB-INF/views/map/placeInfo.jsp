@@ -74,7 +74,7 @@
 		background-color: white;
        /*  color: #efefef; */
         margin-bottom:1%;
-        height:50%;
+        height:40%;
         border:solid 1px #E5E8E8;
 	}
 	.review_sub_box{
@@ -83,6 +83,13 @@
   		margin-right:auto;
   		height:46%;
 	}
+ .load_box{
+ background-color: white;
+       /*  color: #efefef; */
+        margin-bottom:1%;
+        height:109%;
+        border:solid 1px #E5E8E8;
+ }
 	.star-rating {
   font-size:1.55em;
 }
@@ -315,17 +322,30 @@
 	      	</div> 
 	      </div>
 	      
-	      
 	      <!-- 찾아오기 -->
-	      <div class="box review_box">
-	       <div style="height:10%; margin-top:5%; margin-bottom:2%">
+	      <div class="box load_box">
+	       <div style="height:6%; margin-top:5%; margin-bottom:1%">
 		      	<div style="margin-left:13%; float:left">
 		      		<span style="font-size:20px;text-transform:uppercase;"><strong>찾아가는 길</strong></span>
 		      	</div>
 	      	</div>
 	      	
 	      	<div class="row" style="width:75%;margin-left:auto;margin-right:auto;">
-				<div id="map" style="width:100%;height:55%;"></div>
+				<!-- 1. 약도 노드 -->
+				<div style="margin:0%;width:100%;" id="daumRoughmapContainer1535771533186" class="root_daum_roughmap root_daum_roughmap_landing"></div>
+				
+				<!-- 2. 설치 스크립트 -->
+				<script charset="UTF-8" class="daum_roughmap_loader_script" src="http://dmaps.daum.net/map_js_init/roughmapLoader.js"></script>
+				
+				<!-- 3. 실행 스크립트 -->
+				<script charset="UTF-8">
+					new daum.roughmap.Lander({
+						"timestamp" : "1535771533186",
+						"key" : "psb4",
+						"mapWidth" : "100%",
+						"mapHeight" : "300"
+					}).render();
+				</script>
 	      	</div> 
 	      </div>
 	      
@@ -365,14 +385,14 @@
 	      	</div> 
 	      </div>
     
-<script>
+<!-- <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
         center: new daum.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };  
 
-// 지도를 생성합니다    
+<!-- // 지도를 생성합니다    
 var map = new daum.maps.Map(mapContainer, mapOption); 
 
 // 주소-좌표 변환 객체를 생성합니다
@@ -402,7 +422,7 @@ geocoder.addressSearch('서울 강남구 테헤란로 119', function(result, sta
         map.setCenter(coords);
     } 
 });    
-</script>
+</script>  -->
     <script>
     var $star_rating = $('.star-rating .fa');
 

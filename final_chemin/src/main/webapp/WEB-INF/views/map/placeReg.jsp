@@ -8,17 +8,25 @@
 <c:set value="${pageContext.request.contextPath }" var="path"/>
   <jsp:include page="/WEB-INF/views/common/header.jsp"/>
   <style>
-
+  	.container{
+  		width:50%;
+  	}
+	.box {
+        min-height: 150px;
+         margin-left:auto;
+  		margin-right:auto;
+  		width:80%;
+      }
   	.col-md-10{
   		height:100%;
   		
   	}
- 	.col-md-10 hr{
+ 	/* .col-md-10 hr{
  		border:solid 1px #BCBCBC
- 	}
+ 	} */
  	.info{
  	    backgroud:#FDFDFD;
- 		border:solid 1px #E5E8E8;
+ 		/* border:solid 1px #E5E8E8; */
  	}
 	.col-md-2 {
 		 text-align: left;
@@ -45,9 +53,9 @@
 		margin-right:2%
 	}
 	.middleSize{
-		width:50%;
+		width:76%;
 	}
-	 .addr{
+	.addr{
 		width:25%;
 		margin-right:2%
 	} 
@@ -55,10 +63,15 @@
 		width:15%
 	}
 	#center{
-		width:50%;
-		margin:0 auto;
+		width:100%;
+		height:50%;
+		margin-left:auto;
+		margin-right:auto;
 	}
-	
+	#time{
+	width:15%;
+	margin-right:2%;
+	}
   </style>
 <!--   <script>
 $ (document) .on ( "ready", function () {
@@ -147,8 +160,6 @@ function validate(){
 	var mainImg =$('[name=mainImg]').val();
 	var phoneMiddle =$('[name=phoneMiddle]').val();
 	var phoneEnd =$('[name=phoneEnd]').val();
-	var menuName =$('.menuName').val();
-	var menuPrice =$('.menuPrice').val();
 
 		if(plaName.trim().length==0){
 			swal({
@@ -189,6 +200,15 @@ function validate(){
 		return true;	
 	}
 
+
+/* $(function(){
+	$("#check_all").click(function(){
+		var chk = $(this).is(":checked");//.attr('checked');
+		if(chk) $("[name=menuCheck]").val('Y');
+		else  
+	});
+}); */
+
 </script>
 
 <section>
@@ -202,10 +222,25 @@ function validate(){
 		    	<div class="info col-md-12">
 		    		<div class="row frist">
 			    		<div class="col-md-2">
+			    			<span>지역선택</span>
+			    		</div>
+			    		<div class="col-md-10">
+			    			 <select class="form-control smallSzie"  name="plaArea">
+			   						<option value="ma">마포구</option>
+			   						<option value="kang">강남구</option>
+			   						<option value="seo">서초구</option>
+			   						<option value="song">송파구</option>
+			   					</select> 
+			    		</div>
+		    		</div>
+		    		
+		    		
+		    		<div class="row margin-bottom">
+		    			<div class="col-md-2">
 			    			<span>업종</span>
 			    		</div>
 			    		<div class="col-md-10">
-			    			 <select class="form-control smallSzie"  name="pcName">
+			    			 <select class="form-control smallSzie"  name="plaCategory">
 			   						<option value="eat">식사</option>
 			   						<option value="alcohol">술</option>
 			   						<option value="mic">노래방</option>
@@ -214,13 +249,14 @@ function validate(){
 			   					</select> 
 			    		</div>
 		    		</div>
+		    		
 	
 		    		<div class="row margin-bottom">
 			    		<div class="col-md-2">
 			    			<span>업체명</span>
 			    		</div>
 			    		<div class="col-md-10">	    		
-							<input class="form-control middleSize" name="plaName"  type="text"  placeholder="업체명을 입력해주세요 ">
+							<input class="form-control" style="width:50%" name="plaName"  type="text"  placeholder="업체명을 입력해주세요 ">
 			    		</div>
 		    		</div>
 		    		
@@ -230,21 +266,14 @@ function validate(){
 			    			<span>대표이미지</span>
 			    		</div>
 			    		<div class="col-md-10">
-			    			  <div class="input-group mb-3" style="padding:0px;">
-                <div class="input-group-prepend" style="padding:0px;">
-                    <span class="input-group-text">첨부파일1</span>
-                </div>
-                <div class="custom-file" >
-                    <input type="file" class="custom-file-input" name="mainImg" id="mainImg1">
-                    <label class="custom-file-label" for="mainImg1">파일을 선택하세요</label>
-                </div>
-               
-            </div>
+				                 <div class="custom-file" >
+				                    <input style="width:50%" type="file" class="custom-file-input" name="mainImg" id="mainImg1">
+				                    <label style="width:50%" class="custom-file-label" for="mainImg1">파일을 선택하세요</label>
+				                </div>        
+           			 		 
 			    		</div>
 		    		</div>
 
-		    		
-		    		
 		    		<div class="row margin-bottom">
 			    		<div class="col-md-2">
 			    			<span>전화번호</span>
@@ -261,8 +290,8 @@ function validate(){
 			   						<option value="1577">1577</option>
 			   					</select> 
 			   			  
-			   				<input class="form-control " name="phoneMiddle" type="text" >
-			   				<input class="form-control " name="phoneEnd" type="text" > 
+			   				<input class="form-control " id="phone" name="phoneMiddle" type="text" >
+			   				<input class="form-control " id="phone" name="phoneEnd" type="text" > 
 			   				
 			   				</div>	
 			    		</div>
@@ -290,17 +319,17 @@ function validate(){
 			    			<span>이용시간</span>
 			    		</div>
 			    		<div class="col-md-10 form-inline" >
-				    			 <select class="form-control" name="day">
+				    			 <select class="form-control" id="time"  name="day">
 			   						<option value="매일">매일</option>
 			   						<option value="평일">평일</option>
 			   						<option value="주말">주말</option>
 			   					</select> 
-			   					 <select class="form-control"  name="startTime">
+			   					 <select class="form-control" id="time"  name="startTime">
 			   						<option value="00:00">00:00</option>
 			   						<option value="01:00">01:00</option>
 			   						<option value="02:00">02:00</option>
 			   					</select>
-			   					<select class="form-control"  name="endTime">
+			   					<select class="form-control" id="time"  name="endTime">
 			   						<option value="00:00">01:00</option>
 			   						<option value="01:00">02:00</option>
 			   						<option value="02:00">02:00</option>
@@ -318,7 +347,7 @@ function validate(){
 			   					<input class="form-control addr menuName"  name="menuName" type="text" placeholder="ex)아메리카노"/>
 			   					<input class="form-control addr menuPrice"  name="menuPrice"  type="text" placeholder="ex)2500원"/>
 			   					<input type="button" class="btn btn-primary" value="추가" onclick="add_item()"/>
-			   					 <label style="padding:0%;width:12%"><input type="checkbox" value="">대표</label>
+			   					<!--  <label style="padding:0%;width:12%"><input id="check_all" type="checkbox" name="menuCheck">대표</label> -->
 			    		</div>
 		    		</div>
 		    		
@@ -335,7 +364,7 @@ function validate(){
 		   					<input class="form-control addr" name="menuName"  type="text" placeholder="ex)아메리카노"/>
 		   					<input class="form-control addr"  name="menuPrice" type="text" placeholder="ex)2500원"/>
 		   					<input type="button" class="btn btn-primary" value="삭제" onclick="remove_item(this)"/>
-		   					 <label style="padding:0%;width:12%"><input type="checkbox" value="" >대표</label>
+		   					<!--  <label style="padding:0%;width:12%"><input id="check_all" type="checkbox" name="menuCheck">대표</label> -->
 						</div>		    		
 			    	
 			  
@@ -358,7 +387,7 @@ function validate(){
 			    		</div>
 			    		<div class="col-md-10">
 			    			 <div class="form-group middleSize">
-									<input id="file-demo" type="file" class="file" multiple=true data-preview-file-type="any">
+									 <input id="input-ru" type="file" class="file btn-sm" name="file" multiple="true" data-preview-file-type="any">
 							</div> 
 		
 			    		</div>
@@ -369,17 +398,18 @@ function validate(){
 			    			<span>대표키워드</span>
 			    		</div>
 			    		<div class="col-md-10 form-inline">
-			    			<input class="form-control" name="keyword1" type="text" placeholder="ex)홍대맛집"/>
-			    			<input class="form-control" name="keyword2" type="text" />
-							<input class="form-control" name="keyword3" type="text" />
-							<input class="form-control" name="keyword4" type="text" />
-							<input class="form-control" name="keyword5" type="text" />
+			    			<input class="form-control" id="time" name="keyword1" type="text" placeholder="ex)홍대맛집"/>
+			    			<input class="form-control" id="time" name="keyword2" type="text" />
+							<input class="form-control" id="time" name="keyword3" type="text" />
+							<input class="form-control" id="time" name="keyword4" type="text" />
+							<input class="form-control" id="time" name="keyword5" type="text" />
 			    		</div>
 		    		</div> 
 		    		
 		    		 <div class="margin-bottom" id="center">
-			    		<input class="btn btn-primary" type="submit" value="등록하기"/>
-
+		    		 	<div style="width:30%;margin-left:auto;margin-right:auto;height:100%">
+			    			<input style="width:100%;height:100%" class="btn btn-primary" type="submit" value="등록하기"/>
+			    		</div>
 		    		</div> 
 		    	</div>
 		    </form>

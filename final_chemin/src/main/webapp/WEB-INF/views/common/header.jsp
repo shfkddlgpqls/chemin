@@ -114,7 +114,7 @@
             
             <%-- <c:if test="${memberLoggedIn!=null }"> --%>
                <li class="nav-item">
-           		  <a class="nav-link js-scroll-trigger" href="#">MyPage</a>
+           		  <a class="nav-link js-scroll-trigger" href="${path}/mypage/myOrderList.do">MyPage</a>
         	    </li> 
         	    <li class="nav-item">
            		  <a class="nav-link js-scroll-trigger" href="#">LogOut</a>
