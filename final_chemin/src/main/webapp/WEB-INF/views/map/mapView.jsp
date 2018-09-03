@@ -18,11 +18,11 @@
 	font-family:'Malgun Gothic','맑은 고딕',sans-serif;
 	font-size:12px; 
 	text-align:center;
-	background-color:#B5C3DD;
+	background-color:#B6BDC8;
 }
 .category .menu_selected 
 {
-	background:#FFB6C1;
+	background:#F06340;
 	color:#fff;
 /* 	border-left:1px solid #915B2F;
 	border-right:1px solid #915B2F; */
@@ -31,7 +31,7 @@
 .category li
 {
 	
-	background-color:#B5C3DD;
+	background-color:#B6BDC8;
 	height:10%;
 	width:50%;
 /* 	border-bottom: solid 1px #374854; */
@@ -128,7 +128,7 @@ color:#fff;
             </div>
             
             <div class="row" >
-            	 <li class="list-group-item "style="width:100%"  > 
+            	 <li class="list-group-item "style="width:100%"> 
              		<button class="btn btn-primary" style="width:80%;height:75%">검색</button>
            		</li>
             	
