@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.kh.chemin.mall.model.vo;
 
 import java.sql.Date;
@@ -120,10 +119,3 @@ public class Product {
 	}
 	
 }
-=======
-package com.kh.chemin.mall.model.vo;
-
-public class Product {
-
-}
->>>>>>> branch 'master' of https://github.com/shfkddlgpqls/chemin.git
