@@ -5,7 +5,7 @@ public class PlaceMenu {
 	private int plaNo;
 	private String menuName;
 	private String menuPrice;
-	private char menuCheck;
+	private String menuCheck;
 	
 	public PlaceMenu() {}
 
@@ -41,11 +41,11 @@ public class PlaceMenu {
 		this.menuPrice = menuPrice;
 	}
 
-	public char getMenuCheck() {
+	public String getMenuCheck() {
 		return menuCheck;
 	}
 
-	public void setMenuCheck(char menuCheck) {
+	public void setMenuCheck(String menuCheck) {
 		this.menuCheck = menuCheck;
 	}
 

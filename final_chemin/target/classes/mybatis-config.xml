@@ -5,7 +5,12 @@
 		<typeAlias type="com.kh.chemin.community.model.vo.Community" alias="community"/>
 		<typeAlias type="com.kh.chemin.common.StringArrayType" alias="strArr"/>
 		<typeAlias type="com.kh.chemin.map.model.vo.Place" alias="place"/>
-		<typeAlias type="com.kh.chemin.map.model.vo.PlaceAttachment" alias="placeAttacment"/>
+		<typeAlias type="com.kh.chemin.map.model.vo.PlaceAttachment" alias="placeAttach"/>
 		<typeAlias type="com.kh.chemin.map.model.vo.PlaceMenu" alias="placeMenu"/>
 </typeAliases>
+ 
+
 </configuration>
+
+
+
