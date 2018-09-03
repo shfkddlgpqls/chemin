@@ -5,7 +5,8 @@ import java.util.Date;
 public class Place {
 	private int plaNo;
 	private String userId;
-	private String pcName;
+	private String plaArea;
+	private String plaCategory;
 	private String plaName;
 	private String orImg;
 	private String reImg;
@@ -14,17 +15,21 @@ public class Place {
 	private String plaTime;
 	private String plaContent;
 	private String plaKeyword;
-	private Date plaDate;
+	private String plaStamp;
+	private String plaKey;
+	private String plaDate;
 	private char plaStatus;	
 	
 	public Place() {}
 
-	public Place(int plaNo, String userId, String pcName, String plaName, String orImg, String reImg, String plaPhone,
-			String plaAddr, String plaTime, String plaContent, String plaKeyword, Date plaDate, char plaStatus) {
+	public Place(int plaNo, String userId, String plaArea, String plaCategory, String plaName, String orImg,
+			String reImg, String plaPhone, String plaAddr, String plaTime, String plaContent, String plaKeyword,
+			String plaStamp, String plaKey, String plaDate, char plaStatus) {
 		super();
 		this.plaNo = plaNo;
 		this.userId = userId;
-		this.pcName = pcName;
+		this.plaArea = plaArea;
+		this.plaCategory = plaCategory;
 		this.plaName = plaName;
 		this.orImg = orImg;
 		this.reImg = reImg;
@@ -33,6 +38,8 @@ public class Place {
 		this.plaTime = plaTime;
 		this.plaContent = plaContent;
 		this.plaKeyword = plaKeyword;
+		this.plaStamp = plaStamp;
+		this.plaKey = plaKey;
 		this.plaDate = plaDate;
 		this.plaStatus = plaStatus;
 	}
@@ -53,12 +60,20 @@ public class Place {
 		this.userId = userId;
 	}
 
-	public String getPcName() {
-		return pcName;
+	public String getPlaArea() {
+		return plaArea;
 	}
 
-	public void setPcName(String pcName) {
-		this.pcName = pcName;
+	public void setPlaArea(String plaArea) {
+		this.plaArea = plaArea;
+	}
+
+	public String getPlaCategory() {
+		return plaCategory;
+	}
+
+	public void setPlaCategory(String plaCategory) {
+		this.plaCategory = plaCategory;
 	}
 
 	public String getPlaName() {
@@ -125,11 +140,27 @@ public class Place {
 		this.plaKeyword = plaKeyword;
 	}
 
-	public Date getPlaDate() {
+	public String getPlaStamp() {
+		return plaStamp;
+	}
+
+	public void setPlaStamp(String plaStamp) {
+		this.plaStamp = plaStamp;
+	}
+
+	public String getPlaKey() {
+		return plaKey;
+	}
+
+	public void setPlaKey(String plaKey) {
+		this.plaKey = plaKey;
+	}
+
+	public String getPlaDate() {
 		return plaDate;
 	}
 
-	public void setPlaDate(Date plaDate) {
+	public void setPlaDate(String plaDate) {
 		this.plaDate = plaDate;
 	}
 
@@ -143,12 +174,12 @@ public class Place {
 
 	@Override
 	public String toString() {
-		return "Place [plaNo=" + plaNo + ", userId=" + userId + ", pcName=" + pcName + ", plaName=" + plaName
-				+ ", orImg=" + orImg + ", reImg=" + reImg + ", plaPhone=" + plaPhone + ", plaAddr=" + plaAddr
-				+ ", plaTime=" + plaTime + ", plaContent=" + plaContent + ", plaKeyword=" + plaKeyword + ", plaDate="
-				+ plaDate + ", plaStatus=" + plaStatus + "]";
+		return "Place [plaNo=" + plaNo + ", userId=" + userId + ", plaArea=" + plaArea + ", plaCategory=" + plaCategory
+				+ ", plaName=" + plaName + ", orImg=" + orImg + ", reImg=" + reImg + ", plaPhone=" + plaPhone
+				+ ", plaAddr=" + plaAddr + ", plaTime=" + plaTime + ", plaContent=" + plaContent + ", plaKeyword="
+				+ plaKeyword + ", plaStamp=" + plaStamp + ", plaKey=" + plaKey + ", plaDate=" + plaDate + ", plaStatus="
+				+ plaStatus + "]";
 	}
 
 	
 }
-

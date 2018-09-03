@@ -1,9 +1,10 @@
 package com.kh.chemin.map.controller;
-
-
-
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,6 +23,9 @@ import com.kh.chemin.community.controller.CommunityController;
 import com.kh.chemin.community.model.service.CommunityService;
 import com.kh.chemin.map.model.service.PlaceService;
 import com.kh.chemin.map.model.vo.Place;
+import com.kh.chemin.map.model.vo.PlaceAttachment;
+import com.kh.chemin.map.model.vo.PlaceMenu;
+import com.sun.org.glassfish.gmbal.ParameterNames;
 
 @Controller
 public class MapController {
@@ -51,7 +55,7 @@ public class MapController {
 
 
 	@RequestMapping(value="/map/placeInsert.do", method = RequestMethod.POST)
-	public ModelAndView placeInsert(Place place, @RequestParam("mainImg")MultipartFile mainImg, HttpServletRequest request, String phoneFirst, String phoneMiddle, String phoneEnd,String postCode, String roadAddr, String jibunAddr,
+	public ModelAndView placeInsert(Place place ,@RequestParam("mainImg")MultipartFile mainImg,@RequestParam("file")MultipartFile[] file,HttpServletRequest request,String[] menuName,String[] menuPrice,String[] menuCheck, String phoneFirst, String phoneMiddle, String phoneEnd,String postCode, String roadAddr, String jibunAddr,
 							  String day, String startTime, String endTime,String keyword1,String keyword2, String keyword3, String keyword4, String keyword5) {
 		
 		String phone=phoneFirst+"-"+phoneMiddle+"-"+phoneEnd;
@@ -62,32 +66,55 @@ public class MapController {
 		place.setPlaAddr(address);
 		place.setPlaTime(time);
 		place.setPlaKeyword(keyword);
-		place.setUserId("hyebeen");
-		/*place.setOrImg(mainImg.getOriginalFilename());*/
-		logger.debug("전화 : "+phone);
-		logger.debug("주소 : "+address);
-		logger.debug("시간 : "+time);
-		logger.debug("키워드 : "+keyword);
-		logger.debug("이미지 : "+mainImg.getName());
-		
-		String saveDir = request.getSession().getServletContext().getRealPath("/resources/upload/place");
+		place.setUserId("yong");
+
+
+		//대표이미지 저장경로 지정 및 서버에 이미지 저장
+		String saveDirMain = request.getSession().getServletContext().getRealPath("/resources/upload/place/main");
 		if(!mainImg.isEmpty()) {	
 			String orImg = mainImg.getOriginalFilename();
 			String reImg = orImg;
 			try {
-				mainImg.transferTo(new File(saveDir+"/"+reImg));
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				mainImg.transferTo(new File(saveDirMain+"/"+reImg));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			} 
 			place.setOrImg(orImg);
 			place.setReImg(reImg);
 		}
 		
-		int result = service.placeInsert(place);
+		//배열수 만큼 가격정보 db에 넣기
+		List<PlaceMenu> menuList = new ArrayList();
+		for(int i=0; i<menuName.length; i++) {
+			if(!menuName[i].isEmpty()&&!menuPrice[i].isEmpty()) {
+			PlaceMenu menu = new PlaceMenu();
+			 menu.setMenuName(menuName[i]);
+			 menu.setMenuPrice(menuPrice[0]);
+			 menuList.add(menu);
+			}
+		}
+		
+		List<PlaceAttachment> attList = new ArrayList();
+		String saveDirAttch = request.getSession().getServletContext().getRealPath("/resources/upload/place/attach");
+		for(MultipartFile f : file) {
+			if(!f.isEmpty()) {
+				String attachOrImg = f.getOriginalFilename();
+				String attachReImg = attachOrImg;
+				try {
+					f.transferTo(new File(saveDirAttch+"/"+attachReImg));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				PlaceAttachment attach = new PlaceAttachment();
+				attach.setOrImg(attachOrImg);
+				attach.setReImg(attachReImg);
+				attList.add(attach);
+			}
+		}
+		
+		
+		int result = service.placeInsert(place,menuList,attList);
 		String msg="";
 		String loc="";
 		
@@ -101,6 +128,7 @@ public class MapController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("msg", msg);
 		mv.addObject("loc", loc);
+		mv.addObject("result", result);
 		mv.setViewName("common/msg");
 		return mv;
 	}

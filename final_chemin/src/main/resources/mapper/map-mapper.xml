@@ -6,7 +6,19 @@
 	<insert id="placeInsert" parameterType="place">
 		insert into place
 		values
-		(seq_place_no.nextval,#{userId},#{pcName},#{plaName},#{orImg},#{reImg},#{plaPhone},#{plaAddr}
-		,#{plaTime},#{plaContent},#{plaKeyword},default,'N')
+		(seq_place_no.nextval,#{userId},#{plaArea},#{plaCategory},#{plaName},#{orImg},#{reImg},#{plaPhone},#{plaAddr}
+		,#{plaTime},#{plaContent},#{plaKeyword},null,null,default,default)
+		<selectKey keyProperty="plaNo" resultType="_int" order="AFTER">
+		 SELECT SEQ_PLACE_NO.CURRVAL FROM DUAL
+		</selectKey>
 	</insert>
+	<insert id="insertAttach" parameterType="placeAttach">
+		insert into PLA_ATTACHMENT(ATTACHMENTNO,PLANO,ORIMG,REIMG) values(SEQ_PLAATTACH_NO.nextval,#{plaNo},#{orImg},#{reImg})
+	</insert>
+	
+	<insert id="insertMenu" parameterType="placeMenu">
+		insert into pla_menu(MENUNO,PLANO,MENUNAME,MENUPRICE) values(seq_placemenu_no.nextval,#{plaNo},#{menuName},#{menuPrice})
+	</insert>
+	
+	
 </mapper>

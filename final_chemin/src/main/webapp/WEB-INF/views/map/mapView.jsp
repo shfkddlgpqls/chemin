@@ -4,41 +4,45 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>  
  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
- 
+
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <c:set value="${pageContext.request.contextPath }" var="path"/>
  <style>
 .category, .category *{margin:0;padding:0;color:#000;}   
 .category {
 	position:relative;
-	top:0px;left:0px;width:150px;
+	top:0px;left:0px;width:50px;
 	height:100%;
 	z-index:10;
 	border:1px solid black;
 	font-family:'Malgun Gothic','맑은 고딕',sans-serif;
 	font-size:12px; 
 	text-align:center;
-	background-color:#203341;
+	background-color:#B5C3DD;
 }
 .category .menu_selected 
 {
-	background:#F05F40;
+	background:#FFB6C1;
 	color:#fff;
-	border-left:
-	1px solid #915B2F;
-	border-right:1px solid #915B2F;
+/* 	border-left:1px solid #915B2F;
+	border-right:1px solid #915B2F; */
 	margin:0 -1px;
 } 
 .category li
 {
-	background-color:#203341;
-	height:70px;
-	border-bottom: solid 1px #374854;
+	
+	background-color:#B5C3DD;
+	height:10%;
+	width:50%;
+/* 	border-bottom: solid 1px #374854; */
 	padding-top:5px;
 	list-style:none;
 	float:left;
 	cursor:pointer;
 	color:#fff;
+}
+.list-group-item{
+	border:0
 }
 .material-icons{
 color:#fff;
@@ -49,7 +53,7 @@ color:#fff;
 	margin:0 auto 2px;
 	width:22px;
 	height:26px;
-} 
+}
 
 /* 마커위에 창 */
    .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
@@ -67,41 +71,68 @@ color:#fff;
     .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
     .info .link {color: #5085BB;}
 
-
-	/* .main_img{
-		 width: auto; height: auto;
-	    max-width: 100%;
-	    max-height: 100%;
-	} */
 </style>
 <div class="row" style="margin-top:55px">
   <div class="category col-md-2">
         <ul class="list-group">
-        	<li class="list-group-item">
-        		<button onclick="location.href='${path}/map/placeReg.do'" style="backgroud:red">값등록</button>
+        	<li class="list-group-item" style="width:100%">
+        		<span style="font-size:1.3em; width:30%;"><strong>지역선택</strong></span>        		
+				  <select class="form-control" style="width:70%;margin-left:16%;margin-top:3%">
+				  <option>마포구</option>
+				  <option>강남구</option>
+				  <option>서초구</option>
+				  <option>송파구</option>
+				</select>
         	</li>
-            <li class="list-group-item" id="coffeeMenu" onclick="changeMarker('coffee')">
-               <i class="material-icons">restaurant</i>
-                	식사
+        	<div class="row">
+            <li class="list-group-item"  id="coffeeMenu" onclick="changeMarker('coffee')">
+               <div>
+               		<img style="width:35%;height:65%" src="${path}/resources/map/img/res1.png"/>
+               	</div>
+               	<span style="font-size:1.3em; width:30%; text-align: center;"><strong>식사</strong></span> 
             </li>
             <li class="list-group-item" id="storeMenu" onclick="changeMarker('store')">
-               <i class="material-icons">local_bar</i>
-              	  술
+               <div>
+               		<img style="width:35%;height:65%" src="${path}/resources/map/img/beer1.png"/>
+               	</div>
+               	<span style="font-size:1.3em; width:30%; text-align: center;"><strong>술</strong></span> 
             </li>
+            </div>
+            <div class="row">
             <li class="list-group-item " id="carparkMenu" onclick="changeMarker('carpark')">
-               		<i class="material-icons">mic</i>
-              	  노래방
+               	<div>
+               		<img style="width:35%;height:65%" src="${path}/resources/map/img/mic1.png"/>
+               	</div>
+               	<span style="font-size:1.3em; width:30%; text-align: center;"><strong>노래방</strong></span> 
             </li>
              <li class="list-group-item " id="sportskMenu" onclick="changeMarker('sports')">
-               		<i class="material-icons">directions_run</i>
-              	 스포츠
+               	<div>
+               		<img style="width:35%;height:65%" src="${path}/resources/map/img/gym1.png"/>
+               	</div>
+               	<span style="font-size:1.3em; width:30%; text-align: center;"><strong>운동</strong></span> 
             </li>
-             <li class="list-group-item " id="movieMenu" onclick="changeMarker('movie')">
-               		<i class="material-icons">videocam</i>
-              	 영화/공연
+            </div>
+            <div class="row">
+             <li class="list-group-item " id="movieMenu" onclick="changeMarker('movie')"> 
+             		<div>
+               		<img style="width:35%;height:65%" src="${path}/resources/map/img/movie1.png"/>
+               		</div>
+               		<span style="font-size:1.3em; width:30%; text-align: center;"><strong>영화/공연</strong></span> 
             </li>
+             <li class="list-group-item " id="addMenu" onclick="changeMarker('add')">
+               	<div>
+               		<img style="width:35%;height:65%" src="${path}/resources/map/img/add.png"/>
+               	</div>
+               	<span style="font-size:1.3em; width:30%; text-align: center;"><strong>장소추가</strong></span> 
+            </li>
+            </div>
             
-            
+            <div class="row" >
+            	 <li class="list-group-item "style="width:100%"  > 
+             		<button class="btn btn-primary" style="width:80%;height:75%">검색</button>
+           		</li>
+            	
+            </div>
         </ul>
     </div>
     <!-- 지도가 표시될 div -->
@@ -111,8 +142,6 @@ color:#fff;
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=eb4ae7857a625ec0a907f8f742645cfb"></script>
 <script>
-
-
 
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
@@ -244,6 +273,7 @@ function changeMarker(type){
     var carparkMenu = document.getElementById('carparkMenu');
     var sportskMenu = document.getElementById('sportskMenu');
     var movieMenu = document.getElementById('movieMenu');
+    var addMenu = document.getElementById('addMenu');
     
     // 커피숍 카테고리가 클릭됐을 때
     if (type === 'coffee') {
@@ -255,6 +285,7 @@ function changeMarker(type){
         carparkMenu.className = '';
         sportskMenu.className = '';
         movieMenu.className = '';
+        addMenu.className = '';
         
         // 커피숍 마커들만 지도에 표시하도록 설정합니다
         setCoffeeMarkers(map);
@@ -269,6 +300,7 @@ function changeMarker(type){
         carparkMenu.className = '';
         sportskMenu.className = '';
         movieMenu.className = '';
+        addMenu.className = '';
         
         // 편의점 마커들만 지도에 표시하도록 설정합니다
         setCoffeeMarkers(null);
@@ -283,6 +315,7 @@ function changeMarker(type){
         carparkMenu.className = 'menu_selected';
         sportskMenu.className = '';
         movieMenu.className = '';
+        addMenu.className = '';
         
         // 주차장 마커들만 지도에 표시하도록 설정합니다
         setCoffeeMarkers(null);
@@ -297,26 +330,35 @@ function changeMarker(type){
         carparkMenu.className = '';
         sportskMenu.className = 'menu_selected';
         movieMenu.className = '';
+        addMenu.className = '';
         
         // 주차장 마커들만 지도에 표시하도록 설정합니다
         setCoffeeMarkers(null);
         setStoreMarkers(null);
         setCarparkMarkers(map);  
     } 
-    else if (type === 'movie') { // 스포츠 카테고리가 클릭됐을 때
-        
+    else if (type === 'movie') { // 스포츠 카테고리가 클릭됐을 때 
         // 주차장 카테고리를 선택된 스타일로 변경하고
         coffeeMenu.className = '';
         storeMenu.className = '';
         carparkMenu.className = '';
         sportskMenu.className = '';
         movieMenu.className = 'menu_selected';
+        addMenu.className = '';
         
         // 주차장 마커들만 지도에 표시하도록 설정합니다
         setCoffeeMarkers(null);
         setStoreMarkers(null);
         setCarparkMarkers(map);  
-    } 
+    } else if (type === 'add'){
+    	 coffeeMenu.className = '';
+         storeMenu.className = '';
+         carparkMenu.className = '';
+         sportskMenu.className = '';
+         movieMenu.className = '';
+         addMenu.className='menu_selected';
+         location.href="${path}/map/placeReg.do";
+    }
 } 
 </script>
 
