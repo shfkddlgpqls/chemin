@@ -66,7 +66,7 @@ public class MapController {
 		place.setPlaAddr(address);
 		place.setPlaTime(time);
 		place.setPlaKeyword(keyword);
-		place.setUserId("yong");
+		place.setUserId("hyebeen");
 
 
 		//대표이미지 저장경로 지정 및 서버에 이미지 저장

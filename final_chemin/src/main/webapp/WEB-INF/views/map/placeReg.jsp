@@ -387,7 +387,7 @@ function validate(){
 			    		</div>
 			    		<div class="col-md-10">
 			    			 <div class="form-group middleSize">
-									 <input id="input-ru" type="file" class="file btn-sm" name="file" multiple="true" data-preview-file-type="any">
+									 <input id="input-ru" type="file" class="file btn-sm" name="file" multiple="multiple" data-preview-file-type="any">
 							</div> 
 		
 			    		</div>
