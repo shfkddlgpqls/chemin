@@ -1,5 +1,6 @@
 package com.kh.chemin.mypage.controller;
 
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
@@ -76,7 +77,7 @@ public class MypageController
 		return "mypage/myPlaceList";
 	}*/
 	
-	@RequestMapping("/mypage/myPlaDetailList.do")
+	@RequestMapping(value="/mypage/myPlaDetailList.do",produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String plaDetailList(int plaNo, Model model) throws Exception
 	{
@@ -87,14 +88,8 @@ public class MypageController
 		List<PlaceAttachment> attachList = service.selectAttachList(plaNo);
 		List<PlaceMenu> menuList = service.selectMenuList(plaNo);
 		
-		for(int i=0; i<attachList.size(); i++) {
-			URLEncoder.encode(attachList.get(i).getReImg(),"UTF-8");
-			URLEncoder.encode(attachList.get(i).getOrImg(),"UTF-8");
-		}
-		for(int i=0; i<menuList.size(); i++) {
-			URLEncoder.encode(menuList.get(i).getMenuName(),"UTF-8");
-		}
-	
+		System.out.println(attachList);
+		
 		map.put("attachList", attachList);
 		map.put("menuList", menuList);
 		

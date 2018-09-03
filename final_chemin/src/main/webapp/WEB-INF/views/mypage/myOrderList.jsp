@@ -309,7 +309,5 @@
 					</li>
 				</ul>
  	 	</div>
-
-
 	
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>  

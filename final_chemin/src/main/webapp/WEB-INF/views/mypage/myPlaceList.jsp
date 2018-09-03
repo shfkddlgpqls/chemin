@@ -51,6 +51,7 @@
   position: relative;
   cursor: pointer;
   overflow: hidden;
+  border:0;
 }
 
 .gallery-item-image{
@@ -81,12 +82,6 @@
 }
 </style>
 <script>
-/* $(function(){
-	$('.plaBtn').click("on",function(){
-		var plaNo = $(this).attr('name');
-		location.href="${path}/mypage/myPlaDetailList.do?plaNo="+plaNo;
-	});
-}); */
 function fn_modal(plaNo){
 	$.ajax({
 		url:"${path}/mypage/myPlaDetailList.do?",
@@ -96,20 +91,21 @@ function fn_modal(plaNo){
 		{
 			console.log(data.attachList);
 			console.log(data.menuList);
+			alert
+			  for(i=0; i<data.attachList.length; i++){
+				 for(orImg in data.attachList[i]){
+					 alert(data.attachList[i][orImg]);
+				 }
+				
+			}  
 			
-			/* for(i=0; i<data.attachList.length; i++){
-				decodeURIComponent(data.attachList.get(i).getReImg());
-				decodeURIComponent(data.attachList.get(i).getOrImg());
-			} */
-			
-			if(data.trim()==false){
+			/*  if(data.trim()==false){
 				alert('하하');
-			/* 	$('[name=area]').val('하하'); */
-			}
+			 	$('[name=area]').val('하하'); 
+			}  */
 			
 		}
 	})
-
 }
 </script>
 <!-- 마이페이지 css-->
@@ -127,7 +123,7 @@ function fn_modal(plaNo){
 					<hr>
 						<ul class="nav justify-content-center">
 						    <li class="nav-item">
-						      <strong><a class="nav-link mypageAtag" href="${path }/mypage/myOrderList.do">주문 목록	</a></strong>
+						      <strong><a class="nav-link mypageAtag" href="${path }/mypage/myOrderList.do">주문 목록</a></strong>
 						    </li>
 						    <li class="nav-item">
 						      <strong><a class="nav-link mypageAtag" href="${path }/mypage/myBoardList.do">게시글 관리</a></strong>
@@ -139,7 +135,7 @@ function fn_modal(plaNo){
 						   		<strong><a class="nav-link mypageAtag" href="${path }/mypage/myWishList.do">찜 목록</a></strong>
 						    </li>
 						    <li class="nav-item">
-						   		<strong><a class="nav-link mypageAtag" href="${path }/mypage/myPlaceList.do">장소 등록 내역</a></strong>
+						   		<strong><a class="nav-link mypageAtag" href="${path }/mypage/myPlaceList.do?userId=hyebeen">장소 등록 내역</a></strong>
 						    </li>
 						  </ul>
 						  <hr>
@@ -292,7 +288,4 @@ function fn_modal(plaNo){
 					</li>
 				</ul>
  	 	</div>
-
-
-	
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>  
