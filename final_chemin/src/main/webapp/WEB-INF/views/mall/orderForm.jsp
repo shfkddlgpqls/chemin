@@ -36,7 +36,7 @@
                         <tr class="table-row">
                             <td class="column-1">
                                 <div class="cart-img-product b-rad-4 o-f-hidden">
-                                    <img src="${path}/resources/mall/img/room1.jpg" alt="IMG-PRODUCT">
+                                    <img src="${path}/resources/mall/img/room1.jpg" alt="IMG-PRODUCT" draggable="false">
                                 </div>
                             </td>
                             <td class="column-2">Men Tshirt</td>
@@ -151,7 +151,7 @@
                                 <td>
                                     <div class="bo4 of-hidden size15 m-b-20">
                                         <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="address" placeholder="Home Address" style="width:60%" readonly>
-                                        <a href="#" class="m-text22 p-l-30" style="width:40%">우편번호 검색</a>
+                                        <a href="#" class="m-text22 p-l-30" style="width:40%" draggable="false">우편번호 검색</a>
                                     </div>
                                 </td>
                             </tr>

@@ -35,7 +35,7 @@
                         <tr class="table-row">
                             <td class="column-1">
                                 <div class="cart-img-product b-rad-4 o-f-hidden">
-                                    <img src="${path}/resources/mall/img/vase.jpg" alt="IMG-PRODUCT">
+                                    <img src="${path}/resources/mall/img/vase.jpg" alt="IMG-PRODUCT" draggable="false">
                                 </div>
                             </td>
                             <td class="column-2">Men Tshirt</td>
@@ -58,7 +58,7 @@
                             </td>
                             <td class="column-6">$36.00</td>
                             <td class="column-7">
-								<a href="#" class="color1 flex-2"><i class="fa fa-times"></i></a>
+								<a href="#" class="color1 flex-2" draggable="false"><i class="fa fa-times"></i></a>
 							</td>
                         </tr>
 
