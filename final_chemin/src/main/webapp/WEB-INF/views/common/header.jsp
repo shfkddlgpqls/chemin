@@ -101,6 +101,9 @@
               <a class="nav-link js-scroll-trigger" href="${path }/mall/mainMall.do">Mall</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="${path }/mall/detail.do">product</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="${path }/mall/cartList.do">cart</a>
             </li>
             <li class="nav-item">

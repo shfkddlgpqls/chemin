@@ -29,4 +29,13 @@ public class MallDaoImpl implements MallDao {
 		return sqlSession.selectOne("mall.selectProductCount");
 	}
 
+	//디테일 상품 정보
+	@Override
+	public List<Map<String, String>> selectDetail(SqlSessionTemplate sqlSession, int no) 
+	{
+		return sqlSession.selectList("mall.selectDetail", no);
+	}
+	
+	
+
 }

@@ -98,9 +98,15 @@ public class MallController
 	
 	// 상품 상세화면 이동
 	@RequestMapping("/mall/detail.do")
-	public String mallDetail()
+	public ModelAndView mallDetail(ModelAndView mv, int no)
 	{
-	   return "mall/productDetail";
+		//해당 상품 리스트 보내기 
+		List<Map<String, String>> map = service.selectDetail(no);
+		
+		mv.addObject("detailsList", map);
+		mv.setViewName("mall/productDetail");
+		
+	   return mv;
 	}
 	
 	// 장바구니 이동

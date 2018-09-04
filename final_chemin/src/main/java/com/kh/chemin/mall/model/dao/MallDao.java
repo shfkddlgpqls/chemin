@@ -15,4 +15,7 @@ public interface MallDao {
 
 	int selectProductCount(SqlSessionTemplate sqlSession);
 
+	//디테일 상품 정보
+	List<Map<String, String>> selectDetail(SqlSessionTemplate sqlSession, int no);
+
 }

@@ -13,4 +13,7 @@ public interface MallService {
 
 	int selectProductCount();
 
+	//상품 디테일 정보 가져오기
+	List<Map<String, String>> selectDetail(int no);
+
 }

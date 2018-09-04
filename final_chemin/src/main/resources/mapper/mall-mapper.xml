@@ -43,5 +43,12 @@
 			order by price desc
 		</if>
 	</select>
+	
+	<!-- 디테일 상품 정보 -->
+	<select id="selectDetail"  resultMap="mallMap">
+		SELECT PNO, PNAME, DETAILS, PRICE, REIMG from product WHERE PNO = #{no}
+	</select>
+	
+	
 
 </mapper>

@@ -9,6 +9,7 @@
 
 <!-- 상세보기 css-->
     <link rel="stylesheet" type="text/css" href="${path}/resources/base/css/mall.css">
+     <script src="<c:url value="/resources/base/js/productDetail.js" />"></script>
 
 <!--  <script type="text/javascript">  
         $(document).ready(function(){
@@ -30,22 +31,32 @@
    // 상품 정보를 장바구니에 넘기기 위해서 해당 상품 정보 전달
     function fn_goodsDetails() 
     {
-
+	
       var goodsName = $("#goodsName").text();
-       var goodsPrice = $("#goodsPrice").text(); //값을 이상하게 불러옴 
-      var goodsQty =  $("#quantity_value").text();
+      var goodsPrice = $("#goodsPrice").text(); //값을 이상하게 불러옴 
+      var goodsQty =  $("#quantity_value").text(); 
+      var pno = $("#pNo").val();
+        
       
-      alert(goodsName);
+      /* alert(goodsName);
       alert(goodsPrice);
-      alert(goodsQty);
-      
-   }
+      alert(goodsQty); */
+      alert(pno);
+       
+   };
  
    //찜 alert
    function fn_wishList() 
    {
       alert("해당 상품이 마이페이지 - 찜 목록에 정상적으로 담겼습니다. ");   
-   }
+   };
+   
+   function fn_pwCheck() 
+   {
+   		var dbPW = $("pNo").val();
+   		alert(dbPW);
+   };
+   
    
    //문의하기 모달에 문의 유형 카테고리 값 받기
    function fn_selectbox()
@@ -68,33 +79,51 @@
       {
           $("#board_name").val("기타 문의 글입니다.");
       } 
-   }
+   };
    
-   //문의하기 비밀번호 창 띄워주기
-   function fn_pwCheck() 
+   //글 작성시 설정한 비밀번호 확인 창 띄워주기(pno에서 비밀번호로 바꿔주기)
+   function fn_inputPw() 
    {
-      var userInputPw = prompt("문의 글 작성 시 입력했던 비밀번호를 적어주세요(4자리)");
+	   var pno = $("#pNo").val();
+	  
+	  	$("#pwCheck").modal();
+		$('#pw_db').val(pno);	   	   
+   };
    
-      //만약에 그 당시 작성했던 비밀번호와 확인 작업하는 코드 필요 ▼
- 
-      
-      
-      if(userInputPw.length<4 && userInputPw.length>4)
-      {
-         alert("비밀번호는 4글자입니다. 다시 입력해주세요.");
-         
-         return;
-      }   
-      
-      
-      if(userInputPw!==1111)
-      {
-         alert("작성했던 비밀번호와 다릅니다. 다시 입력해주세요.");
-      }   
-      
-      }
+   //글 작성시 설정한 비밀번호와 사용자가 지금 입력한 비밀번호가 맞는지 확인하는 함수
+   function fn_pwConfirm() 
+   {
+	   var db_pw = $("#pw_db").val().trim();
+	   var user_pw = $("#board_pw").val().trim();
+	   
+	   //숫자만 가려내는 정규표현식
+	   regNumber = /^[0-9]*$/;
+	   
+	   //숫자가 아닌 문자 입력했을시에
+	   if(!regNumber.test(user_pw))
+	    {
+		   alert("숫자만 입력하세요");
+	       return;
+	    }
+	   //비밀번호가 4글자 미만일 때 : 4 숫자 바꿔줘야한다
+	   else if(user_pw.length<3)
+		{
+			 alert("비밀번호는 4자리입니다. 숫자 4자리를 입력해주세요.");
+		}
+	   else
+		{
+		   if(db_pw==user_pw)
+	 	   {
+				alert("비밀번호가 일치합니다.");  
+		   }
+		   else
+		   {
+			   alert("비밀번호가 틀렸습니다. 다시 입력해주세요"); return;
+		   }	   
+		}	      
+   };
    
-
+   
  </script>
  
  
@@ -109,8 +138,8 @@
                   <div class="col-lg-9 image_col order-lg-2 order-1">
                      <div class="single_product_image">
                      
-                           <img src="${path}/resources/base/img/banana.jpg">
-                        
+                     <c:forEach items="${detailsList }" var = "d">           
+                        <img src="${path}/resources/upload/productImg/${d.REIMG }">
                      </div>
                   </div>
                </div>
@@ -121,16 +150,20 @@
             <div class="product_details">
                <div class="product_details_title">
                
-                  <h2 id="goodsName">바나나</h2>
-                  <p id="goodsDetails">이 바나나는 멕시코에서 왔습니다. 배타고 왔을까요 아님 비행기타고 왔을까요. 나보다 여권 도장이 많이 찍혀있는 이 바나나는 3개입니다.</p>
+                  <h2 id="goodsName">${d.PNAME }</h2>
+                  <p id="goodsDetails">${d.DETAILS }</p>
                   
                </div>
                
                <!-- fmt tag : 원화 표시로 바꿔주기 -->
-               <c:set var='price' value='8000' />
+               <c:set var='price' value='${d.PRICE }' />
 
                <div id="goodsPrice" class="product_price">         
                   <fmt:formatNumber value="${price }" type="currency"/>      
+               
+               <input type="hidden" id="pNo" name="pNo" value="${d.PNO } ">
+                </c:forEach>
+              
                </div>
                <!-- 포맷팅 끝 -->
                
@@ -235,7 +268,8 @@
         
      <div class="shadow-sm p-4 mb-4 bg-white">
       <h2>Q&A</h2>   
-         <h7>상품에 대한 문의사항이 있다면 알려주세요.</h7>
+         <h7>상품에 대한 문의사항이 있다면 알려주세요.</h7><br>
+          <h7>본인이 작성한 글의 제목을 클릭하면 작성한 내용을 볼 수 있습니다.</h7>
       </div>
       
          <div class="table-responsive">
@@ -256,7 +290,7 @@
                     <tr>
                       <td>1</td>
                       <td>배송문의</td>
-                      <td><a class="boardAtag" href="javascript:void(0);" onclick="fn_pwCheck(); return false;">너무 맛있어요!</a></td>
+                      <td><a onclick="fn_inputPw(this); return false;" data-no="${d.PNO }" >너무 맛있어요!</a></td>
                       <td>원숭이</td>           
                       <td>2018-08-24</td>
                       <td>
@@ -300,31 +334,41 @@
         </div>
         
         
-        <!--    문의하기 비밀번호 입력창
-        The Modal
-        <div class="modal fade modal-sm" id="pwCheck">
-          <div class="modal-dialog">
-            <div class="modal-content">
-            
-              Modal Header
-              <div class="modal-header">
-                <h4 class="modal-title">Modal Heading</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-              </div>
-              
-              Modal body
-              <div class="modal-body">
-                Modal body..
-              </div>
-              
-              Modal footer
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-              </div>
-              
-            </div>
-          </div>
-        </div>  -->
+          <!-- 문의하기 비밀번호 입력창 -->
+	<div class="modal fade" id="pwCheck">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Modal Heading</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+	              <div class="col-12">
+					글 작성시 입력했던 비밀번호 4자리를 입력해주세요.
+				  </div>
+				  
+				  <br>
+					
+					<div class="col-12">
+					<input type="text" name="pw_db" id="pw_db" value=""/>
+					 <input type="text" name="board_pw" id="board_pw" class="form-control" maxlength="4"/>
+					</div>
+        </div>    
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="fn_pwConfirm()" >hidden value 확인</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+        <!-- 비밀번호 입력 창 끝 -->
         
 
        <!-- 문의하기 모달 시작 -->

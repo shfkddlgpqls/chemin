@@ -35,4 +35,12 @@ public class MallServiceImpl implements MallService {
 		return dao.selectProductCount(sqlSession);
 	}
 
+	//상품 디테일 정보 가져오기
+	@Override
+	public List<Map<String, String>> selectDetail(int no) 
+	{
+		return dao.selectDetail(sqlSession, no);
+	}
+
+	
 }
