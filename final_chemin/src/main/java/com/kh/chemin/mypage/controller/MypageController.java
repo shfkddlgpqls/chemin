@@ -69,15 +69,7 @@ public class MypageController
 		return "mypage/myPlaceList";
 	}
 	
-	/*@RequestMapping("/mypage/myPlaDetailList.do")
-	public String plaDetailList(Model model, int plaNo) 
-	{
-		System.out.println(plaNo);
-		model.addAttribute("attachList", service.selectAttachList(plaNo));
-		model.addAttribute("menuList", service.selectMenuList(plaNo));
-		return "mypage/myPlaceList";
-	}*/
-	
+
 	@RequestMapping(value="/mypage/myPlaDetailList.do",produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String plaDetailList(int plaNo, Model model) throws Exception
@@ -90,13 +82,12 @@ public class MypageController
 		List<PlaceMenu> menuList = service.selectMenuList(plaNo);
 		
 		
-		System.out.println(attachList);
-		
 		map.put("attachList", attachList);
 		map.put("menuList", menuList);
-		
+
 		jsonStr = mapper.writeValueAsString(map);
 		return jsonStr;
+		
 	}
 	
 }

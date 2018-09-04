@@ -124,32 +124,32 @@ function fn_modal(obj){
 	     }
 		
 		for ( var k in keyword ) {
-			if(keyword[k]!=null || keyword[k]!=""){
+			if(keyword[k]!=null || (keyword[k].length)>0){
 				plaKeyword.innerHTML += '<span style="color:blue">' +' #'+ keyword[k] + '</span>' ;
 			}
 	     }
 	}
+	
 
 	$.ajax({
-		url:"${path}/mypage/myPlaDetailList.do?",
+		url:"${path}/mypage/myPlaDetailList.do",
 		data:{plaNo:plaNo},
 		dataType:"json",
 		success:function(data)
 		{
+		
 			console.log(data.attachList);
 			console.log(data.menuList);
 			
 			    for(i=0; i<data.attachList.length; i++){
-			    	alert(data.attachList[i].reImg);
-			    	
 					 attachment.innerHTML+='<div class="col-md-3">'+
 					 						'<a href="#x" class="thumbnail">'+
-					 						'<img src="${path}/resources/upload/place/attach/용호낙지.jpg" class="img-thumbnail">'+
+					 						"<img src="+"${pageContext.request.contextPath }/resources/upload/place/attach/"+data.attachList[i].reImg + " class='img-thumbnail'>"+
 					 						'</a>'+
-					 						'</div>';
-					 						
-			    	
-			}   
+					 						'</div>';			
+			 	}   
+			 
+			
 		}
 		
 	})
