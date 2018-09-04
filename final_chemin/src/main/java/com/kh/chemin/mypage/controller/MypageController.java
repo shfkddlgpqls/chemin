@@ -2,6 +2,7 @@ package com.kh.chemin.mypage.controller;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,6 +88,7 @@ public class MypageController
 		
 		List<PlaceAttachment> attachList = service.selectAttachList(plaNo);
 		List<PlaceMenu> menuList = service.selectMenuList(plaNo);
+		
 		
 		System.out.println(attachList);
 		
