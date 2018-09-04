@@ -193,7 +193,7 @@ function fn_modal(obj){
 		
 		<section>
 		<div class="container">
-		<div class="row" style="margin-left:auto;margin-right:auto;width:100%">
+		<div class="row" style="margin-left:auto; margin-right:auto; width:100%">
 		  	<div>
 		  		<h3>장소 등록 내역</h3>
 		  		<br>
