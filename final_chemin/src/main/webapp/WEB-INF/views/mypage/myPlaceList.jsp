@@ -90,7 +90,7 @@ height:50px;
 <script>
 var count=0;
 function fn_modal(obj){	
-	var plaNo = $(obj).data("no");
+	var plaNo = $(obj).data("no"); 
 	
 	plaName.innerHTML = $(obj).data("name"); 
 	var address = $(obj).data("address").split("/",2);
