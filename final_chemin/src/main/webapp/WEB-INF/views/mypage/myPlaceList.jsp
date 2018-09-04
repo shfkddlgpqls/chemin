@@ -80,9 +80,56 @@
   position: absolute;
   bottom:0;
 }
+/* td, tr{
+border:1px solid black;
+} */
+tr{
+height:50px;
+}
 </style>
 <script>
-function fn_modal(plaNo){
+var count=0;
+function fn_modal(obj){	
+	var plaNo = $(obj).data("no");
+	
+	plaName.innerHTML = $(obj).data("name"); 
+	var address = $(obj).data("address").split("/",2);
+ 	plaPhone.innerHTML = $(obj).data("phone");
+	plaArea.innerHTML = $(obj).data("area");
+	var time = $(obj).data("time").split("/");
+	plaContent.innerHTML = $(obj).data("content"); 
+	plaCategory.innerHTML =$(obj).data("category"); 
+	var keyword = $(obj).data("keyword").split(" ");
+	
+	if(count==0){
+		for ( var i in address ) {		
+			if(i==0){
+				plaAddr.innerHTML = '<span>' + address[i] + '</span>';
+			}else{
+				plaAddr.innerHTML+=' <span>' + address[i] +'(우편번호)'+ '</span>';
+				
+			}
+	     }
+	
+		for ( var t in time ) {		
+			if(t==0){
+				plaTime.innerHTML = '<span>' + time[t] + '</span>';
+			}else if(t==1){
+				plaTime.innerHTML+=' <span>' + time[t] +' ~ '+ '</span>';				
+			}else if(t==2){	
+				plaTime.innerHTML+=' <span>' + time[i] + '</span>';	
+			}else{
+				plaTime.innerHTML+=' <span style="color:red">' + time[i] + '</span>';	
+			}
+	     }
+		
+		for ( var k in keyword ) {
+			if(keyword[k]!=null || keyword[k]!=""){
+				plaKeyword.innerHTML += '<span style="color:blue">' +' #'+ keyword[k] + '</span>' ;
+			}
+	     }
+	}
+
 	$.ajax({
 		url:"${path}/mypage/myPlaDetailList.do?",
 		data:{plaNo:plaNo},
@@ -91,21 +138,22 @@ function fn_modal(plaNo){
 		{
 			console.log(data.attachList);
 			console.log(data.menuList);
-			alert(data.attachList[4]);
-			/*   for(i=0; i<data.attachList.length; i++){
-				 for(orImg in data.attachList[i]){
-					 alert(data.attachList[i][orImg]);
-				 }
-				
-			}  
-			 */
-			/*  if(data.trim()==false){
-				alert('하하');
-			 	$('[name=area]').val('하하'); 
-			}  */
 			
+			    for(i=0; i<data.attachList.length; i++){
+			    	alert(data.attachList[i].reImg);
+			    	
+					 attachment.innerHTML+='<div class="col-md-3">'+
+					 						'<a href="#x" class="thumbnail">'+
+					 						'<img src="${path}/resources/upload/place/attach/용호낙지.jpg" class="img-thumbnail">'+
+					 						'</a>'+
+					 						'</div>';
+					 						
+			    	
+			}   
 		}
+		
 	})
+	count++;
 }
 </script>
 <!-- 마이페이지 css-->
@@ -173,7 +221,10 @@ function fn_modal(plaNo){
 				      	${p.PLAPHONE}
 				      </p>
 				      <!-- plaNo값에 해당되는 attach와 price 가격정보를 가져오기 위해 button name값에 장소번호를 넣어준다.-->
-				     <button type="button" class="btn btn-primary plaBtn" onclick="fn_modal(${p.PLANO})"  data-toggle="modal" data-target="#place_modal" style="float:right">상세보기</button>
+				      
+				     <button type="button" class="btn btn-primary plaBtn" onclick="fn_modal(this)" data-no='${p.PLANO }' data-name='${p.PLANAME}' data-address='${p.PLAADDR }' 
+				     data-category='${p.PLACATEGORY}' data-area='${p.PLAAREA}'	data-phone='${p.PLAPHONE }' data-content='${p.PLACONTENT}' data-time='${p.PLATIME}' data-keyword='${p.PLAKEYWORD}'
+				     data-toggle="modal" data-target="#place_modal" style="float:right">상세보기</button>
 				     <c:if test="${p.PLASTATUS == 'N'}">
 				     <button type="button" class="btn btn-danger"  style="float:right;margin-right:1%">승인요청중</button>  
 				     </c:if>
@@ -207,57 +258,89 @@ function fn_modal(plaNo){
 		          <div class="row">
 		           <div class="col-md-1"></div>
 		        	<div class="col-md-10">
-		        	   <table style="border:1px solid black;width:100%">
-		        	   	  <th></th>
-		        	   	  <th></th>
-		        	   	  <th></th>
+		        	   <table style="width:100%">
 		        	   	  <tr>
-		        	   	  	<td>지역</td>
-		        	   	  	<td>: &nbsp;&nbsp;</td>
-		        	   	  	<td name="area">마포구</td>
-		        	   	  </tr>
-		        	   	  <tr>
-		        	   	  	<td>주소</td>
+		        	   	  	<td style="width:15%">업체명</td>
 		        	   	  	<td>: </td>
-		        	   	  	<td>서울시 논혀로 테헤란로 119</td>
+		        	   	  	<td id="plaName"></td>	
 		        	   	  </tr>
 		        	   	  <tr>
 		        	   	  	<td>카테고리</td>
 		        	   	  	<td>: </td>
-		        	   	  	<td>식사</td>
+		        	   	  	<td id="plaCategory"></td>
 		        	   	  </tr>
 		        	   	  <tr>
-		        	   	  	<td>업체명</td>
+		        	   	  	<td>지역</td>
+		        	   	  	<td>: &nbsp;&nbsp;</td>
+		        	   	  	<td id="plaArea"></td>
+		        	   	  </tr>
+		        	   	  <tr>
+		        	   	  	<td>주소</td>
 		        	   	  	<td>: </td>
-		        	   	  	<td>용순이네</td>
+		        	   	  	<td id="plaAddr"></td>
 		        	   	  </tr>
 		        	   	  <tr>
 		        	   	  	<td>전화번호</td>
 		        	   	  	<td>: </td>
-		        	   	  	<td>02-1548-1548</td>
+		        	   	  	<td id="plaPhone"></td>
 		        	   	  </tr>
-		        	   	    <tr>
+		        	   	   <tr>
 		        	   	  	<td>영업시간</td>
 		        	   	  	<td>: </td>
-		        	   	  	<td>매일 00:00 ~ 01:00 연중무휴</td>
+		        	   	  	<td id="plaTime"></td>
+		        	   	  </tr>
+		        	   	   <tr>
+		        	   	  	<td>가격정보</td>
+		        	   	  	<td>: </td>
+		        	   	  	<td id="plaPrice">아메리카노 2500원</td>
+		        	   	  </tr>
+		        	   	  <tr>
+		        	   	  	<td>소개글</td>
+		        	   	  	<td>: </td>
+		        	   	  	<td id="plaContent"></td>
+		        	   	  </tr>
+		        	   	  <tr>
+		        	   	  	<td>사진</td>
+		        	   	  	<td></td>
+		        	   	  	<td></td>
+		        	   	  </tr>
+		        	   	  <tr>
+		        	   	  	<td colspan="3"  align ="center">
+		        	   	  		 <div id="ThumbnailCarousel" class="carousel slide col-xs-12" data-ride="carousel">
+			  <div class="carousel-inner">
+			    <div class="carousel-item active">
+			      <div class="row" id="attachment">
+			          
+			      </div>
+			    </div>
+			  </div>
+			  
+			  <a class="carousel-control-prev "  href="#ThumbnailCarousel" role="button" data-slide="prev">
+			    <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+			    <span class="sr-only ">Previous</span>
+			  </a>
+			  
+			  <a class="carousel-control-next" href="#ThumbnailCarousel" role="button" data-slide="next">
+			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="sr-only">Next</span>
+			  </a>
+		</div>
+		        	   	  	</td>
+		        	   	  </tr>
+		        	   	  <tr>
+		        	   	  	<td>대표키워드</td>
+		        	   	  	<td>: </td>
+		        	   	  	<td id="plaKeyword"></td>
 		        	   	  </tr>
 		        	   </table>
-		        		<!-- <p>지역 : 마포구</p>
-		        		<p>주소 : 서울시 논혀로 테헤란로 119</p>
-		        		<p>카테고리 : 식사</p>
-		        		<p>업체명 : 용순이네</p>
-		        		<p>대표 이미지</p>
-		        		<p>전화번호 : 02-1548-1548</p>
-		        		<p>영업시간 : 매일 00:00 ~ 01:00 연중무휴</p>
-		        		<p>가격정보 : </p> -->
 		        	</div>
 		     		<div class="col-md-1"></div>
 				  </div>
 			    </div>
 		        <!-- Modal footer -->
 		        <div class="modal-footer">
-		          <button type="button" class="btn btn-success">등록하기</button>
-		          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		          <button type="button" class="btn btn-success">수정</button>
+		          <button type="button" class="btn btn-secondary" data-dismiss="modal">삭제</button>
 		        </div>
 		        
 		      
@@ -273,8 +356,7 @@ function fn_modal(plaNo){
 						<a href="#" class="page-link" aria-label="Previous">
 							<span aria-hidden="true">&laquo;</span>
 						</a>
-					</li>
-					
+					</li>					
 					<li class="page-item"><a href="#" class="page-link">1</a></li>
 					<li class="page-item"><a href="#" class="page-link">2</a></li>
 					<li class="page-item"><a href="#" class="page-link">3</a></li>
