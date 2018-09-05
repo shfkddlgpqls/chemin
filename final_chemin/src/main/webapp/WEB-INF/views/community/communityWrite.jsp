@@ -5,9 +5,28 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <c:set value="${pageContext.request.contextPath }" var="path"/>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<script>
+var length=($('#upFile')[0].files.length);
 
+function fn_file() {
+		if(length>=4) {
+			alert("사진은 3개까지 등록가능합니다.");
+			return false;
+		}
+		var fm=document.communityFrm;
+		var fnm=fm.upFile;
+		var ext=fnm.value;
+		if(!(ext.substr(ext.length-3) == 'mp4' || ext.substr(ext.length-3) == 'jpg' || ext.substr(ext.length-3) == 'JPG' || ext.substr(ext.length-3) == 'PNG'))
+		{
+			alert("png/jpg 파일만 올릴 수 있습니다.");
+			return false;
+		}
+		return true;
+}
+
+</script>
 <section>
-<form name="communityFrm" action="${path }/community/communityWriteEnd.do" method="post" ectype="multipary/form-data">
+<form name="communityFrm" action="${path }/community/communityWriteEnd.do" method="post" onsubmit="return fn_file();" enctype="multipart/form-data">
    <div class="container" style=" box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
       <div class="row" style="margin-top:55px">
 
@@ -50,20 +69,6 @@
                    </div>
                 </div>
                 <br>
-                
-                <div class="row margin-bottom">
-                   <div class="col-md-2">
-                      <span>이미지</span>
-                   </div>
-                   <div class="col-md-10">
-                      <div class="input-group mb-3 middleSize" >    
-                            <div class="custom-file" >
-                                <input type="file" class="custom-file-input" name="upFile" id="upFile">
-                                <label class="custom-file-label" for="upFile1" >파일을 선택하세요</label>
-                            </div>                  
-                           </div>
-                   </div>
-                </div> 
 
                 <!-- <div class="row margin-bottom">
                    <div class="col-md-2">
@@ -130,18 +135,19 @@
                    </div>
                 </div>
                 
-                 <!-- <div class="row margin-bottom">
+                 <div class="row margin-bottom">
                    <div class="col-md-2">
                       <span>사진등록</span>
                    </div>
                    <div class="col-md-10">
                        <div class="form-group middleSize">
-                          <input id="file-demo" type="file" class="file" multiple=true data-preview-file-type="any"> 
+                          <input multiple="multiple" id="upFile" name="upFile" type="file" class="file" data-preview-file-type="any"/> 
+                          <p style="font-size:12px;">사진은 3개까지만 등록 가능합니다<p>
                      </div> 
       
                    </div>
-                </div> --> 
-                
+                </div>  
+           
                  <div class="row margin-bottom">
                    <div class="col-md-2">
                       <span>키워드</span>
@@ -152,14 +158,12 @@
                 </div> <br>
                 
                  <div class="margin-bottom" id="center">
-                   <input class="btn btn-primary" type="submit" value="등록하기"/>
+                   <input id="submit" class="btn btn-primary" type="submit" value="등록하기"/>
 
                 </div> 
              </div>
       </div>
    </div>
-   </form>>
+   </form>
 </section>
-
-
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
