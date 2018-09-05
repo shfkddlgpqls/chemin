@@ -40,7 +40,7 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/base/css/main.css">
-    
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/base/css/communityList.css">
     <!--fileLoad에 필요한 css  -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<link href="${pageContext.request.contextPath}/resources/vendor/file/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
@@ -85,26 +85,32 @@
             
             
             <!-- 세션에 로그인한 정보가 없으면 보여지게 -->
-            <%-- <c:if test="${memberLoggedIn==null }"> --%>
+            <c:if test="${memberLoggedIn==null }"> 
                 <li class="nav-item">
-           		  <a class="nav-link js-scroll-trigger" href="#">Login</a>
+           		  <a class="nav-link js-scroll-trigger" href="${path}/login/login.do">Login</a>
         	    </li>      
-            <%-- </c:if> --%>
+        	     <li class="nav-item">
+           		  <a class="nav-link js-scroll-trigger" href="${path}/member/memberEnroll.do">Join</a>
+        	    </li>     
+            </c:if> 
             
-            <%-- <c:if test="${memberLoggedIn!=null }"> --%>
+             <c:if test="${memberLoggedIn!=null&&memberLoggedIn.userId!='admin' }"> 
                <li class="nav-item">
            		  <a class="nav-link js-scroll-trigger" href="${path}/mypage/myOrderList.do">MyPage</a>
         	    </li> 
         	    <li class="nav-item">
-           		  <a class="nav-link js-scroll-trigger" href="#">LogOut</a>
+           		  <a class="nav-link js-scroll-trigger" href="${path }/login/memberlogout.do">LogOut</a>
         	    </li> 
-           <%--  </c:if>
-             --%>
+           </c:if>
              
+             <c:if test="${memberLoggedIn.userId=='admin'}"> 
              <li class="nav-item">
-           		  <a class="nav-link js-scroll-trigger" href="#">Admin</a>
+           		  <a class="nav-link js-scroll-trigger" href="${path}/admin/adminPage.do">Admin</a>
         	    </li> 
-            
+        	   <li class="nav-item">
+           		  <a class="nav-link js-scroll-trigger" href="${path }/login/memberlogout.do">LogOut</a>
+        	    </li>
+             </c:if>
           </ul>
         </div>
       </div>

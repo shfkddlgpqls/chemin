@@ -1,116 +1,125 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import='java.util.*,com.kh.chemin.community.model.vo.Attachment'%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set value="${pageContext.request.contextPath }" var="path"/>
-<jsp:include page="/WEB-INF/views/common/header.jsp"/> 
-
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>  
 <style>
-body {font-family: Arial, Helvetica, sans-serif;}
-div.main-menu{background-color:skyblue;width:100%;height:50px;}
-div.sidebar{background-color:white;display: block;width: 200px;height: auto;text-align:center;margin-left:5%;float:left;}
-div.com{height:1300px;width:100%;position:relative;margin-top:2%;}
-table tr td a#hashTag{background-color:#F6F6F6;width:auto;overflow:auto;color:black;}
-table.post{width:100%;height:40%; cellpadding:0; cellspacing:0; font-family: 'M PLUS Rounded 1c',sans-serif; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);}
-table tr td img.post-img{height:50px;width:50px;float:left;}
-table tr td img#myImg{position:relative;}
-table tr td img#list_icon{position:absolute;top:0.4%;left:2.4%;height:30px;width:30px;}
-#myImg {
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-#myImg:hover {opacity: 0.7;}
-
-/* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-}
-
-/* Modal Content (image) */
-.modal-content {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-}
-
-/* Caption of Modal Image */
-#caption {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-    text-align: center;
-    color: #ccc;
-    padding: 10px 0;
-    height: 150px;
-}
-
-/* Add Animation */
-.modal-content, #caption {    
-    -webkit-animation-name: zoom;
-    -webkit-animation-duration: 0.6s;
-    animation-name: zoom;
-    animation-duration: 0.6s;
-}
-
-@-webkit-keyframes zoom {
-    from {-webkit-transform:scale(0)} 
-    to {-webkit-transform:scale(1)}
-}
-
-@keyframes zoom {
-    from {transform:scale(0)} 
-    to {transform:scale(1)}
-}
-
-/* The Close Button */
-.close {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.close:hover,
-.close:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px){
-    .modal-content {
-        width: 100%;
-    }
-}
+table tr td img#list_icon{top:1.6%;left:2.4%;height:30px;width:30px;}
+table.post div#comList > div#inComment {width:100%;height:100px;}
 </style>
 
+<script type="text/javascript">
+/* 	 $(function(){
+		$(function(){
+	         $(".more-list").slice(0, 2).show(); // 최초 10개 선택
+	         $("#more-btn").click(function(e){ // Load More를 위한 클릭 이벤트e
+	         e.preventDefault();
+	         $(".more-list:hidden").slice(0, 14).show(); // 숨김 설정된 다음 10개를 선택하여 표시
+	         
+	          if($(".more-list:hidden").length == 0){ // 숨겨진 DIV가 있는지 체크
+	        	  //alert();
+	         } 
+	         
+	         });
+	      });
+	});  */
+/* 이미지 클릭하면 모달창 안에 이미지 뜨기 */
+$(function(){
+	var modal = document.getElementById('myModal');
+	var img = document.getElementById('list_pic');
+	var modalImg = document.getElementById("modalImg");
+	var captionText = document.getElementById("caption");
+	$('#list_pic').click(function(){
+	    modal.style.display = "block";
+	    modalImg.src = this.src;
+	    captionText.innerHTML = this.alt;
+	});
+	$("#close").click(function(){
+		 modal.style.display = "none";
+	});
+});
+
+/* 좋아요 작동안됨 */
+$(function(){
+	$("#heart").click(function(){
+		$(this).attr("src","https://icongr.am/jam/heart-f.svg?size=30&color=red");
+
+	});
+});
+
+/* 이미지 누르면 댓글창 뜨게 안됨 */
+/* function showComment() {
+	$('#viewhidden').click(function(){
+		if($('#comment').is(":visible")) {
+			$('#comment').slideUp();
+		}
+		else {
+			$("#comment").slideDown();
+		}
+	});
+} */
+
+/* ajax 댓글 등록하기 */
+ 
+/* function fn_comment(code) {
+	$.ajax({
+		type:'POST',
+		url : "${path}/community/addComment.do",
+		data : $("#comFrm").serialize(),
+		success : function(data) {
+			if(data=="success")
+			{
+				getCommentList(); //아래 함수임
+				$("#comWrite").val("");
+			}
+		},
+		error:function(request,status,error) {
+			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		}
+	});
+} */
+
+/* ajax 댓글 조회하기 */
+
+var i;
+function showComment(obj) {
+	var communityno=$(obj).data("no");
+	$.ajax({
+		type : 'GET',
+		url : "${path}/community/commentList.do?community_no="+communityno,
+		dataType : "json",
+		success : function(data) {
+			if(data.commentList.length > 0) {
+				 for(var i=0;i<data.commentList.length;i++){
+					$('#comList').append("<div id='inComment'><p style='margin-left:1%;'><br>"+data.commentList[i].WRITER+" "+data.commentList[i].COMMUNITYDATE+"</p><p style='background-color:#E7E7E7;border:2px solid #E7E7E7;padding:10px;border-radius:30px;margin-left:1%;'>"+data.commentList[i].CONTENT+"</p></div></div><br>");
+				};   
+			}
+		
+			else {
+				alert("등록된 댓글이 없습니다.");
+			}
+		}
+	});  
+}
+
+function moreList() {
+	$.ajax({
+		url : "${path}/community/communityList.do",
+		type : "POST",
+		dataType : "json",
+		
+	});
+}
 
 
-
+</script>
 <div class="main-menu"></div>
 <section>
-      <div class="community_list" style="position:relative; height:100%; visibility: visible;width:59%;margin-left:20%;">
-         <div>
-             <ul class="nav">
+		<div class="community_list" style="position:relative; height:100%; visibility: visible;width:59%;margin-left:20%;">
+			<div>
+				<ul class="nav">
                 <li class="nav-item">
                   <a class="nav-link" href="#top">전체보기</a>
                 </li>
@@ -129,95 +138,93 @@ table tr td img#list_icon{position:absolute;top:0.4%;left:2.4%;height:30px;width
                 <li class="nav-item">
                   <a class="nav-link" id="cleaning" href="#">청소</a>
                 </li>
+                 <input id="search" class="form-control" style="width:20%;">
+                 <button class="btn"><i class="fa fa-search"></i></button>
                 <button class="btn btn-outline-success" type="button" onclick="location.href='${path }/community/communityWrite.do'">글쓰기 
              </ul>
-             
-         </div>   
-         <div class="container">
-            <c:forEach items="${list}" var="c"> 
-            <table class="post" border="1" bordercolor="white">
-               <tr>
-                  <td rowspan="5" width="50%">
-                    
-                           <img id="myImg" alt="show" src="${path }/resources/upload/productImg/20180829_101.jpg">  
-                   <%--   <c:forEach items="${attList }" var="a">
-                        <c:if test="${c.COMMUNITYNO eq a.COMMUNITYNO }">
-                          <img id="list_icon" src="${path }/resources/upload/productImg/20180829_101.jpg">
-                        </c:if>
-                     </c:forEach> --%>
-                  </td>
-                  <td height="12%">
-                     <img src="${path }/resources/community/image/report_icon.gif" style="margin-left:87%;"/>
-                     <p>${c.WRITER }<br>
-                     ${c.COMMUNITYDATE}</p>
-                  </td>
-               </tr>
-               <tr>
-                  <td rowspan="2">
-                     <h3>${c.TITLE }</h3><br>
-                  <span style="font-size:20px;">${c.CONTENT }</span>
-                  </td>
-               </tr>
-               <tr>
-               </tr>
-               <tr>
-                  <td height="12%">
-                  <c:forTokens items="${c.HASHTAG }" delims="," var="ht">
-                     &nbsp<a id="hashTag" href="#hashTag">${ht }</a>&nbsp
-                  </c:forTokens>
-                  </td>
-               </tr>
-               <tr>
-                  <td height="15%">
-                     <img class="post-img" src="${path }/resources/community/image/comment_icon.JPG"/>
-                     <img class="post-img" src="${path }/resources/community/image/good_icon.JPG"/>
-                     <p class="post-thenumber" style="font-size:12px;padding-left:86%;">좋아요 몇개</p><br>
-                  </td>
-               </tr>
-            </table><br><br>
-         </c:forEach> 
-         
-      </div>
-       <div id="myModal" class="modal">
-              <span class="close">&times;</span> 
-              <img class="modal-content" id="img01">
-              <div id="caption"></div>
-         </div>
-      <div class="row" style="text-align:center;">
-         <button id="more-btn" class="btn btn-primary btn-lg">더보기</button>
-      </div> 
-      </div>
+			</div>	
+			<div class="container">
+				<c:forEach items="${list}" var="c"> 
+				<input type="hidden" id="community_no" name="community_no" value="${c.COMMUNITYNO }">
+				<table class="post" border="1" bordercolor="black">
+					<tr>
+						<td rowspan="5" width="50%">
+							<c:forEach items="${attList }" var="a">
+								<c:if test="${c.COMMUNITYNO eq a.COMMUNITYNO}"> 
+								   <c:forEach items="${fileCount }" var="fc">  
+								   		<c:if test="${fc.COMMUNITYNO eq a.COMMUNITYNO}">
+											<c:if test="${fc.COUNT > 1}">  
+									  			<img src="https://icongr.am/jam/pictures.svg?size=30&color=black">
+											</c:if>  
+										</c:if>
+									</c:forEach> 
+									<c:forTokens items="${a.RENAMEDFILENAME }" delims="." var="v" varStatus="status">
+										<c:if test="${status.last }">
+                                              <c:choose>
+                                                  <c:when test="${v eq 'mp4'}">
+                                                  <video controls="controls" width="560px" height="auto">
+                                                      <source class="list_pic" style="position:relative;float:left;top:0.1%;" alt="${c.TITLE }" src="${path }/resources/upload/community/${a.RENAMEDFILENAME}"/>
+                                                  </video>
+                                                  </c:when>
+                                                  <c:when test="${v eq 'jpg'}">
+                                                      <img class="list_pic" style="position:relative;float:left;top:0.1%;" alt="${c.TITLE }" src="${path }/resources/upload/community/${a.RENAMEDFILENAME}"> 					
+                                                  </c:when>
+                                              </c:choose>
+										</c:if>
+									</c:forTokens>
+								</c:if> 
+                            </c:forEach>
+						</td>
+						<td height="12%">
+							<img src="${path }/resources/community/image/report_icon.gif" style="margin-left:87%;"/>
+							<p>${c.WRITER }<br>
+							<fmt:formatDate value="${c.COMMUNITYDATE}" pattern="yyyy년  MM월  dd일"/></p>
+						</td>
+					</tr>
+					<tr>
+						<td rowspan="2">
+							<h3>${c.TITLE }</h3><br>
+						<span style="font-size:20px;color:#8C8C8C;">${c.CONTENT }</span>
+						</td>
+					</tr>
+					<tr>
+					</tr>
+					<tr>
+						<td height="12%">
+						<c:forTokens items="${c.HASHTAG }" delims="," var="ht">
+							&nbsp<a id="hashTag" href="#hashTag">${ht }</a>&nbsp
+						</c:forTokens>
+						</td>
+					</tr>
+					<tr>
+						<td height="13%">
+							<button type="button" id="showComment" class="btn btn-outline-light" data-no="${c.COMMUNITYNO }" onclick="showComment(this)">
+								<img class="post-img button" src="https://icongr.am/jam/message.svg" style="height:50px;width:50px;float:left;"/>
+							</button>
+							<button type="button" id="like" class="btn btn-outline-light" onclick="like()">
+								<img class="post-img" id="like_check" style="height:50px;width:50px;" src="https://icongr.am/jam/heart.svg?size=30">
+							</buttons>
+							<p class="post-thenumber" style="font-size:15px;float:right;">좋아요 ${c.LIKECOUNT}개</p><br>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" >
+							<div id="comment" style="height:90px;width:auto;">
+								<input type="text" class="form-control" id="comWrite" name="comWrite" placeholder="댓글을 입력하세요" style="width:85%;margin-top:3%;margin-left:5%;float:left;">
+								<a class="btn btn-primary" onclick="writeComment()" style="float:right;margin-top:3%;margin-right:2%;">등록</a>
+							</div>
+							<div id="comList" style="width:90%;height:auto;margin-left:5%;margin-right:2%;margin-bottom:2%;">
+							</div>
+						</td>
+					</tr>
+				</table><br><br>	
+				</c:forEach>
+		
+		
+		<!-- plus botton -->
+		<!-- <div class="row" style="text-align:center;">
+			<button id="more-btn" class="btn btn-primary btn-lg" onclick="moreList()">더보기</button>
+		</div>  -->
+		</div>
 </section>
-
-<!-- The Modal -->
-<div id="myModal" class="modal">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="img01">
-  <div id="caption"></div>
-</div>
-
-<script>
-// Get the modal
-var modal = document.getElementById('myModal');
-
-// Get the image and insert it inside the modal - use its "alt" text as a caption
-var img = document.getElementById('myImg');
-var modalImg = document.getElementById("img01");
-var captionText = document.getElementById("caption");
-img.onclick = function(){
-    modal.style.display = "block";
-    modalImg.src = this.src;
-    captionText.innerHTML = this.alt;
-}
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() { 
-    modal.style.display = "none";
-}
-</script>
-
-
-</html>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

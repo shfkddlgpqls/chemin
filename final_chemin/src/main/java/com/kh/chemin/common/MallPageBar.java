@@ -105,3 +105,4 @@ public class MallPageBar {
 	      return pageBar;
 	   }
 }
+
