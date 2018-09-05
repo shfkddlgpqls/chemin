@@ -13,7 +13,6 @@ public class Community {
 	private String community_title;
 	private String community_writer;
 	private String community_content;
-	@DateTimeFormat(pattern ="yyyy년 MM월 dd일")
 	private Date community_date;
 	private String community_hashTag;
 	

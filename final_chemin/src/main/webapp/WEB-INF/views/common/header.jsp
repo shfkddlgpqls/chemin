@@ -35,7 +35,7 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/base/css/main.css">
-    
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/base/css/communityList.css">
     <!--fileLoad에 필요한 css  -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<link href="${pageContext.request.contextPath}/resources/vendor/file/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
@@ -68,7 +68,7 @@
               <a class="nav-link js-scroll-trigger" href="${path }/map/mapView.do">Map</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="${path }/mall/detail.do">Mall</a>
+              <a class="nav-link js-scroll-trigger" href="${path }/community/NewFile.do">Mall</a>
             </li>
             <li class="nav-item">
              <a class="nav-link js-scroll-trigger" href="${path}/community/communityList.do">Good Tip</a>
