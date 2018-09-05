@@ -1,0 +1,22 @@
+.adminAtag:visited
+{
+  color:black;
+}
+    
+.adminAtag:hover
+{
+ 	color : #4374D9;
+}
+    
+ /*관리자페이지*/
+.admin
+{
+   padding-top: 10rem;
+  padding-bottom: calc(10rem - 56px);
+  background-image: url("https://cdn.pixabay.com/photo/2015/06/20/07/24/color-815552_960_720.png");
+  background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}   

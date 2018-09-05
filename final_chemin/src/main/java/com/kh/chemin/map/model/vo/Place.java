@@ -17,14 +17,14 @@ public class Place {
 	private String plaKeyword;
 	private String plaStamp;
 	private String plaKey;
-	private String plaDate;
+	private Date plaDate;
 	private char plaStatus;	
 	
 	public Place() {}
 
 	public Place(int plaNo, String userId, String plaArea, String plaCategory, String plaName, String orImg,
 			String reImg, String plaPhone, String plaAddr, String plaTime, String plaContent, String plaKeyword,
-			String plaStamp, String plaKey, String plaDate, char plaStatus) {
+			String plaStamp, String plaKey, Date plaDate, char plaStatus) {
 		super();
 		this.plaNo = plaNo;
 		this.userId = userId;
@@ -156,11 +156,11 @@ public class Place {
 		this.plaKey = plaKey;
 	}
 
-	public String getPlaDate() {
+	public Date getPlaDate() {
 		return plaDate;
 	}
 
-	public void setPlaDate(String plaDate) {
+	public void setPlaDate(Date plaDate) {
 		this.plaDate = plaDate;
 	}
 

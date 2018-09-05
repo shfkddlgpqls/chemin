@@ -118,7 +118,7 @@
         	    </li>     
             </c:if> 
             
-             <c:if test="${memberLoggedIn!=null }"> 
+             <c:if test="${memberLoggedIn!=null&&memberLoggedIn.userId!='admin' }"> 
                <li class="nav-item">
            		  <a class="nav-link js-scroll-trigger" href="${path}/mypage/myOrderList.do">MyPage</a>
         	    </li> 
@@ -127,11 +127,14 @@
         	    </li> 
            </c:if>
              
-             
+             <c:if test="${memberLoggedIn.userId=='admin'}"> 
              <li class="nav-item">
-           		  <a class="nav-link js-scroll-trigger" href="#">Admin</a>
+           		  <a class="nav-link js-scroll-trigger" href="${path}/admin/adminPage.do">Admin</a>
         	    </li> 
-            
+        	   <li class="nav-item">
+           		  <a class="nav-link js-scroll-trigger" href="${path }/login/memberlogout.do">LogOut</a>
+        	    </li>
+             </c:if>
           </ul>
         </div>
       </div>

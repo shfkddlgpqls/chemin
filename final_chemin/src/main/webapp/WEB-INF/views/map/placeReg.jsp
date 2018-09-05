@@ -356,7 +356,7 @@ function validate(){
 			   						<option value="08:00">12:00</option>
 			   						<option value="09:00">13:00</option>
 			   					</select>
-			   					<input class="form-control" style="width:25%" name="subcON" type="text" placeholder="ex)1월 1일 휴무"/>
+			   					<input class="form-control" style="width:25%" name="subContent" type="text" placeholder="ex)1월 1일 휴무"/>
 							</div>			    		
 		    		</div>
 		    		
