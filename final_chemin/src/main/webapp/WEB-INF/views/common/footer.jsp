@@ -26,30 +26,9 @@
  
      <script src="<c:url value="/resources/vendor/jquery-easing/jquery.easing.min.js" />"></script>
     <script src="<c:url value="/resources/vendor/scrollreveal/scrollreveal.min.js" />"></script>
-    
-    <!-- 마이페이지 js -->
-    <script src="<c:url value="/resources/base/js/mypage.js" />"></script>
 
     <!-- Custom scripts for this template -->
     <script src="<c:url value="/resources/base/js/main.js" />"></script>
-    
-    <!-- mall js -->
-    <script src="<c:url value="/resources/mall/vendor/jquery/jquery-3.2.1.min.js"/>"></script>
-    <script src="<c:url value="/resources/mall/vendor/animsition/js/animsition.min.js"/>"></script>
-    <!--===============================================================================================-->
-    <script src="<c:url value="/resources/mall/vendor/bootstrap/js/popper.js"/>"></script>
-    <script src="<c:url value="/resources/mall/vendor/bootstrap/js/bootstrap.min.js"/>"></script>
-    
-    <!--===============================================================================================-->
-    <script src="<c:url value="/resources/mall/vendor/slick/slick.min.js"/>"></script>
-    <script src="<c:url value="/resources/mall/js/slick-custom.js"/>"></script>
-    <!--===============================================================================================-->
-    <script src="<c:url value="/resources/mall/vendor/countdowntime/countdowntime.js"/>"></script>
-    <!--===============================================================================================-->
-    <script src="<c:url value="/resources/mall/vendor/lightbox2/js/lightbox.min.js"/>"></script>
-    <!--===============================================================================================-->
-    <script src="<c:url value="/resources/mall/vendor/sweetalert/sweetalert.min.js"/>"></script>
-    <script src="<c:url value="/resources/mall/js/mall.js"/>"></script>
 
   </body>
 

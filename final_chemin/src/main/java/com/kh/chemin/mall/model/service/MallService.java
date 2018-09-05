@@ -7,10 +7,12 @@ import com.kh.chemin.mall.model.vo.Product;
 
 public interface MallService {
 
-	List<Map<String, String>> selectMallList(int cPage, int numPerPage);
+	List<Product> selectCateList(Map<String, Object> map, int cPage, int numPerPage);
 
-	List<Product> selectCateList(Map<String, Object> map);
+	int selectCateCount(Map<String, Object> map);
 
-	int selectProductCount();
+	Product selectProduct(int pno);
+
+	int insertCart(Map<String, Object> map);
 
 }

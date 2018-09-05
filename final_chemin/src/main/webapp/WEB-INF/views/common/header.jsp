@@ -52,30 +52,6 @@
 	<!-- Sweet alert -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
-	<!-- mall css -->
-    <link rel="stylesheet" type="text/css" href="${path }/resources/mall/fonts/themify/themify-icons.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/fonts/elegant-font/html-css/style.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/animate/animate.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/css-hamburgers/hamburgers.min.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/animsition/css/animsition.min.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/select2/select2.min.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/daterangepicker/daterangepicker.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/slick/slick.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/lightbox2/css/lightbox.min.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/noui/nouislider.min.css">
-    <link rel="stylesheet" type="text/css" href="${path }/resources/mall/css/util.css">
-    <link rel="stylesheet" type="text/css" href="${path }/resources/mall/css/mall.css">
 
   </head>
 
