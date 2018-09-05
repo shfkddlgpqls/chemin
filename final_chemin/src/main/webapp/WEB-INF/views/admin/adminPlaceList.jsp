@@ -3,26 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
-<c:set value="${pageContext.request.contextPath }" var="path"/>
-
+<c:set var="path" value="<%=request.getContextPath()%>"/>
+  
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<style>
-/* .scale {
-  transform: scale(1);
-  -webkit-transform: scale(1);
-  -moz-transform: scale(1);
-  -ms-transform: scale(1);
-  -o-transform: scale(1);
-  transition: all 0.3s ease-in-out;   
-}
-.scale:hover {
-  transform: scale(1.2);
-  -webkit-transform: scale(1.2);
-  -moz-transform: scale(1.2);
-  -ms-transform: scale(1.2);
-  -o-transform: scale(1.2);
-} */
 
+<!-- admin css-->
+    <link rel="stylesheet" type="text/css" href="${path}/resources/base/css/adminPage.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    
+<style>
 .gallery{
   width: 100%;
   max-width: 960px;
@@ -87,11 +76,14 @@ tr{
 height:50px;
 }
 </style>
+
 <script>
 var count=0;
 function fn_modal(obj){	
 	var plaNo = $(obj).data("no"); 
 	
+	
+	 plaDate.innerHTML = $(obj).data("date"); 
 	plaName.innerHTML = $(obj).data("name"); 
 	var address = $(obj).data("address").split("/",2);
  	plaPhone.innerHTML = $(obj).data("phone");
@@ -132,7 +124,7 @@ function fn_modal(obj){
 	
 	
 	$.ajax({
-		url:"${path}/mypage/myPlaDetailList.do",
+		url:"${path}/admin/adminPlaDetailList.do",
 		data:{plaNo:plaNo},
 		dataType:"json",
 		success:function(data)
@@ -154,14 +146,12 @@ function fn_modal(obj){
 	count++;
 }
 </script>
-<!-- 마이페이지 css-->
-    <link rel="stylesheet" type="text/css" href="${path}/resources/base/css/mypage.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-	
-	<div class="mypage">
-		<h2 class="text-center">마이페이지 입니당</h2>
+    
+	<div class="admin">
+		<h2 class="text-center">관리자 페이지 </h2>
 	</div>
-			
+		
+	
 	<div class="container">
 		<div class="row">
 			
@@ -169,19 +159,16 @@ function fn_modal(obj){
 					<hr>
 						<ul class="nav justify-content-center">
 						    <li class="nav-item">
-						      <strong><a class="nav-link mypageAtag" href="${path }/mypage/myOrderList.do">주문 목록</a></strong>
+						      <strong><a class="nav-link adminAtag" href="${path }/admin/adminPage.do">회원관리</a></strong>
 						    </li>
 						    <li class="nav-item">
-						      <strong><a class="nav-link mypageAtag" href="${path }/mypage/myBoardList.do">게시글 관리</a></strong>
+						      <strong><a class="nav-link adminAtag" href="${path }/admin/adminPlaceList.do">장소 요청 내역</a></strong>
 						    </li>
 						    <li class="nav-item">
-						      <strong><a class="nav-link mypageAtag" href="${path }/mypage/myShoppingCart.do">장바구니</a></strong>
+						      <strong><a class="nav-link adminAtag" href="${path }/admin/adminProductReg.do">물품등록</a></strong>
 						    </li>
 						    <li class="nav-item">
-						   		<strong><a class="nav-link mypageAtag" href="${path }/mypage/myWishList.do">찜 목록</a></strong>
-						    </li>
-						    <li class="nav-item">
-						   		<strong><a class="nav-link mypageAtag" href="${path }/mypage/myPlaceList.do?userId=${memberLoggedIn.userId}">장소 등록 내역</a></strong>
+						   		<strong><a class="nav-link adminAtag" href="${path }/admin/adminProductList.do">물품관리</a></strong>
 						    </li>
 						  </ul>
 						  <hr>
@@ -191,20 +178,20 @@ function fn_modal(obj){
 		
 		<section>
 		<div class="container">
-		<div class="row" style="margin-left:auto; margin-right:auto; width:100%">
+		<div class="row" style="margin-left:auto; margin-right:auto; width:100%">	
 		  	<div>
-		  		<h3>장소 등록 내역</h3>
+		  		<h3>장소 요청 내역</h3>
 		  		<br>
 		  	</div>		
 		  	
-	         <div class="row" style="margin-left:auto;margin-right:auto;width:95%">
-	         	<c:forEach items="${list}" var="p">
+		  	 <div class="row" style="margin-left:auto;margin-right:auto;width:95%">
+	         	<c:forEach items="${plaList}" var="p">
 				<div class="card shadow gallery-item" style="width:30%;margin-right:3%">
 				
 				  
 				    <div class="gallery-item-image">
 				    <img class="card-img-top scale" src="${path}/resources/upload/place/main/${p.REIMG}" alt="Card image" style="width:100%"> 
-				    <%-- <img class="card-img-top" src="${path}/resources/mall/img/cake.jpg" alt="Card image" style="width:100%"> --%>
+				    
 				    </div>
 				    <div class="gallery-item-description">
 				      <h4 class="card-title"><strong>${p.PLANAME}</strong></h4>
@@ -220,11 +207,11 @@ function fn_modal(obj){
 				      </p>
 				      <!-- plaNo값에 해당되는 attach와 price 가격정보를 가져오기 위해 button name값에 장소번호를 넣어준다.-->
 				      
-				     <button type="button" class="btn btn-primary plaBtn" onclick="fn_modal(this)" data-no='${p.PLANO }' data-name='${p.PLANAME}' data-address='${p.PLAADDR }' 
+				     <button type="button" class="btn btn-primary plaBtn" onclick="fn_modal(this)" data-no='${p.PLANO }' data-name='${p.PLANAME}' data-address='${p.PLAADDR }' data-date='${p.PLADATE}'
 				     data-category='${p.PLACATEGORY}' data-area='${p.PLAAREA}'	data-phone='${p.PLAPHONE }' data-content='${p.PLACONTENT}' data-time='${p.PLATIME}' data-keyword='${p.PLAKEYWORD}'
 				     data-toggle="modal" data-target="#place_modal" style="float:right">상세보기</button>
 				     <c:if test="${p.PLASTATUS == 'N'}">
-				     <button type="button" class="btn btn-info"  style="float:right;margin-right:1%">승인요청중</button>  
+				     <button type="button" class="btn btn-info"  style="float:right;margin-right:1%">승인하기</button>  
 				     </c:if>
 				      <c:if test="${p.PLASTATUS == 'Y'}">
 				     <button type="button" class="btn btn-success"  style="float:right;margin-right:1%">승인완료</button>  
@@ -257,6 +244,11 @@ function fn_modal(obj){
 		           <div class="col-md-1"></div>
 		        	<div class="col-md-10">
 		        	   <table style="width:100%">
+		        	   	  <tr>
+		        	   	  	<td style="width:15%">등록일</td>
+		        	   	  	<td>: </td>
+		        	   	  	<td id="plaDate"></td>	
+		        	   	  </tr>
 		        	   	  <tr>
 		        	   	  	<td style="width:15%">업체명</td>
 		        	   	  	<td>: </td>
@@ -347,6 +339,8 @@ function fn_modal(obj){
 		  </div>
 		  <!-- 리뷰하기 모달 끝 -->
 </section>
+		
+		
 
 	<div class="text-center">
 				<ul class="pagination justify-content-center" >
@@ -354,7 +348,8 @@ function fn_modal(obj){
 						<a href="#" class="page-link" aria-label="Previous">
 							<span aria-hidden="true">&laquo;</span>
 						</a>
-					</li>					
+					</li>
+					
 					<li class="page-item"><a href="#" class="page-link">1</a></li>
 					<li class="page-item"><a href="#" class="page-link">2</a></li>
 					<li class="page-item"><a href="#" class="page-link">3</a></li>
@@ -368,4 +363,5 @@ function fn_modal(obj){
 					</li>
 				</ul>
  	 	</div>
+	
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>  
