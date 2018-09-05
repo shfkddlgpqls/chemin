@@ -226,10 +226,10 @@ function validate(){
 			    		</div>
 			    		<div class="col-md-10">
 			    			 <select class="form-control smallSzie"  name="plaArea">
-			   						<option value="ma">마포구</option>
-			   						<option value="kang">강남구</option>
-			   						<option value="seo">서초구</option>
-			   						<option value="song">송파구</option>
+			   						<option value="마포구">마포구</option>
+			   						<option value="강남구">강남구</option>
+			   						<option value="서초구">서초구</option>
+			   						<option value="송파구">송파구</option>
 			   					</select> 
 			    		</div>
 		    		</div>
@@ -241,11 +241,11 @@ function validate(){
 			    		</div>
 			    		<div class="col-md-10">
 			    			 <select class="form-control smallSzie"  name="plaCategory">
-			   						<option value="eat">식사</option>
-			   						<option value="alcohol">술</option>
-			   						<option value="mic">노래방</option>
-			   						<option value="sports">스포츠</option>
-			   						<option value="movie">영화/공연</option>
+			   						<option value="식사">식사</option>
+			   						<option value="술">술</option>
+			   						<option value="노래방">노래방</option>
+			   						<option value="스포츠">스포츠</option>
+			   						<option value="영화/공연">영화/공연</option>
 			   					</select> 
 			    		</div>
 		    		</div>
@@ -328,13 +328,35 @@ function validate(){
 			   						<option value="00:00">00:00</option>
 			   						<option value="01:00">01:00</option>
 			   						<option value="02:00">02:00</option>
+			   						<option value="03:00">03:00</option>
+			   						<option value="04:00">04:00</option>
+			   						<option value="05:00">05:00</option>
+			   						<option value="06:00">06:00</option>
+			   						<option value="07:00">07:00</option>
+			   						<option value="08:00">08:00</option>
+			   						<option value="09:00">09:00</option>
+			   						<option value="06:00">10:00</option>
+			   						<option value="07:00">11:00</option>
+			   						<option value="08:00">12:00</option>
+			   						<option value="09:00">13:00</option>
 			   					</select>
 			   					<select class="form-control" id="time"  name="endTime">
-			   						<option value="00:00">01:00</option>
-			   						<option value="01:00">02:00</option>
+			   						<option value="00:00">00:00</option>
+			   						<option value="01:00">01:00</option>
 			   						<option value="02:00">02:00</option>
+			   						<option value="03:00">03:00</option>
+			   						<option value="04:00">04:00</option>
+			   						<option value="05:00">05:00</option>
+			   						<option value="06:00">06:00</option>
+			   						<option value="07:00">07:00</option>
+			   						<option value="08:00">08:00</option>
+			   						<option value="09:00">09:00</option>
+			   						<option value="06:00">10:00</option>
+			   						<option value="07:00">11:00</option>
+			   						<option value="08:00">12:00</option>
+			   						<option value="09:00">13:00</option>
 			   					</select>
-			   					<input class="form-control" style="width:25%" name="subcON" type="text" placeholder="ex)1월 1일 휴무"/>
+			   					<input class="form-control" style="width:25%" name="subContent" type="text" placeholder="ex)1월 1일 휴무"/>
 							</div>			    		
 		    		</div>
 		    		
