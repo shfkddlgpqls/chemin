@@ -92,10 +92,5 @@ public class Community {
 				+ ", community_title=" + community_title + ", community_writer=" + community_writer
 				+ ", community_content=" + community_content + ", community_date=" + community_date
 				+ ", community_hashTag=" + community_hashTag + "]";
-	}
-
-	
-
-	
-	
+	}	
 }

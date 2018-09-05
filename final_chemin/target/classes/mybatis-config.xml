@@ -4,7 +4,17 @@
 <typeAliases>
 		<typeAlias type="com.kh.chemin.community.model.vo.Community" alias="community"/>
 		<typeAlias type="com.kh.chemin.common.StringArrayType" alias="strArr"/>
+		<typeAlias type="com.kh.chemin.map.model.vo.Place" alias="place"/>
+		<typeAlias type="com.kh.chemin.map.model.vo.PlaceAttachment" alias="placeAttach"/>
+		<typeAlias type="com.kh.chemin.map.model.vo.PlaceMenu" alias="placeMenu"/>
+		<typeAlias type="com.kh.chemin.member.model.vo.Member" alias="member"/>
+		<typeAlias type="com.kh.chemin.mall.model.vo.Product" alias="product"/>
 		<typeAlias type="com.kh.chemin.community.model.vo.Attachment" alias="attachment"/>
 		<typeAlias type="com.kh.chemin.community.model.vo.Comment" alias="comment"/>
 </typeAliases>
+ 
+
 </configuration>
+
+
+
