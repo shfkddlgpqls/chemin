@@ -9,8 +9,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +31,8 @@ public class MallController
 {
 	@Autowired
 	MallService service;
+	
+	private Logger logger = LoggerFactory.getLogger(MallController.class);
 	
 	// 메인 쇼핑몰로 이동 (전체 상품 가져오기)
 	@RequestMapping("/mall/mainMall.do")
@@ -96,22 +101,18 @@ public class MallController
 		out.print(jsonArr);
 	}
 	
-	// 상품 상세화면 이동
-	@RequestMapping("/mall/detail.do")
-	public ModelAndView mallDetail(ModelAndView mv, int no)
-	{
-		//해당 상품 리스트 보내기 
-		List<Map<String, String>> map = service.selectDetail(no);
-		
-		mv.addObject("detailsList", map);
-		mv.setViewName("mall/productDetail");
-		
-	   return mv;
-	}
+	
+	
 	
 	// 장바구니 이동
 	@RequestMapping("/mall/cartList.do")
-	public String cartList() {
+	public String cartList(HttpServletRequest request) 
+	{
+		int pno = Integer.parseInt(request.getParameter("pno"));
+		int amount = Integer.parseInt(request.getParameter("amount"));
+		String userId = request.getParameter("userId");
+		
+		
 		return "mall/cartList";
 	}
 	

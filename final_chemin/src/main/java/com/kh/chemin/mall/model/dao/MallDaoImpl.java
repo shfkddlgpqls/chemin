@@ -35,6 +35,23 @@ public class MallDaoImpl implements MallDao {
 	{
 		return sqlSession.selectList("mall.selectDetail", no);
 	}
+
+	@Override
+	 public Product selectProduct(SqlSessionTemplate sqlSession, int pno) {
+	      return sqlSession.selectOne("mall.selectProduct", pno);
+	 }
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 	
 	
 
