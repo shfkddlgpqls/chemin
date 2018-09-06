@@ -80,10 +80,10 @@ height:50px;
 <script>
 
 function fn_modal(obj){	
-	var plaNo = $(obj).data("no"); 
-	
+	var plaNo = $(obj).data("no"); 	
 	
 	 plaDate.innerHTML = $(obj).data("date"); 
+	 plaDate.innerHTML += '<input type="hidden" name="subNo" value='+plaNo+'>';
 	plaName.innerHTML = $(obj).data("name"); 	
  	plaPhone.innerHTML = $(obj).data("phone");
 	plaArea.innerHTML = $(obj).data("area");
@@ -171,8 +171,26 @@ function fn_modal(obj){
 		}
 		
 	})
+
+}
+
+function fn_delete(){
+	var plaNo = $('[name=subNo]').val();
+	swal({
+		  title: "정말로 삭제하시겠습니까?",
+		  text: "삭제 시 다시 내용을 되돌리실 수 없습니다 ㅠㅠ",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then((willDelete) => {
+		  if (willDelete) {
+			  location.href = "${path}/admin/adminPlaceDelete.do?plaNo="+plaNo+"&userId="+'${memberLoggedIn.userId}';
+		  } else {
+		    
+		  }
+		});
 	
-	count++;
 }
 </script>
     
@@ -355,7 +373,7 @@ function fn_modal(obj){
 		        <!-- Modal footer -->
 		        <div class="modal-footer">
 		          <button type="button" class="btn btn-success">수정</button>
-		          <button type="button" class="btn btn-secondary" data-dismiss="modal">삭제</button>
+		         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="fn_delete()">삭제</button>
 		        </div>
 		        
 		      

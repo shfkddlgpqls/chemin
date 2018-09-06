@@ -94,7 +94,6 @@ function fn_modal(obj){
 	var userId = $(obj).data("userId"); 
 	
 	plaDate.innerHTML = $(obj).data("date");
-	plaDate.innerHTML += '<input type="hidden" name="subUserId" value='+userId+'>';
 	plaDate.innerHTML += '<input type="hidden" name="subNo" value='+plaNo+'>';
 	plaName.innerHTML = $(obj).data("name"); 
  	plaPhone.innerHTML = $(obj).data("phone");

@@ -38,4 +38,10 @@ public class AdminServiceImpl implements AdminService {
 		return menuList;
 	}
 
+	@Override
+	public int placeDelete(int plaNo) {
+		int result = dao.placeDelete(sqlSession,plaNo);
+		return result;
+	}
+
 }

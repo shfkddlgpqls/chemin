@@ -10,4 +10,5 @@ public interface AdminService {
 	List<Place> adminPlaceList();
 	List<PlaceAttachment> selectAttachList(int plaNo);
 	List<PlaceMenu> selectMenuList(int plaNo);
+	int placeDelete(int plaNo);
 }

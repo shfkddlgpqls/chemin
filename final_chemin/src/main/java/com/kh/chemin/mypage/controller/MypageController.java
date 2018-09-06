@@ -110,7 +110,7 @@ public class MypageController
 		mv.addObject("msg", msg);
 		mv.addObject("loc", loc);
 		mv.addObject("result", result);
-		mv.setViewName("common/deleteMsg");
+		mv.setViewName("common/msg");
 		return mv;
 	}
 	

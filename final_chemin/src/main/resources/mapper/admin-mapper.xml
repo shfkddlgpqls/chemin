@@ -16,4 +16,8 @@
 	<select id="selectMenuList" parameterType="_int" resultType="placeMenu">
 		select*from pla_menu where PLANO = #{plaNo}
 	</select>
+	
+	<delete id="placeDelete" parameterType="_int">
+	   delete place where PLANO = #{plaNo}
+	</delete>
 </mapper>

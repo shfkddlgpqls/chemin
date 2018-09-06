@@ -27,4 +27,9 @@ public class AdminDaoImpl implements AdminDao {
 		return sqlSession.selectList("admin.selectMenuList",plaNo);
 	}
 
+	@Override
+	public int placeDelete(SqlSessionTemplate sqlSession, int plaNo) {
+		return sqlSession.delete("admin.placeDelete",plaNo);
+	}
+
 }

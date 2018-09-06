@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.chemin.admin.model.service.AdminService;
@@ -69,5 +70,28 @@ public class AdminController {
 
 		jsonStr = mapper.writeValueAsString(map);
 		return jsonStr;
+	}
+	
+	@RequestMapping("/admin/adminPlaceDelete.do")
+	public ModelAndView placeDelete(int plaNo,String userId)
+	{
+		int result = service.placeDelete(plaNo);
+				
+		String msg="";
+		String loc="";
+		
+		if(result>0) {
+			msg="장소가 삭제되었습니다.";
+		}else {
+			msg="장소가 삭제 되지 않았습니다.";
+		}
+		loc="/mypage/myPlaceList.do?userId="+userId;
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		mv.addObject("result", result);
+		mv.setViewName("common/msg");
+		return mv;
 	}
 }
