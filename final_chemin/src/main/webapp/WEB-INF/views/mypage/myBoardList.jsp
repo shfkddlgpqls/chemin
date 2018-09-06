@@ -181,66 +181,75 @@
 
 		</div> 	
 	</div>
-	<!-- Q&A 수정 하기 모달 -->
-		<!-- The Modal -->
-		  <div class="modal fade" id="q_a_edit">
-		    <div class="modal-dialog modal-dialog-centered">
-		      <div class="modal-content">
-		      
-		        <!-- Modal Header -->
-		        <div class="modal-header">
-		          <h4 class="modal-title">문의하기</h4>
-		          <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        </div>
-		        
-		        <!-- Modal body -->
-		        <div class="modal-body">
-		         	<div class="form-group row">
-		      		 <div class="input-group col-6">
-					      <div class="input-group-prepend">
-					        <span class="input-group-text">제품 코드 </span>
-					      </div>
-					      <input type="text" class="form-control input-sm" placeholder="제품 코드" name="goods_code">
-					  </div>
-					  
-					  <div class="input-group col-6">
-					      <div class="input-group-prepend">
-					        <span class="input-group-text">제품 이름</span>
-					      </div>
-					      <input type="text" class="form-control input-sm" placeholder="제품 이름" name="goods_name">
-					  </div>
-		         </div>
-		         
-		         <div class="col-12"> 
-		        <label> 문의 유형 : </label> 
-				      <select class="form-control" id="qna_option">
-				        <option>상품 문의 </option>
-				        <option>교환/환불</option>
-				        <option>반품</option>
-				        <option>기타</option>
-				      </select>
-				      <br>
-		         </div>
-		     
-		         
-		         <div class="col-12">
-		         	<div class="form-group">
-					  <textarea class="form-control" rows="5" id="review_content" placeholder="문의 내용을 입력해주세요"></textarea>
-					</div>
-		         </div>
-		         
-		        </div>
-		        
-		        <!-- Modal footer -->
-		        <div class="modal-footer">
-		          <button type="button" class="btn btn-success">등록하기</button>
-		          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		        </div>
-		        
-		      </div>
-		    </div>
-		  </div>
-		  <!-- Q&A 수정 하기 모달 끝 -->
+	<!-- 문의하기 모달 시작 -->
+        <!-- The Modal -->
+        <div class="modal fade" id="question_modal">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">문의하기</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              
+              <!-- Modal body -->
+              <div class="modal-body">
+                  <div class="form-group row">
+                   <div class="input-group col-6">
+                     <div class="input-group-prepend">
+                       <span class="input-group-text">제품 코드 </span>
+                     </div>
+                     <input type="text" class="form-control input-sm" placeholder="제품 코드" name="goods_code" readonly>
+                 </div>
+                 
+                 <div class="input-group col-6">
+                     <div class="input-group-prepend">
+                       <span class="input-group-text">제품 이름</span>
+                     </div>
+                     <input type="text" class="form-control input-sm" placeholder="제품 이름" id="goods_name" name="goods_name" readonly>
+                 </div>
+               </div>
+               
+            <div class="row">
+               <div class="col-md-6"> 
+                  <select class="form-control" id="qna_option" onchange="fn_selectbox();">
+                  
+                    <option value="1">상품 문의 </option>
+                    <option value="2">교환/환불</option>              
+                    <option value="3">반품</option>
+                    <option value="4">기타</option>
+                  </select>
+                  
+          
+               </div>
+           
+           <div class="col-md-6">
+                  <div class="form-group">
+                <input type="text" class="form-control" placeholder="좌측 문의유형 선택 " id="board_name" name="board_name" readonly>
+               </div>
+               </div>
+               
+               </div>
+               
+               <div class="col-12">
+                  <div class="form-group">
+                 <textarea class="form-control" rows="5" id="review_content" placeholder="문의 내용을 입력해주세요"></textarea>
+               </div>
+               </div>
+               
+              </div>
+              
+              <!-- Modal footer -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success">등록하기</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <!-- 문의하기 모달 끝 -->
 		  
 	
 		<!-- 리뷰 수정 하기 모달 -->

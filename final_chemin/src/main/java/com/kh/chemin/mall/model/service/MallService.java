@@ -22,4 +22,5 @@ public interface MallService {
 
 	List<Map<String, Object>> selectCartList(String userId);
 
+
 }

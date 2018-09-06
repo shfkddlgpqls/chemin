@@ -61,4 +61,12 @@ public class MallServiceImpl implements MallService {
 		return dao.selectCartList(sqlSession, userId);
 	}
 
+	
+	
+	
+	
+	
+
+
+	
 }

@@ -54,4 +54,12 @@ public class MallDaoImpl implements MallDao {
 		return sqlSession.selectList("mall.selectCartList", userId);
 	}
 
+
 }
+
+	
+	
+	
+	
+	
+

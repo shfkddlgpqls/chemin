@@ -24,4 +24,8 @@ public interface MallDao {
 
 	List<Map<String, Object>> selectCartList(SqlSessionTemplate sqlSession, String userId);
 
+	
+
+	
+
 }

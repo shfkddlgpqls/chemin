@@ -25,77 +25,81 @@
         });
     </script>        
  -->
-
+ 
  <script>
  
  // 상품 정보를 장바구니에 넘기기 위해서 해당 상품 정보 전달 
-	$(function () {
-		$(".cart").click(function(){
-			var amount =  $("#quantity_value").text();  
-			var pno = $("#pNo").val();
-			var pName = $("#goodsName").text();
-			var userId = $("input:hidden[name=userId]").val();
-			
-			$.ajax({
-				type:"get",
-				url:"${path}/mall/cartAdd.do",
-				data:{pno:pno,amount:amount,userId:userId},
-				datatype:"json",
-				success:function(data){
-					if(data==1){
-						swal
-						({
-							title: "["+pName+"] 추가",
-						    text: "장바구니에 상품이 담겼습니다. 확인하러 go?!",
-						    icon: "success",
-						    buttons: true,
-						    dangerMode: true,
-						})
-						.then((willDelete) => {
-							if (willDelete) {
-								location.href="${path}/mall/cartList.do"; 
-							} else {
-								return;
-							}
-						});
-					} else if(data==0){
-						swal("["+pName+"] 추가 실패", "로그인 후 이용가능합니다.", "error");
-					} else {
-						/* 상품이 이미 들어있는 경우 */
-						swal
-						({
-							title: "["+pName+"] 존재",
-						    text: "장바구니에 상품이 이미 존재합니다. 확인하러 go?!",
-						    icon: "warning",
-						    buttons: true,
-						    dangerMode: true,
-						})
-						.then((willDelete) => {
-							if (willDelete) {
-								location.href="${path}/mall/cartList.do"; 
-							} else {
-								return;
-							}
-						});
-					}
-				},
-   				error:function(jxhr,textStatus,error){
-   					console.log("productDetail ajax 실패 : "+jxhr+" "+textStatus+" "+error);
-   				}
-			});
-		});   
-	});
+ $(function () 
+{
+	 fn_qna(1); 
+	 fn_review(1);	
+	 
+    $(".cart").click(function(){
+       var amount =  $("#quantity_value").text();  
+       var pno = $("#pNo").val();
+       var pName = $("#goodsName").text();
+       var userId = $("input:hidden[name=userId]").val();
+       
+       $.ajax({
+          type:"get",
+          url:"${path}/mall/cartAdd.do",
+          data:{pno:pno,amount:amount,userId:userId},
+          datatype:"json",
+          success:function(data){
+             if(data==1){
+                swal
+                ({
+                   title: "["+pName+"] 추가",
+                    text: "장바구니에 상품이 담겼습니다. 확인하러 go?!",
+                    icon: "success",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                   if (willDelete) {
+                      location.href="${path}/mall/cartList.do"; 
+                   } else {
+                      return;
+                   }
+                });
+             } else if(data==0){
+                swal("["+pName+"] 추가 실패", "장바구니에 상품 추가를 실패하였습니다.(로그인 후 이용하세용)", "error");
+             } else {
+                /* 상품이 이미 들어있는 경우 */
+                swal
+                ({
+                   title: "["+pName+"] 존재",
+                    text: "장바구니에 상품이 이미 존재합니다. 확인하러 go?!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                   if (willDelete) {
+                      location.href="${path}/mall/cartList.do"; 
+                   } else {
+                      return;
+                   }
+                });
+             }
+          },
+             error:function(jxhr,textStatus,error){
+                console.log("productDetail ajax 실패 : "+jxhr+" "+textStatus+" "+error);
+             }
+       });
+    });   
+ });
    
    //찜 alert
    function fn_wishList() 
    {
-      alert("해당 상품이 마이페이지 - 찜 목록에 정상적으로 담겼습니다. ");
+      alert("해당 상품이 마이페이지 - 찜 목록에 정상적으로 담겼습니다. ");   
    };
    
    function fn_pwCheck() 
    {
-         var dbPW = $("pNo").val();
-         alert(dbPW);
+   		var dbPW = $("pNo").val();
+   		alert(dbPW);
    };
    
    
@@ -110,12 +114,16 @@
       }
        else if(target==2)
       {
-          $("#board_name").val("교환/환불 문의 글입니다.");
+          $("#board_name").val("교환 문의 글입니다.");
       }
        else if(target==3)
       {
-          $("#board_name").val("반품 문의 글입니다.");
+          $("#board_name").val("환불 문의 글입니다.");
       }
+       else if(target==4)
+       {
+           $("#board_name").val("반품 문의 글입니다.");
+       }
        else 
       {
           $("#board_name").val("기타 문의 글입니다.");
@@ -125,46 +133,104 @@
    //글 작성시 설정한 비밀번호 확인 창 띄워주기(pno에서 비밀번호로 바꿔주기)
    function fn_inputPw() 
    {
-      var pno = $("#pNo").val();
-     
-        $("#pwCheck").modal();
-      $('#pw_db').val(pno);            
+	   var pno = $("#pNo").val();
+	  
+	  	$("#pwCheck").modal();
+		$('#pw_db').val(pno);	   	   
    };
    
-   function fn_pwConfirm()
+   //글 작성시 설정한 비밀번호와 사용자가 지금 입력한 비밀번호가 맞는지 확인하는 함수
+   function fn_pwConfirm() 
    {
-      var db_pw = $("#pw_db").val().trim();
-      var user_pw = $("#board_pw").val().trim();
-      
-      //숫자만 가려내는 정규표현식
-      regNumber = /^[0-9]*$/;
-      
-      //숫자가 아닌 문자 입력했을시에
-      if(!regNumber.test(user_pw))
-       {
-         alert("숫자만 입력하세요");
-         return;
-       }
-      //비밀번호가 4글자 미만일 때 : 4 숫자 바꿔줘야한다
-      else if(user_pw.length<3)
-      {
-          alert("비밀번호는 4자리입니다. 숫자 4자리를 입력해주세요.");
-      }
-      else
-      {
-         if(db_pw==user_pw)
-          {
-            alert("비밀번호가 일치합니다.");  
-         }
-         else
-         {
-            alert("비밀번호가 틀렸습니다. 다시 입력해주세요"); 
-            return;
-         }      
-      }         
+	   var db_pw = $("#pw_db").val().trim();
+	   var user_pw = $("#board_pw").val().trim();
+	   
+	   //숫자만 가려내는 정규표현식
+	   regNumber = /^[0-9]*$/;
+	   
+	   //숫자가 아닌 문자 입력했을시에
+	   if(!regNumber.test(user_pw))
+	    {
+		   alert("숫자만 입력하세요");
+	       return;
+	    }
+	   //비밀번호가 4글자 미만일 때 : 4 숫자 바꿔줘야한다
+	   else if(user_pw.length<4)
+		{
+			 alert("비밀번호는 4자리입니다. 숫자 4자리를 입력해주세요.");
+		}
+	   else
+		{
+		   if(db_pw==user_pw)
+	 	   {
+				alert("비밀번호가 일치합니다.");  
+		   }
+		   else
+		   {
+			   alert("비밀번호가 틀렸습니다. 다시 입력해주세요"); return;
+		   }	   
+		}	      
    };
    
+   //입력하기 모달창에 제품 정보 넣어주기
+   function fn_insertDetails() 
+   {
+	   var pno = $("#pNo").val();
+	   var pName = $("#pName").val();
+		  
+	  	$("#question_modal").modal();
+		$('#goods_code').val(pno);	  
+		$('#goods_name').val(pName);
+   }
    
+   function fn_checkUserPw() 
+   {
+	  
+	   var user_content = $("#qna_content").val().trim();
+	   var user_pw = $("#user_input_pw").val().trim();
+	   var cate_name = $("#board_name").val().trim();
+	  
+	   //숫자만 가려내는 정규표현식
+	   regNumber = /^[0-9]*$/;
+	   
+	   if(cate_name.length==0)
+	   {
+		  alert("좌측의 문의 유형을 선택해주세요.");
+		  return;
+	   }	  
+	   else if(user_content.length==0)
+	   {
+			alert("문의 내용을 입력해주세요");	 
+			return;
+	   }
+	   //숫자가 아닌 문자 입력했을시
+	   else if(!regNumber.test(user_pw))
+	    {
+		   alert("숫자만 입력하세요");
+	       return;
+	    }
+	   //비밀번호가 4글자 미만일 때 : 4 숫자 바꿔줘야한다
+	   else if(user_pw.length<4)
+		{
+			 alert("비밀번호는 4자리입니다. 숫자 4자리를 입력해주세요.");
+			 return;
+		}
+	   else
+	   {
+		  $("#qnaFrm").submit();
+	   }   
+   };
+   
+   function fn_qna(cPage) 
+   {
+		//pno > var로 받기 ajax 	
+   }
+   
+   function fn_review(cPage)
+   {
+	
+   }
+  
  </script>
  
  
@@ -178,7 +244,8 @@
                <div class="row">
                   <div class="col-lg-9 image_col order-lg-2 order-1">
                      <div class="single_product_image">
-                        <img src="${path}/resources/upload/productImg/${product.reImg}">
+                           
+                        <img src="${path}/resources/upload/productImg/${product.reImg }">
                      </div>
                   </div>
                </div>
@@ -190,7 +257,7 @@
                <div class="product_details_title">
                
                   <h2 id="goodsName">${product.pName }</h2>
-                  <p id="goodsDetails">${product.details}</p>
+                  <p id="goodsDetails">${product.details }</p>
                   
                </div>
                
@@ -199,10 +266,11 @@
 
                <div id="goodsPrice" class="product_price">         
                   <fmt:formatNumber value="${price }" type="currency"/>      
-                    
+                       
                   <input type="hidden" id="pNo" name="pNo" value="${product.pno } ">
-                  <input type="hidden" id="userId" name="userId" value="${memberLoggedIn.userId }">
-               
+                  <input type="hidden" id="pName" name="pName" value="${product.pName } ">
+
+              
                </div>
                <!-- 포맷팅 끝 -->
                
@@ -222,8 +290,12 @@
                      <span id="quantity_value">1</span>
                      <span class="plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
                   </div>
-               </div>
+               </div> 
                
+                <div style="margin-top:5%">
+                <span><h7>해당 상품은 1인당 최대 10개까지 구매 가능합니다.</h7></span>
+                </div> 
+                
                <div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
                   <span style="margin-right:20px">공유하기</span>
                      <div>
@@ -273,11 +345,8 @@
                       </td>
                       <td>2018-08-24</td>
                       <td><button type="button" class="btn btn-danger">삭제</button></td>   
-                    </tr>
-             
-                    
+                    </tr>         
                  </tbody>
-         
           </table>
           </div>
           
@@ -314,30 +383,84 @@
          <div class="table-responsive">
                 <table id="review" class="table">
                   <thead>
+                  
                     <tr>
-                      <th>글 번호</th>
-                      <th>카테고리</th>
-                      <th>제목</th>
-                      <th>작성자(이름)</th>                 
-                      <th>등록일</th>
-                       <th>답변 상태</th>
-                      <th></th>
+                      <th class="text-center">글 번호</th>
+                      <th class="text-center">카테고리</th>
+                      <th class="text-center">제목</th>
+                      <th class="text-center">내용</th>     
+                      <th class="text-center">관리자 답변</th>     
+                      <th class="text-center">작성자(이름)</th>            
+                      <th class="text-center">등록일</th>
+                      <th class="text-center">답변 상태</th>
+                      <th class="text-center"></th>
                     </tr>
                   </thead>
                   
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>배송문의</td>
-                      <td><a onclick="fn_inputPw(this); return false;" data-no="${product.pno }" >너무 맛있어요!</a></td>
-                      <td>원숭이</td>           
-                      <td>2018-08-24</td>
-                      <td>
-                         <span class="badge badge-light">답변 대기</span>
-                         <span class="badge badge-secondary">답변 완료</span>
+                  
+                   <c:forEach items="${qList }" var="q">
+	                    <tr>
+	                      <td class="text-center">${q.QNANO }</td>
+	                      <td class="text-center">
+	                      
+	                      <c:set var="cate" value="${q.QNA_CATE_NO }" />
+	                      
+		                      <c:choose>        
+		                      
+		                      	<c:when test="${cate==1 }">
+		                      		상품 문의
+		                      	</c:when>
+		                      	
+		                      	<c:when test="${cate==2 }">
+		                      		교환 문의
+		                      	</c:when>
+		                      	
+		                      	<c:when test="${cate==3 }">
+		                      		환불 문의
+		                      	</c:when>
+		                      	
+		                      	<c:when test="${cate==4 }">
+		                      		반품 문의
+		                      	</c:when>
+		                      	
+		                      	<c:when test="${cate==5 }">
+		                      		기타 문의
+		                      	</c:when>
+		                      
+		                      </c:choose>
+	                      
+	                      </td>
+	                      <td class="text-center"><a onclick="fn_inputPw(this); return false;" data-no="${product.pno }" >${q.QNATITLE }</a></td>
+	                      <td class="text-center">${q.QNACONTENT }</td>
+	                      <td class="text-center">${q.QNAREPLY }</td>
+	                      <td class="text-center">${q.USERID }</td>           
+	                      <td class="text-center">
+	                                         	
+	                      <fmt:formatDate type="date" value="${q.QNADATE }"/>	
+	                      
+	                      </td>
+	                      <td class="text-center">               
+	      
+	      				 <c:set var="reply" value="${q.QNAREPLY }" />
+	      				 
+	                      <c:choose>	                      	
+		                      	<c:when test="${!reply==null }">
+		                      		<span class="badge badge-secondary">답변 완료</span>
+		                      	</c:when>
+		                      	
+		                      	<c:when test="${reply==null }">
+		                      		<span class="badge badge-light">답변 대기</span>
+		                      	</c:when>	
+	                      </c:choose>
+                         
                       </td>
-                      <td><button type="button" class="btn btn-danger">삭제</button></td>   
+                      
+                       <!--   만약에 아이디가 관리자라면 
+                      <td class="text-center"><button type="button" class="btn btn-danger">삭제</button></td>    -->
+                   
                     </tr>
+                    </c:forEach>
              
                     
                  </tbody>
@@ -348,7 +471,7 @@
           
           <div class="text-center">
          
-          <button type="button" class="btn btn-default"  data-toggle="modal" data-target="#question_modal" style="margin-left:90%">글 쓰기</button>
+          <button type="button" class="btn btn-default" onclick="fn_insertDetails();" style="margin-left:90%">글 쓰기</button>
             <ul class="pagination justify-content-center" >
                <li class="page-item">
                   <a href="#" class="page-link" aria-label="Previous">
@@ -374,7 +497,7 @@
         
         
           <!-- 문의하기 비밀번호 입력창 -->
-   <div class="modal fade" id="pwCheck">
+	<div class="modal fade" id="pwCheck">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
       
@@ -386,16 +509,16 @@
         
         <!-- Modal body -->
         <div class="modal-body">
-                 <div class="col-12">
-               글 작성시 입력했던 비밀번호 4자리를 입력해주세요.
-              </div>
-              
-              <br>
-               
-               <div class="col-12">
-               <input type="text" name="pw_db" id="pw_db" value=""/>
-                <input type="text" name="board_pw" id="board_pw" class="form-control" maxlength="4"/>
-               </div>
+	              <div class="col-12">
+					글 작성시 입력했던 비밀번호 4자리를 입력해주세요.
+				  </div>
+				  
+				  <br>
+					
+					<div class="col-12">
+					<input type="text" name="pw_db" id="pw_db" value=""/>
+					 <input type="text" name="board_pw" id="board_pw" class="form-control" maxlength="4"/>
+					</div>
         </div>    
         
         <!-- Modal footer -->
@@ -423,15 +546,15 @@
               </div>
               
               <!-- Modal body -->
+<form action="${path }/mall/insert.do" id="qnaFrm" name="qnaFrm">              
               <div class="modal-body">
                   <div class="form-group row">
                    <div class="input-group col-6">
                      <div class="input-group-prepend">
-                     
-      <form action="${path }" id="qnaFrm" name="qnaFrm">
+                    
                        <span class="input-group-text">제품 코드 </span>
                      </div>
-                     <input type="text" class="form-control input-sm" placeholder="제품 코드" name="goods_code" readonly>
+                     <input type="text" class="form-control input-sm" placeholder="제품 코드" id="goods_code" name="goods_code" readonly>
                  </div>
                  
                  <div class="input-group col-6">
@@ -444,8 +567,8 @@
                
             <div class="row">
                <div class="col-md-6"> 
-                  <select class="form-control" id="qna_option" onchange="fn_selectbox();">
-                  
+                  <select class="form-control" id="qna_option" name="qna_option" onchange="fn_selectbox();">
+        	        <option value="0" disabled selected>문의 유형 선택 </option>
                     <option value="1">상품 문의 </option>
                     <option value="2">교환 문의</option> 
                     <option value="3">환불 문의</option>             
@@ -466,18 +589,29 @@
                
                <div class="col-12">
                   <div class="form-group">
-                 <textarea class="form-control" rows="5" id="review_content" placeholder="문의 내용을 입력해주세요" required></textarea>
+                 <textarea class="form-control" rows="5" id="qna_content" name="qna_content" placeholder="문의 내용을 입력해주세요" required></textarea>
                </div>
                </div>
-     </form>                
+               
+               <div class="input-group col-12">
+                     <div class="input-group-prepend">
+                       <span class="input-group-text">비밀번호 설정(숫자 4자리)</span>
+                     </div>
+                     <input type="text" class="form-control input-sm" placeholder="비밀번호 4자리 입력" id="user_input_pw" name="user_input_pw" maxlength="4" />
+                 </div>
+               
+               <!-- userId들어가는 부분 -->
+			   <!-- <input type="hidden" name="userId" id="userId" value="user"/> -->
+			    <input type="hidden" id="userId" name="userId" value="${memberLoggedIn.userId }"> 
+                
               </div>
               
               <!-- Modal footer -->
               <div class="modal-footer">
-                <button type="submit" class="btn btn-success">등록하기</button>
+                <button type="button" class="btn btn-success" onclick="fn_checkUserPw();">등록하기</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
-              
+</form>              
             </div>
           </div>
         </div>
@@ -488,6 +622,10 @@
 </section>
 
 
+
+    
+ 
  
  
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>  
+ 
