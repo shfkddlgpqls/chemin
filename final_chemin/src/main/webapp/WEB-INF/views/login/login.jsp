@@ -120,4 +120,8 @@
 <!-- </div> --> 
 </body>
 </html>           
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/shfkddlgpqls/chemin.git
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

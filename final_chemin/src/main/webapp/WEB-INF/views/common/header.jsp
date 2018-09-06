@@ -40,7 +40,7 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/base/css/main.css">
-    
+  <%--   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/base/css/communityList.css">  --%>
     <!--fileLoad에 필요한 css  -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<link href="${pageContext.request.contextPath}/resources/vendor/file/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
@@ -76,12 +76,23 @@
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="${path }/mall/mainMall.do">Mall</a>
             </li>
+<<<<<<< HEAD
             
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="${path }/mall/cartList.do">cart</a>
             </li>
+=======
+            <c:if test="${memberLoggedIn!=null }"> 
+	            <li class="nav-item">
+	              <a class="nav-link js-scroll-trigger" href="${path }/mall/cartList.do">cart</a>
+	            </li>
+            </c:if>
+>>>>>>> branch 'master' of https://github.com/shfkddlgpqls/chemin.git
             <li class="nav-item">
              <a class="nav-link js-scroll-trigger" href="${path}/community/communityList.do">Good Tip</a>
+            </li>
+            <li class="nav-item">
+             <a class="nav-link js-scroll-trigger" href="${path}/ac_main.do">Acbook</a>
             </li>
             
             
@@ -95,7 +106,7 @@
         	    </li>     
             </c:if> 
             
-             <c:if test="${memberLoggedIn!=null }"> 
+             <c:if test="${memberLoggedIn!=null&&memberLoggedIn.userId!='admin' }"> 
                <li class="nav-item">
            		  <a class="nav-link js-scroll-trigger" href="${path}/mypage/myOrderList.do">MyPage</a>
         	    </li> 
@@ -104,11 +115,14 @@
         	    </li> 
            </c:if>
              
-             
+             <c:if test="${memberLoggedIn.userId=='admin'}"> 
              <li class="nav-item">
-           		  <a class="nav-link js-scroll-trigger" href="#">Admin</a>
+           		  <a class="nav-link js-scroll-trigger" href="${path}/admin/adminPage.do">Admin</a>
         	    </li> 
-            
+        	   <li class="nav-item">
+           		  <a class="nav-link js-scroll-trigger" href="${path }/login/memberlogout.do">LogOut</a>
+        	    </li>
+             </c:if>
           </ul>
         </div>
       </div>

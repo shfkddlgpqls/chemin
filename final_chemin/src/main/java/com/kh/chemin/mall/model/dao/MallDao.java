@@ -5,20 +5,26 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.chemin.mall.model.vo.Cart;
 import com.kh.chemin.mall.model.vo.Product;
 
 public interface MallDao {
 
-	List<Map<String, String>> selectMallList(SqlSessionTemplate sqlSession, int cPage, int numPerPage);
+	List<Product> selectCateList(SqlSessionTemplate sqlSession, Map<String, Object> map, int cPage, int numPerPage);
 
-	List<Product> selectCateList(SqlSessionTemplate sqlSession, Map<String, Object> map);
-
-	int selectProductCount(SqlSessionTemplate sqlSession);
-
-	//디테일 상품 정보
-	List<Map<String, String>> selectDetail(SqlSessionTemplate sqlSession, int no);
+	int selectCateCount(SqlSessionTemplate sqlSession, Map<String, Object> map);
 
 	Product selectProduct(SqlSessionTemplate sqlSession, int pno);
+
+	int insertCart(SqlSessionTemplate sqlSession, Map<String, Object> map);
+
+	Cart selectCartItem(SqlSessionTemplate sqlSession, Map<String, Object> map);
+
+	int deleteOldCart(SqlSessionTemplate sqlSession);
+
+	List<Map<String, Object>> selectCartList(SqlSessionTemplate sqlSession, String userId);
+
+	
 
 	
 

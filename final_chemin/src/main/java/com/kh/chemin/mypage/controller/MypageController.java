@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.chemin.map.controller.MapController;
@@ -69,15 +70,7 @@ public class MypageController
 		return "mypage/myPlaceList";
 	}
 	
-	/*@RequestMapping("/mypage/myPlaDetailList.do")
-	public String plaDetailList(Model model, int plaNo) 
-	{
-		System.out.println(plaNo);
-		model.addAttribute("attachList", service.selectAttachList(plaNo));
-		model.addAttribute("menuList", service.selectMenuList(plaNo));
-		return "mypage/myPlaceList";
-	}*/
-	
+
 	@RequestMapping(value="/mypage/myPlaDetailList.do",produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String plaDetailList(int plaNo, Model model) throws Exception
@@ -90,13 +83,39 @@ public class MypageController
 		List<PlaceMenu> menuList = service.selectMenuList(plaNo);
 		
 		
-		System.out.println(attachList);
-		
 		map.put("attachList", attachList);
 		map.put("menuList", menuList);
-		
+
 		jsonStr = mapper.writeValueAsString(map);
 		return jsonStr;
+		
+	}
+	
+	@RequestMapping("/mypage/myPlaceDelete.do")
+	public ModelAndView placeDelete(int plaNo,String userId)
+	{
+		int result = service.placeDelete(plaNo);
+				
+		String msg="";
+		String loc="";
+		
+		if(result>0) {
+			msg="장소가 삭제되었습니다.";
+		}else {
+			msg="장소가 삭제 되지 않았습니다.";
+		}
+		loc="/mypage/myPlaceList.do?userId="+userId;
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		mv.addObject("result", result);
+		mv.setViewName("common/deleteMsg");
+		return mv;
 	}
 	
 }
+
+
+
+
