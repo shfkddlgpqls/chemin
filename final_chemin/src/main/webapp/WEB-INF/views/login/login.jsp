@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.chemin.member.model.vo.Member"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -15,8 +15,26 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style type="text/css">
+<%
+	Member memberLoggedIn=(Member)session.getAttribute("memberLoggedIn");
+	Cookie[] cookies=request.getCookies();
+	String saveId=null;
+	if(cookies!=null){
+		for(Cookie c:cookies){
+			if(c.getName().equals("saveId")){
+				saveId=c.getValue();
+			}
+		}
+	}
+%>
+
+
+
+
+
     body {
 		font-family: 'Varela Round', sans-serif;
+		background-color: #e9d6f3;
 	}
     .form-control {
         box-shadow: none;
@@ -89,6 +107,7 @@
 		margin: 100px auto;
 	}
 </style>
+
 </head>
 <body>
 
@@ -101,19 +120,19 @@
                 <!-- 엑스버튼<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
 			</div>
 			<div class="modal-body">
-				<form action="${pageContext.request.contextPath}/login/loginCheck.do"  method="post">
+				<form action="${pageContext.request.contextPath}/login/loginCheck.do"  method="post" >
 					<div class="form-group">
-						<input type="text" class="form-control" name="userId" placeholder="Username" required="required">
+						<input type="text" class="form-control" id="userId" name="userId" placeholder="Username" required="required">
 					</div>
 					<div class="form-group">
-						<input type="password" class="form-control" name="password" placeholder="Password" required="required">
+						<input type="password" class="form-control" id="password" name="password" placeholder="Password" required="required">
 					</div>
 					<div class="form-group">
 						<input type="submit" class="btn btn-primary btn-block btn-lg" value="Login!">
 					</div>
 				</form>				
 				<!-- <div class="hint-text small"><a href="#">Forgot Your Password?</a></div> -->
-				<input type="checkbox" class="remember" checked>Remember
+				<input type="checkbox" class="saveId" name="saveId" checked>Remember
 			</div>
 		</div>
  	</div>
