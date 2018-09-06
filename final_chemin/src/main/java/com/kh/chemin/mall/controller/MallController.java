@@ -2,6 +2,8 @@ package com.kh.chemin.mall.controller;
 
 import java.io.PrintWriter;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.chemin.common.MallPageBar;
 import com.kh.chemin.mall.model.service.MallService;
+import com.kh.chemin.mall.model.vo.Cart;
 import com.kh.chemin.mall.model.vo.Product;
 
 import net.sf.json.JSONArray;
@@ -73,7 +76,7 @@ public class MallController
 
 		int totalCount = service.selectCateCount(map);
 
-		String pageBar = MallPageBar.getPageMall(cPage, numPerPage, totalCount, "mallList.do");
+		String pageBar = MallPageBar.getPageMall(cPage, numPerPage, totalCount);
 
 		JSONObject jsonRes = null;
 		JSONArray jsonArr = new JSONArray();
@@ -97,32 +100,73 @@ public class MallController
 	}
 	
 	// 상품 상세화면 이동
-	@RequestMapping("/mall/detail.do")
-	public String mallDetail() {
-		return "mall/productDetail";
-	}
+   @RequestMapping("/mall/detail.do")
+   public ModelAndView mallDetail(ModelAndView mv, int no)
+   {
+      //해당 상품 리스트 보내기 
+      Product p = service.selectProduct(no);
+      
+      mv.addObject("product",p);
+      mv.setViewName("mall/productDetail");
+      
+      return mv;
+   }
 	
 	// 장바구니에 데이터 추가
 	@RequestMapping("/mall/cartAdd.do")
-	public String cartAdd(String userId, int pno, int amount) {
+	public void cartAdd(HttpServletResponse response, String userId, int pno, int amount) throws Exception {
+		// 상품 가져오기
 		Product product = service.selectProduct(pno);
 		int price = product.getPrice() * amount;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyMMddHHmm");
+		String orderNo = sdf.format(new Date());
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userId);
 		map.put("pno", product.getPno());
 		map.put("amount", amount);
 		map.put("totalPrice", price);
+		map.put("orderNo", ""); // order폼으로 넘어갈 때 생성하기
 
-		int result = service.insertCart(map);
+		int result = 0;
+		if(userId!=null && !userId.equals("")) {
+			// 장바구니에 데이터 추가! (장바구니에 이미 담긴 경우 제외)
+			Cart c = service.selectCartItem(map); // userId, pno, payYn이 n인 데이터 : 장바구니에 담긴 상태
+	
+			if(c==null)
+				result = service.insertCart(map);
+			else
+				result = -1;
+		}
+
+		JSONArray jsonArr = new JSONArray();
+		jsonArr.add(result);
 		
-		return "mall/cartList";
+		response.setContentType("application/json;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print(jsonArr);
 	}
 
 	// 장바구니 이동
 	@RequestMapping("/mall/cartList.do")
 	public String cartList() {
-		// 상태가 n이고 일주일 넘은 데이터 삭제해주기?
+		// 구매 상태가 n이고 일주일 넘은 데이터 삭제해주기
+		service.deleteOldCart();
+		
 		return "mall/cartList";
+	}
+	
+	// 장바구니 리스트 출력
+	@RequestMapping("/mall/cartProduct.do")
+	public void cartProduct(HttpServletResponse response, String userId) throws Exception {
+		List<Map<String, Object>> list = service.selectCartList(userId);
+		
+		JSONArray jsonArr = new JSONArray();
+		jsonArr.add(list);
+		
+		response.setContentType("application/json;charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print(jsonArr);
 	}
 	
 	// 주문서 폼 이동

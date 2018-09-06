@@ -9,6 +9,7 @@
 		<typeAlias type="com.kh.chemin.map.model.vo.PlaceMenu" alias="placeMenu"/>
 		<typeAlias type="com.kh.chemin.member.model.vo.Member" alias="member"/>
 		<typeAlias type="com.kh.chemin.mall.model.vo.Product" alias="product"/>
+		<typeAlias type="com.kh.chemin.mall.model.vo.Cart" alias="cart"/>
 		<typeAlias type="com.kh.chemin.community.model.vo.Attachment" alias="attachment"/>
 		<typeAlias type="com.kh.chemin.community.model.vo.Comment" alias="comment"/>
 		

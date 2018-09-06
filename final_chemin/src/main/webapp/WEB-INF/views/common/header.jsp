@@ -76,9 +76,11 @@
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="${path }/mall/mainMall.do">Mall</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="${path }/mall/cartList.do">cart</a>
-            </li>
+            <c:if test="${memberLoggedIn!=null }"> 
+	            <li class="nav-item">
+	              <a class="nav-link js-scroll-trigger" href="${path }/mall/cartList.do">cart</a>
+	            </li>
+            </c:if>
             <li class="nav-item">
              <a class="nav-link js-scroll-trigger" href="${path}/community/communityList.do">Good Tip</a>
             </li>

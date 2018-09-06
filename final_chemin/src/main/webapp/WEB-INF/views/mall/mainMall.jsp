@@ -177,7 +177,7 @@
         <div id="content1" class="tab-content tabdiv">
             <div class="tab-content p-t-35">
                 <div class="tab-pane fade show active" id="best-seller" role="tabpanel">
-                    <div class="row" id="p0">
+                    <div class="row" id="p0" style="background: white">
                     
 <%-- 						<c:forEach items="${list }" var="m">
 	                        <!-- 상품 하나 -->
@@ -213,7 +213,7 @@
 
             <div class="tab-content p-t-35">
                 <div class="tab-pane fade show active" id="best-seller" role="tabpanel">
-                    <div class="row" id="p1">
+                    <div class="row" id="p1" style="background: white">
 						<!-- ajax로 상품 출력 -->
                     </div>
                 </div>
@@ -230,7 +230,7 @@
 
             <div class="tab-content p-t-35">
                 <div class="tab-pane fade show active" id="best-seller" role="tabpanel">
-                    <div class="row" id="p2">
+                    <div class="row" id="p2" style="background: white">
 						<!-- ajax로 상품 출력 -->
                     </div>
                 </div>
@@ -247,7 +247,7 @@
             
             <div class="tab-content p-t-35">
                 <div class="tab-pane fade show active" id="best-seller" role="tabpanel">
-                    <div class="row" id="p3">
+                    <div class="row" id="p3" style="background: white">
 						<!-- ajax로 상품 출력 -->
                     </div>
                 </div>
@@ -361,7 +361,7 @@
 					$('#searchData').val('');
    				},
    				error:function(jxhr,textStatus,error){
-   					console.log("ajax 실패 : "+jxhr+" "+textStatus+" "+error);
+   					console.log("mainMall ajax 실패 : "+jxhr+" "+textStatus+" "+error);
    				}
    			});
 	   	}
