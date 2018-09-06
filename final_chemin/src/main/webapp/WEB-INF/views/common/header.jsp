@@ -31,9 +31,9 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/vendor/font-awesome/css/font-awesome.min.css" >
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
-	<link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:700" type='text/css' rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Pacifico" type='text/css' rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" type='text/css' rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:700" type='text/css' rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Pacifico" type='text/css' rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" type='text/css' rel="stylesheet">
 
 
     <!-- Plugin CSS -->
@@ -42,16 +42,16 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/base/css/main.css">
   <%--   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/base/css/communityList.css">  --%>
     <!--fileLoad에 필요한 css  -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<link href="${pageContext.request.contextPath}/resources/vendor/file/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
-	<script src="${pageContext.request.contextPath}/resources/vendor/file/js/fileinput.min.js" type="text/javascript"></script>
-	
-	<!-- 주소 api -->
-	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	
-	<!-- Sweet alert -->
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+   <link href="${pageContext.request.contextPath}/resources/vendor/file/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+   <script src="${pageContext.request.contextPath}/resources/vendor/file/js/fileinput.min.js" type="text/javascript"></script>
+   
+   <!-- 주소 api -->
+   <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+   
+   <!-- Sweet alert -->
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   
 
   </head>
 
@@ -76,18 +76,11 @@
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="${path }/mall/mainMall.do">Mall</a>
             </li>
-<<<<<<< HEAD
-            
-            <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="${path }/mall/cartList.do">cart</a>
-            </li>
-=======
             <c:if test="${memberLoggedIn!=null }"> 
-	            <li class="nav-item">
-	              <a class="nav-link js-scroll-trigger" href="${path }/mall/cartList.do">cart</a>
-	            </li>
+               <li class="nav-item">
+                 <a class="nav-link js-scroll-trigger" href="${path }/mall/cartList.do">cart</a>
+               </li>
             </c:if>
->>>>>>> branch 'master' of https://github.com/shfkddlgpqls/chemin.git
             <li class="nav-item">
              <a class="nav-link js-scroll-trigger" href="${path}/community/communityList.do">Good Tip</a>
             </li>
@@ -99,29 +92,29 @@
             <!-- 세션에 로그인한 정보가 없으면 보여지게 -->
             <c:if test="${memberLoggedIn==null }"> 
                 <li class="nav-item">
-           		  <a class="nav-link js-scroll-trigger" href="${path}/login/login.do">Login</a>
-        	    </li>      
-        	     <li class="nav-item">
-           		  <a class="nav-link js-scroll-trigger" href="${path}/member/memberEnroll.do">Join</a>
-        	    </li>     
+                   <a class="nav-link js-scroll-trigger" href="${path}/login/login.do">Login</a>
+               </li>      
+                <li class="nav-item">
+                   <a class="nav-link js-scroll-trigger" href="${path}/member/memberEnroll.do">Join</a>
+               </li>     
             </c:if> 
             
              <c:if test="${memberLoggedIn!=null&&memberLoggedIn.userId!='admin' }"> 
                <li class="nav-item">
-           		  <a class="nav-link js-scroll-trigger" href="${path}/mypage/myOrderList.do">MyPage</a>
-        	    </li> 
-        	    <li class="nav-item">
-           		  <a class="nav-link js-scroll-trigger" href="${path }/login/memberlogout.do">LogOut</a>
-        	    </li> 
+                   <a class="nav-link js-scroll-trigger" href="${path}/mypage/myOrderList.do">MyPage</a>
+               </li> 
+               <li class="nav-item">
+                   <a class="nav-link js-scroll-trigger" href="${path }/login/memberlogout.do">LogOut</a>
+               </li> 
            </c:if>
              
              <c:if test="${memberLoggedIn.userId=='admin'}"> 
              <li class="nav-item">
-           		  <a class="nav-link js-scroll-trigger" href="${path}/admin/adminPage.do">Admin</a>
-        	    </li> 
-        	   <li class="nav-item">
-           		  <a class="nav-link js-scroll-trigger" href="${path }/login/memberlogout.do">LogOut</a>
-        	    </li>
+                   <a class="nav-link js-scroll-trigger" href="${path}/admin/adminPage.do">Admin</a>
+               </li> 
+              <li class="nav-item">
+                   <a class="nav-link js-scroll-trigger" href="${path }/login/memberlogout.do">LogOut</a>
+               </li>
              </c:if>
           </ul>
         </div>

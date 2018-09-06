@@ -4,9 +4,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 
-      	<div style="position:fixed; bottom:80px;right:10px;">
-      		<a href="#page-top" class="js-scroll-trigger"> <img src="https://icongr.am/jam/arrow-top-circle.svg"/></a>
-      	</div>
+         <div style="position:fixed; bottom:80px;right:10px;">
+            <a href="#page-top" class="js-scroll-trigger"> <img src="https://icongr.am/jam/arrow-top-circle.svg"/></a>
+         </div>
       
    <footer class="footerMain">
          <div class="container text-center">
@@ -25,19 +25,10 @@
  
      <script src="<c:url value="/resources/vendor/jquery-easing/jquery.easing.min.js" />"></script>
     <script src="<c:url value="/resources/vendor/scrollreveal/scrollreveal.min.js" />"></script>
-<<<<<<< HEAD
-    
-=======
->>>>>>> branch 'master' of https://github.com/shfkddlgpqls/chemin.git
 
     <!-- Custom scripts for this template -->
     <script src="<c:url value="/resources/base/js/main.js" />"></script>
-<<<<<<< HEAD
-    
-    
-=======
 
->>>>>>> branch 'master' of https://github.com/shfkddlgpqls/chemin.git
   </body>
 
 </html>

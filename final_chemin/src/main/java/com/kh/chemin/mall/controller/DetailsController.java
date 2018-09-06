@@ -25,7 +25,7 @@ public class DetailsController
 	
 	private Logger logger = LoggerFactory.getLogger(DetailsController.class);
 
-		// 상품 상세화면 이동
+		/*// 상품 상세화면 이동
 		@RequestMapping("/mall/detail.do")
 		public ModelAndView mallDetail(ModelAndView mv, int no)
 		{
@@ -51,7 +51,7 @@ public class DetailsController
 		      
 		    return mv;
 		}
-		
+		*/
 		//문의하기 등록
 		@RequestMapping("/mall/insert.do")
 		public String insertCart(String goods_code, String qna_option, String board_name, String qna_content, String userId, String user_input_pw,Model model)
