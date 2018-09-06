@@ -1,5 +1,5 @@
 
-# Created by https://www.gitignore.io/api/java,eclipse,windows,java-web
+# Created by https://www.gitignore.io/api/java,eclipse,java-web
 
 ### Eclipse ###
 
@@ -69,6 +69,8 @@ local.properties
 # Annotation Processing
 .apt_generated
 
+.sts4-cache/
+
 ### Java ###
 # Compiled class file
 *.class
@@ -98,30 +100,6 @@ hs_err_pid*
 ## ignoring target file
 target/
 
-### Windows ###
-# Windows thumbnail cache files
-Thumbs.db
-ehthumbs.db
-ehthumbs_vista.db
 
-# Dump file
-*.stackdump
-
-# Folder config file
-[Dd]esktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msix
-*.msm
-*.msp
-
-# Windows shortcuts
-*.lnk
-
-
-# End of https://www.gitignore.io/api/java,eclipse,windows,java-web
+# End of https://www.gitignore.io/api/java,eclipse,java-web
+/final_chemin/

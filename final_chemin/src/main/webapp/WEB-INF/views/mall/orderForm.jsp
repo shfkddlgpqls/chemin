@@ -7,6 +7,20 @@
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
+	<!-- mall css -->
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/slick/slick.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/noui/nouislider.min.css">
+    <link rel="stylesheet" type="text/css" href="${path }/resources/mall/css/util.css">
+    <link rel="stylesheet" type="text/css" href="${path }/resources/mall/css/mall.css">
+
     <!-- Title Page -->
     <section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(${path}/resources/mall/img/food.jpg);">
         <h2 class="l-text2 t-center">
@@ -244,7 +258,7 @@
     
                     <div class="size15 trans-0-4">
                         <!-- Button -->
-                        <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+                        <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" style="border:none;outline: none;">
                            	결제하기
                         </button>
                     </div>

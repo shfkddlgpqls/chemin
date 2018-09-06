@@ -9,10 +9,12 @@ import com.kh.chemin.mall.model.vo.Product;
 
 public interface MallDao {
 
-	List<Map<String, String>> selectMallList(SqlSessionTemplate sqlSession, int cPage, int numPerPage);
+	List<Product> selectCateList(SqlSessionTemplate sqlSession, Map<String, Object> map, int cPage, int numPerPage);
 
-	List<Product> selectCateList(SqlSessionTemplate sqlSession, Map<String, Object> map);
+	int selectCateCount(SqlSessionTemplate sqlSession, Map<String, Object> map);
 
-	int selectProductCount(SqlSessionTemplate sqlSession);
+	Product selectProduct(SqlSessionTemplate sqlSession, int pno);
+
+	int insertCart(SqlSessionTemplate sqlSession, Map<String, Object> map);
 
 }

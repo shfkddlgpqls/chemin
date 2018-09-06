@@ -12,4 +12,5 @@ public interface MypageDao {
 	List<Place> selectPlaceList(SqlSessionTemplate sqlSession, String userId);
 	List<PlaceAttachment> selectAttachList(SqlSessionTemplate sqlSession,int plaNo);
 	List<PlaceMenu> selectMenuList(SqlSessionTemplate sqlSession,int plaNo);
+	int placeDelete(SqlSessionTemplate sqlSession, int plaNo);
 }

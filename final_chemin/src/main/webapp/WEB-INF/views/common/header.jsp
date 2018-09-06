@@ -40,7 +40,7 @@
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/base/css/main.css">
-    
+  <%--   <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/base/css/communityList.css">  --%>
     <!--fileLoad에 필요한 css  -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<link href="${pageContext.request.contextPath}/resources/vendor/file/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
@@ -52,30 +52,6 @@
 	<!-- Sweet alert -->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
-	<!-- mall css -->
-    <link rel="stylesheet" type="text/css" href="${path }/resources/mall/fonts/themify/themify-icons.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/fonts/elegant-font/html-css/style.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/animate/animate.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/css-hamburgers/hamburgers.min.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/animsition/css/animsition.min.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/select2/select2.min.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/daterangepicker/daterangepicker.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/slick/slick.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/lightbox2/css/lightbox.min.css">
-    <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/noui/nouislider.min.css">
-    <link rel="stylesheet" type="text/css" href="${path }/resources/mall/css/util.css">
-    <link rel="stylesheet" type="text/css" href="${path }/resources/mall/css/mall.css">
 
   </head>
 
@@ -118,7 +94,7 @@
         	    </li>     
             </c:if> 
             
-             <c:if test="${memberLoggedIn!=null }"> 
+             <c:if test="${memberLoggedIn!=null&&memberLoggedIn.userId!='admin' }"> 
                <li class="nav-item">
            		  <a class="nav-link js-scroll-trigger" href="${path}/mypage/myOrderList.do">MyPage</a>
         	    </li> 
@@ -127,11 +103,14 @@
         	    </li> 
            </c:if>
              
-             
+             <c:if test="${memberLoggedIn.userId=='admin'}"> 
              <li class="nav-item">
-           		  <a class="nav-link js-scroll-trigger" href="#">Admin</a>
+           		  <a class="nav-link js-scroll-trigger" href="${path}/admin/adminPage.do">Admin</a>
         	    </li> 
-            
+        	   <li class="nav-item">
+           		  <a class="nav-link js-scroll-trigger" href="${path }/login/memberlogout.do">LogOut</a>
+        	    </li>
+             </c:if>
           </ul>
         </div>
       </div>
