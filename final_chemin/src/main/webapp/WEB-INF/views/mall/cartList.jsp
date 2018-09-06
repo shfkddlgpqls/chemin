@@ -7,6 +7,20 @@
   
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
+	<!-- mall css -->
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/slick/slick.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/noui/nouislider.min.css">
+    <link rel="stylesheet" type="text/css" href="${path }/resources/mall/css/util.css">
+    <link rel="stylesheet" type="text/css" href="${path }/resources/mall/css/mall.css">
+
 <!-- Title Page -->
     <section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(${path}/resources/mall/img/food.jpg);">
         <h2 class="l-text2 t-center">
@@ -46,7 +60,7 @@
                                         <i class="fs-12 fa fa-minus" aria-hidden="true"></i>
                                     </button>
 
-                                    <input class="size8 m-text18 t-center num-product" type="number" name="num-product1" value="1">
+                                    <input class="size8 m-text18 t-center num-product" type="number" name="num-product1" value='1' readonly>
 
                                     <button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
                                         <i class="fs-12 fa fa-plus" aria-hidden="true"></i>
@@ -120,7 +134,7 @@
 
                 <div class="size15 trans-0-4 m-t-20">
                     <!-- Button -->
-                    <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" onclick="location='orderForm.do'">
+                    <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" onclick="location='orderForm.do'" style="border:none;outline: none;">
                        	전체상품주문
                     </button>
                 </div>
@@ -130,4 +144,17 @@
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 
+<script>
+$('.btn-num-product-down').on('click', function(e){
+    e.preventDefault();
+    var numProduct = Number($(this).next().val());
+    if(numProduct > 1) $(this).next().val(numProduct - 1);
+});
+
+$('.btn-num-product-up').on('click', function(e){
+    e.preventDefault();
+    var numProduct = Number($(this).prev().val());
+    if(numProduct < 10) $(this).prev().val(numProduct + 1);
+});
+</script>
 

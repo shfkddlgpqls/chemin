@@ -32,6 +32,7 @@ public class Member {
 		this.renameImage = renameImage;
 	}
 
+
 	public String getUserId() {
 		return userId;
 	}
@@ -119,3 +120,4 @@ public class Member {
 				+ hobby + ", originalImg=" + originalImg + ", renameImage=" + renameImage + "]";
 	}
 }
+

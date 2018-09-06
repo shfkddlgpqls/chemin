@@ -20,3 +20,4 @@ public interface CommunityDao {
 	List<Comment> commentList(SqlSessionTemplate sqlSession,int communityno);
 	int commentWrite(SqlSessionTemplate sqlSession,Comment comment);
 }
+

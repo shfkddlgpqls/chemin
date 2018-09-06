@@ -6,14 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.chemin.common.MallPageBar;
@@ -23,26 +23,19 @@ import com.kh.chemin.mall.model.vo.Product;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+@SessionAttributes(value = {"memberLoggedIn"})
 @Controller
 public class MallController 
 {
 	@Autowired
 	MallService service;
 	
-	// 메인 쇼핑몰로 이동 (전체 상품 가져오기)
+	// 메인 쇼핑몰로 이동
 	@RequestMapping("/mall/mainMall.do")
-	public ModelAndView mainMall(@RequestParam(value="cPage",required=false,defaultValue="1") int cPage)
+	public ModelAndView mainMall()
 	{
 		ModelAndView mv = new ModelAndView();
-		
-		int numPerPage = 8;
-		
-		List<Map<String,String>> list = service.selectMallList(cPage, numPerPage);
-		
-		int totalCount = service.selectProductCount();
-		
-		mv.addObject("list", list);
-		mv.addObject("pageBar",MallPageBar.getPage(cPage, numPerPage, totalCount, "mainMall.do"));
+
 		mv.setViewName("mall/mainMall");
 		
 		return mv;
@@ -50,7 +43,7 @@ public class MallController
 	
 	// 카테고리별 상품 리스트 불러오기
 	@RequestMapping("/mall/mallList.do")
-	public void mallList(HttpServletResponse response, int cno, String searchType, String searchData, int lowValue, int highValue) throws Exception {
+	public void mallList(@RequestParam(value="cPage",required=false,defaultValue="1") int cPage, HttpServletResponse response, int cno, String searchType, String searchData, int lowValue, int highValue) throws Exception {
 		String ctype=null;
 		String stype_h=null;
 		String stype_n=null;
@@ -73,8 +66,14 @@ public class MallController
 		map.put("searchData", searchData);
 		map.put("lowValue", lowValue);
 		map.put("highValue", highValue);
+
+		int numPerPage = 8;
 		
-		List<Product> list = service.selectCateList(map);
+		List<Product> list = service.selectCateList(map, cPage, numPerPage);
+
+		int totalCount = service.selectCateCount(map);
+
+		String pageBar = MallPageBar.getPageMall(cPage, numPerPage, totalCount, "mallList.do");
 
 		JSONObject jsonRes = null;
 		JSONArray jsonArr = new JSONArray();
@@ -90,6 +89,7 @@ public class MallController
 				jsonArr.add(jsonRes);
 			}
 		}
+		jsonArr.add(pageBar);
 		
 		response.setContentType("application/json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -98,14 +98,30 @@ public class MallController
 	
 	// 상품 상세화면 이동
 	@RequestMapping("/mall/detail.do")
-	public String mallDetail()
-	{
-	   return "mall/productDetail";
+	public String mallDetail() {
+		return "mall/productDetail";
 	}
 	
+	// 장바구니에 데이터 추가
+	@RequestMapping("/mall/cartAdd.do")
+	public String cartAdd(String userId, int pno, int amount) {
+		Product product = service.selectProduct(pno);
+		int price = product.getPrice() * amount;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("pno", product.getPno());
+		map.put("amount", amount);
+		map.put("totalPrice", price);
+
+		int result = service.insertCart(map);
+		
+		return "mall/cartList";
+	}
+
 	// 장바구니 이동
 	@RequestMapping("/mall/cartList.do")
 	public String cartList() {
+		// 상태가 n이고 일주일 넘은 데이터 삭제해주기?
 		return "mall/cartList";
 	}
 	

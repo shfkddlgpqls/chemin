@@ -7,6 +7,31 @@
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>    
 
+	<!-- mall css -->
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/slick/slick.css">
+    <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="${path }/resources/mall/vendor/noui/nouislider.min.css">
+    <link rel="stylesheet" type="text/css" href="${path }/resources/mall/css/util.css">
+    <link rel="stylesheet" type="text/css" href="${path }/resources/mall/css/mall.css">
+
+<style>
+	.next-slick1{
+	 	border:none;
+	 	outline: none !important;
+	 }
+	 .prev-slick1{
+	 	border:none;
+	 	outline: none !important;
+	 }
+</style>
+
     <!-- 헤더 (사진 슬라이드) -->
       <header class="slide1">
 		<div class="wrap-slick1">
@@ -140,7 +165,7 @@
 	            
 	            <div class="flex-sb-m flex-w p-t-10 p-l-30">
 	                <div class="w-size11">
-	                    <button onclick="list_ck();return false;" class="size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4">
+	                    <button onclick="list_ck();return false;" class="size4 bg7 bo-rad-15 hov1 s-text14 trans-0-4" style="border:none;outline: none;">
 	                        search
 	                    </button>
 	                </div>
@@ -154,7 +179,7 @@
                 <div class="tab-pane fade show active" id="best-seller" role="tabpanel">
                     <div class="row" id="p0">
                     
-						<c:forEach items="${list }" var="m">
+<%-- 						<c:forEach items="${list }" var="m">
 	                        <!-- 상품 하나 -->
 	                        <div class="col-sm-6 col-md-4 col-lg-3 p-b-50">
 	                            <!-- Block2 -->
@@ -172,14 +197,14 @@
 	                                </span>
 	                            </div>
 	                        </div>
-            			</c:forEach>
+            			</c:forEach> --%>
             			
                     </div>
                 </div>
             </div>
 
-			<div class="row justify-content-center">
-	            ${pageBar }
+			<div class="row justify-content-center" id="pb0">
+	            <%-- ${pageBar } --%>
 			</div>
         </div>
 
@@ -194,14 +219,8 @@
                 </div>
             </div>
             
-            <div class="row justify-content-center">
-	            <div class="pagination flex-m flex-w p-t-26">
-	                <a href="#" class="item-pagination flex-c-m trans-0-4"><</a>
-	                <a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
-	                <a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
-	                <a href="#" class="item-pagination flex-c-m trans-0-4">3</a>
-	                <a href="#" class="item-pagination flex-c-m trans-0-4">></a>
-	            </div>
+            <div class="row justify-content-center" id="pb1">
+            	<!-- 페이지바 -->
 			</div>
 
         </div>
@@ -217,14 +236,8 @@
                 </div>
             </div>
         
-            <div class="row justify-content-center">
-	            <div class="pagination flex-m flex-w p-t-26">
-	                <a href="#" class="item-pagination flex-c-m trans-0-4"><</a>
-	                <a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
-	                <a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
-	                <a href="#" class="item-pagination flex-c-m trans-0-4">3</a>
-	                <a href="#" class="item-pagination flex-c-m trans-0-4">></a>
-	            </div>
+            <div class="row justify-content-center" id="pb2">
+            	<!-- 페이지바 -->
 			</div>
 
         </div>
@@ -240,14 +253,8 @@
                 </div>
             </div>
 
-            <div class="row justify-content-center">
-	            <div class="pagination flex-m flex-w p-t-26">
-	                <a href="#" class="item-pagination flex-c-m trans-0-4"><</a>
-	                <a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
-	                <a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
-	                <a href="#" class="item-pagination flex-c-m trans-0-4">3</a>
-	                <a href="#" class="item-pagination flex-c-m trans-0-4">></a>
-	            </div>
+            <div class="row justify-content-center" id="pb3">
+            	<!-- 페이지바 -->
 			</div>
 
         </div>
@@ -257,6 +264,16 @@
     </section>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+
+    <!-- mall js -->
+    <script src="<c:url value="/resources/mall/vendor/jquery/jquery-3.2.1.min.js"/>"></script>
+    <script src="<c:url value="/resources/mall/vendor/animsition/js/animsition.min.js"/>"></script>
+    <!--===============================================================================================-->
+    <script src="<c:url value="/resources/mall/vendor/bootstrap/js/popper.js"/>"></script>
+    <script src="<c:url value="/resources/mall/vendor/bootstrap/js/bootstrap.min.js"/>"></script>
+    <!--===============================================================================================-->
+    <script src="<c:url value="/resources/mall/vendor/slick/slick.min.js"/>"></script>
+    <script src="<c:url value="/resources/mall/js/slick-custom.js"/>"></script>
 
 	<script src="<c:url value="/resources/mall/vendor/select2/select2.min.js"/>"></script>
     <script type="text/javascript">
@@ -290,8 +307,12 @@
 	    });
     </script>
     
-    <script>    
-	    function list_ck(){
+    <script>  
+	    $(function(){
+	    	list_ck(1);
+	    });
+    
+	    function list_ck(cPage){
 	   		var cno = $('input[name="tabs"]:checked').val();
 	   		var searchType = $('#sorting').val();
 	   		var searchData = $('#searchData').val();
@@ -300,12 +321,14 @@
 	   		$.ajax({
    				type:"get",
    				url:"${path}/mall/mallList.do",
-   				data:{cno:cno,searchType:searchType,searchData:searchData,lowValue:lowValue,highValue:highValue},
+   				data:{cno:cno,searchType:searchType,searchData:searchData,lowValue:lowValue,highValue:highValue,cPage:cPage},
  				datatype:"json",
    				success:function(data){
    					var view="";
    					if(data!=null){
-   						for(var i=0;i<data.length;i++){
+   						var num=data.length-1;
+   						var pageBar=data[num];
+   						for(var i=0;i<data.length-1;i++){
    							view+="<div class='col-sm-6 col-md-4 col-lg-3 p-b-50'>";
    							view+="<div class='block2'>";
    							view+="<div class='block2-img wrap-pic-w of-hidden pos-relative hov4'>";
@@ -320,20 +343,27 @@
 	                        view+="</div>";
 	                        view+="</div>";
    						}
-   						if(cno==0) $('#p0').html(view);
-   						else if(cno==1) $('#p1').html(view);
-   						else if(cno==2) $('#p2').html(view);
-   						else if(cno==3) $('#p3').html(view);
-   					}
-   					$('#searchData').val('');
+  					} else {
+  						view+="<div class='col-sm-6 col-md-4 col-lg-3 p-b-50'>";
+						view+="<div class='block2'>";
+  						view+="<span class='block2-price dis-block m-text6 p-r-5 shoptext'>해당 정보가 없습니다.</span>";
+                        view+="</div>";
+                        view+="</div>";
+  					}
+					if(cno==0) $('#p0').html(view);
+					else if(cno==1) $('#p1').html(view);
+					else if(cno==2) $('#p2').html(view);
+					else if(cno==3) $('#p3').html(view);
+					$('#pb0').html(pageBar);
+					$('#pb1').html(pageBar);
+					$('#pb2').html(pageBar);
+					$('#pb3').html(pageBar);
+					$('#searchData').val('');
    				},
    				error:function(jxhr,textStatus,error){
    					console.log("ajax 실패 : "+jxhr+" "+textStatus+" "+error);
    				}
    			});
 	   	}
-	    function search_ck(){
-	   		var cno = $('input[name="tabs"]:checked').val();
-	    }
     </script>
     

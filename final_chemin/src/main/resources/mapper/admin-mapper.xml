@@ -6,7 +6,7 @@
 	
 	</resultMap>
 	<select id="placeList" resultMap="placeMap">
-		select*from place
+		select*from place order by PLADATE desc
 	</select>
 	
 	<select id="selectAttachList" parameterType="_int" resultType="placeAttach">

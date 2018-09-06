@@ -78,22 +78,22 @@ height:50px;
 </style>
 
 <script>
-var count=0;
+
 function fn_modal(obj){	
 	var plaNo = $(obj).data("no"); 
 	
 	
 	 plaDate.innerHTML = $(obj).data("date"); 
-	plaName.innerHTML = $(obj).data("name"); 
-	var address = $(obj).data("address").split("/",2);
+	plaName.innerHTML = $(obj).data("name"); 	
  	plaPhone.innerHTML = $(obj).data("phone");
 	plaArea.innerHTML = $(obj).data("area");
-	var time = $(obj).data("time").split("/");
 	plaContent.innerHTML = $(obj).data("content"); 
 	plaCategory.innerHTML =$(obj).data("category"); 
 	var keyword = $(obj).data("keyword").split(" ");
+	var address = $(obj).data("address").split("/",2);
+	var time = $(obj).data("time").split("/");
 	
-	if(count==0){
+	
 		for ( var i in address ) {		
 			if(i==0){
 				plaAddr.innerHTML = '<span>' + address[i] + '</span>';
@@ -109,18 +109,22 @@ function fn_modal(obj){
 			}else if(t==1){
 				plaTime.innerHTML+=' <span>' + time[t] +' ~ '+ '</span>';				
 			}else if(t==2){	
-				plaTime.innerHTML+=' <span>' + time[i] + '</span>';	
+				plaTime.innerHTML+=' <span>' + time[t] + '</span>';	
 			}else{
-				plaTime.innerHTML+=' <span style="color:red">' + time[i] + '</span>';	
+				plaTime.innerHTML+=' <span style="color:red">' + time[t] + '</span>';	
 			}
 	     }
 		
 		for ( var k in keyword ) {
 			if(keyword[k]!=null && (keyword[k].length)>0){
-				plaKeyword.innerHTML += '<span style="color:blue">' +' #'+ keyword[k] + '</span>' ;
+				if(k==0){
+					plaKeyword.innerHTML = '<span style="color:blue">' +' #'+ keyword[k] + '</span>' ;
+				}else{
+					plaKeyword.innerHTML += '<span style="color:blue">' +' #'+ keyword[k] + '</span>' ;			
+				}	
 			}
 	     }
-	}
+
 	
 	
 	$.ajax({
@@ -128,17 +132,42 @@ function fn_modal(obj){
 		data:{plaNo:plaNo},
 		dataType:"json",
 		success:function(data)
-		{
-			console.log(data.attachList);
-			console.log(data.menuList);				
+		{			
 				
-			    for(i=0; i<data.attachList.length; i++){
-					 attachment.innerHTML+='<div class="col-md-3">'+
-					 						'<a href="#x" class="thumbnail">'+
-					 						"<img src="+"${pageContext.request.contextPath }/resources/upload/place/attach/"+data.attachList[i].reImg + " class='img-thumbnail'>"+
-					 						'</a>'+
-					 						'</div>';			
-			 	} 	
+			//상세보기 화면 캐러셀 사진 부분
+			attachmain.innerHTML='<div class="carousel-item active" id="attachmentOne">';
+			attachmentOne.innerHTML='<div class="row" id="subattachOne">';
+		    for(i=0; i<data.attachList.length; i++){
+		    	if(i==0){
+		    		subattachOne.innerHTML=	
+					 					'<div class="col-md-3">'+
+				 						'<a href="#x" class="thumbnail">'+
+				 						"<img src="+"${pageContext.request.contextPath }/resources/upload/place/attach/"+data.attachList[i].reImg + " class='img-thumbnail'>"+
+				 						'</a>'+
+				 						'</div>';
+				 						
+		    	}else if(i<4){
+		    		subattachOne.innerHTML+=
+		    			 '<div class="col-md-3">'+
+ 						'<a href="#x" class="thumbnail">'+
+ 						"<img src="+"${pageContext.request.contextPath }/resources/upload/place/attach/"+data.attachList[i].reImg + " class='img-thumbnail'>"+
+ 						'</a>'+
+ 						'</div>';
+		    		}else if(i>3){
+		    			attachmain.innerHTML+='<div class="carousel-item " id="attachmentTwo">';
+		    			attachmentTwo.innerHTML='<div class="row" id="subattachTwo">';
+		    			subattachTwo.innerHTML=	
+		 					'<div class="col-md-3">'+
+	 						'<a href="#x" class="thumbnail">'+
+	 						"<img src="+"${pageContext.request.contextPath }/resources/upload/place/attach/"+data.attachList[i].reImg + " class='img-thumbnail'>"+
+	 						'</a>'+
+	 						'</div>';
+		    		}
+		    	
+		 }
+		    attachmentOne.innerHTML+='</div>';
+	    	attachmain.innerHTML+='</div>';
+	    	//상세보기 화면 캐러셀 사진 부분 끝	
 		}
 		
 	})
@@ -297,12 +326,8 @@ function fn_modal(obj){
 		        	   	  <tr>
 		        	   	  	<td colspan="3"  align ="center">
 		        	   	  		 <div id="ThumbnailCarousel" class="carousel slide col-xs-12" data-ride="carousel">
-			  <div class="carousel-inner">
-			    <div class="carousel-item active">
-			      <div class="row" id="attachment">
-			          
-			      </div>
-			    </div>
+			  <div class="carousel-inner" id="attachmain">
+			   
 			  </div>
 			  
 			  <a class="carousel-control-prev "  href="#ThumbnailCarousel" role="button" data-slide="prev">

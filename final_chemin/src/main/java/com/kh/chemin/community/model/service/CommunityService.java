@@ -17,3 +17,4 @@ public interface CommunityService {
 	int commentWrite(Comment comment);
 
 }
+
