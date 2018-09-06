@@ -9,15 +9,18 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,7 +29,7 @@ import com.kh.chemin.community.model.service.CommunityService;
 import com.kh.chemin.community.model.vo.Attachment;
 import com.kh.chemin.community.model.vo.Comment;
 import com.kh.chemin.community.model.vo.Community;
-
+import com.kh.chemin.member.model.vo.Member;
 
 @Controller
 public class CommunityController {
@@ -133,7 +136,7 @@ public class CommunityController {
 
 	@RequestMapping(value="/community/commentList.do",produces="application/text; charset=utf-8")
 	@ResponseBody
-	public String commentList(@RequestParam(value="community_no") int communityno,ModelAndView mv) throws Exception
+	public String commentList(@RequestParam(value="community_no") int communityno) throws Exception
 	{
 		ObjectMapper mapper=new ObjectMapper();
 		String jsonStr=null;
@@ -144,5 +147,36 @@ public class CommunityController {
 		
 		jsonStr=mapper.writeValueAsString(map);
 		return jsonStr;
+	}
+	
+	@RequestMapping(value="/community/commentWrite.do",produces="application/text; charset=utf-8")
+	@ResponseBody
+	public ModelAndView commentWrite(@ModelAttribute Comment comment,HttpSession session) throws Exception
+	{
+		String userId=(String)session.getAttribute("userId");
+		ModelAndView mv=new ModelAndView();
+		logger.debug("Comment::"+comment);
+		comment.setWriter(userId);
+		logger.debug("작성자::"+comment.getWriter());
+		int result=service.commentWrite(comment);
+		String msg="";
+		String loc="";
+		if(result>0) {
+			msg="성공적으로 등록!!";
+			loc="/community/communityList.do";
+		}
+		else 
+		{
+			msg="등록 실패";
+			loc="/community/communityWrite.do";
+			
+		}
+
+		mv.addObject("msg",msg);
+		mv.addObject("loc",loc);
+		mv.setViewName("common/msg");
+		return mv;
+		
+		
 	}
 }

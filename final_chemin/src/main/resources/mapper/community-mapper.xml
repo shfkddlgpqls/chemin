@@ -32,7 +32,14 @@
 	</update> -->
 	<resultMap type="map" id="commentMap"></resultMap>
 	<select id="selectComment" resultMap="commentMap">
-		SELECT * FROM COMMUNITY_COMMENT WHERE COMMUNITYNO=#{communityno} 
+		SELECT * FROM COMMUNITY_COMMENT WHERE COMMUNITYNO=#{communityno} ORDER BY COMMUNITYDATE DESC
 	</select>
+	<insert id="commentWrite" parameterType="comment">
+		INSERT INTO COMMENT(COMMENTNO, COMMUNITYNO,WRITER,CONTENT,COMMENTDATE)
+		VALUES (seq_community_comment.nextval,#{community_no},#{writer},#{content},sysdate)
+		<selectKey keyProperty="comment_no" resultType="_int" order="AFTER">
+			select seq_community_commentno.currval from dual
+		</selectKey>
+	</insert>
 </mapper>
 

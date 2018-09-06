@@ -56,7 +56,7 @@ function fn_file() {
 	                      <span>작성자</span>
 	                </div>
 	                <div class="col-md-2">
-	                	<input class="form-control" id="community_wirter" name="community_writer" >
+	                	<input class="form-control" id="community_wirter" name="community_writer" value="${memberLoggedIn.userId }" readonly>
 	                </div>
 	             </div>
                 <br>
