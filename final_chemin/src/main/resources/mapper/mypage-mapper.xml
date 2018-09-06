@@ -6,7 +6,7 @@
 		
 	</resultMap>
 	<select id="selectPlaceList" parameterType="String" resultMap="placeMap">
-		select*from place where USERID=#{userId}
+		select*from place where USERID=#{userId} order by PLADATE desc
 	</select>
 	
 	<select id="selectAttachList" parameterType="_int" resultType="placeAttach">
@@ -16,4 +16,8 @@
 	<select id="selectMenuList" parameterType="_int" resultType="placeMenu">
 		select*from pla_menu where PLANO = #{plaNo}
 	</select>
+	
+	<delete id="placeDelete" parameterType="_int">
+		delete place where PLANO = #{plaNo}
+	</delete>
 </mapper>

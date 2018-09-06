@@ -88,47 +88,56 @@ height:50px;
 }
 </style>
 <script>
-var count=0;
+
 function fn_modal(obj){	
-	var plaNo = $(obj).data("no"); 
+	var plaNo = $(obj).data("no");
+	var userId = $(obj).data("userId"); 
 	
+	plaDate.innerHTML = $(obj).data("date");
+	plaDate.innerHTML += '<input type="hidden" name="subUserId" value='+userId+'>';
+	plaDate.innerHTML += '<input type="hidden" name="subNo" value='+plaNo+'>';
 	plaName.innerHTML = $(obj).data("name"); 
-	var address = $(obj).data("address").split("/",2);
  	plaPhone.innerHTML = $(obj).data("phone");
 	plaArea.innerHTML = $(obj).data("area");
-	var time = $(obj).data("time").split("/");
 	plaContent.innerHTML = $(obj).data("content"); 
 	plaCategory.innerHTML =$(obj).data("category"); 
 	var keyword = $(obj).data("keyword").split(" ");
-	
-	if(count==0){
+	var address = $(obj).data("address").split("/",2);
+	var time = $(obj).data("time").split("/");
+		
+		//주소
 		for ( var i in address ) {		
 			if(i==0){
 				plaAddr.innerHTML = '<span>' + address[i] + '</span>';
 			}else{
 				plaAddr.innerHTML+=' <span>' + address[i] +'(우편번호)'+ '</span>';
-				
 			}
 	     }
-	
+		
+		//영업시간
 		for ( var t in time ) {		
 			if(t==0){
 				plaTime.innerHTML = '<span>' + time[t] + '</span>';
 			}else if(t==1){
 				plaTime.innerHTML+=' <span>' + time[t] +' ~ '+ '</span>';				
 			}else if(t==2){	
-				plaTime.innerHTML+=' <span>' + time[i] + '</span>';	
-			}else{
-				plaTime.innerHTML+=' <span style="color:red">' + time[i] + '</span>';	
+				plaTime.innerHTML+=' <span>' + time[t] + '</span>';	
+			}else {
+				plaTime.innerHTML+=' <span style="color:red">' + time[t] + '</span>';	
 			}
 	     }
 		
+		//키워드
 		for ( var k in keyword ) {
 			if(keyword[k]!=null && (keyword[k].length)>0){
-				plaKeyword.innerHTML += '<span style="color:blue">' +' #'+ keyword[k] + '</span>' ;
+				if(k==0){
+					plaKeyword.innerHTML = '<span style="color:blue">' +' #'+ keyword[k] + '</span>' ;
+				}else{
+					plaKeyword.innerHTML += '<span style="color:blue">' +' #'+ keyword[k] + '</span>' ;			
+				}	
 			}
 	     }
-	}
+
 	
 	
 	$.ajax({
@@ -136,22 +145,64 @@ function fn_modal(obj){
 		data:{plaNo:plaNo},
 		dataType:"json",
 		success:function(data)
-		{
-			console.log(data.attachList);
-			console.log(data.menuList);				
-				
+		{		
+				//상세보기 화면 캐러셀 사진 부분
+				attachmain.innerHTML='<div class="carousel-item active" id="attachmentOne">';
+				attachmentOne.innerHTML='<div class="row" id="subattachOne">';
 			    for(i=0; i<data.attachList.length; i++){
-					 attachment.innerHTML+='<div class="col-md-3">'+
+			    	if(i==0){
+			    		subattachOne.innerHTML=	
+						 					'<div class="col-md-3">'+
 					 						'<a href="#x" class="thumbnail">'+
 					 						"<img src="+"${pageContext.request.contextPath }/resources/upload/place/attach/"+data.attachList[i].reImg + " class='img-thumbnail'>"+
 					 						'</a>'+
-					 						'</div>';			
-			 	} 	
+					 						'</div>';
+					 						
+			    	}else if(i<4){
+			    		subattachOne.innerHTML+=
+			    			 '<div class="col-md-3">'+
+	 						'<a href="#x" class="thumbnail">'+
+	 						"<img src="+"${pageContext.request.contextPath }/resources/upload/place/attach/"+data.attachList[i].reImg + " class='img-thumbnail'>"+
+	 						'</a>'+
+	 						'</div>';
+			    		}else if(i>3){
+			    			attachmain.innerHTML+='<div class="carousel-item " id="attachmentTwo">';
+			    			attachmentTwo.innerHTML='<div class="row" id="subattachTwo">';
+			    			subattachTwo.innerHTML=	
+			 					'<div class="col-md-3">'+
+		 						'<a href="#x" class="thumbnail">'+
+		 						"<img src="+"${pageContext.request.contextPath }/resources/upload/place/attach/"+data.attachList[i].reImg + " class='img-thumbnail'>"+
+		 						'</a>'+
+		 						'</div>';
+			    		}
+			    	
+			 }
+			    attachmentOne.innerHTML+='</div>';
+		    	attachmain.innerHTML+='</div>';
+		    	//상세보기 화면 캐러셀 사진 부분 끝
+		    		
 		}
-		
 	})
+
+}
+
+function fn_delete(){
+	var plaNo = $('[name=subNo]').val();
+	swal({
+		  title: "정말로 삭제하시겠습니까?",
+		  text: "삭제 시 다시 내용을 되돌리실 수 없습니다 ㅠㅠ",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then((willDelete) => {
+		  if (willDelete) {
+			  location.href = "${path}/mypage/myPlaceDelete.do?plaNo="+plaNo+"&userId="+'${memberLoggedIn.userId}';
+		  } else {
+		    
+		  }
+		});
 	
-	count++;
 }
 </script>
 <!-- 마이페이지 css-->
@@ -199,7 +250,7 @@ function fn_modal(obj){
 		  	
 	         <div class="row" style="margin-left:auto;margin-right:auto;width:95%">
 	         	<c:forEach items="${list}" var="p">
-				<div class="card shadow gallery-item" style="width:30%;margin-right:3%">
+				<div class="card shadow gallery-item" style="width:30%;margin-right:3%;margin-bottom:3%">
 				
 				  
 				    <div class="gallery-item-image">
@@ -220,8 +271,8 @@ function fn_modal(obj){
 				      </p>
 				      <!-- plaNo값에 해당되는 attach와 price 가격정보를 가져오기 위해 button name값에 장소번호를 넣어준다.-->
 				      
-				     <button type="button" class="btn btn-primary plaBtn" onclick="fn_modal(this)" data-no='${p.PLANO }' data-name='${p.PLANAME}' data-address='${p.PLAADDR }' 
-				     data-category='${p.PLACATEGORY}' data-area='${p.PLAAREA}'	data-phone='${p.PLAPHONE }' data-content='${p.PLACONTENT}' data-time='${p.PLATIME}' data-keyword='${p.PLAKEYWORD}'
+				     <button type="button" class="btn btn-primary plaBtn" onclick="fn_modal(this)" data-no='${p.PLANO }' data-name='${p.PLANAME}' data-address='${p.PLAADDR }' data-date='${p.PLADATE}'
+				     data-category='${p.PLACATEGORY}' data-area='${p.PLAAREA}'	data-phone='${p.PLAPHONE }' data-content='${p.PLACONTENT}' data-time='${p.PLATIME}' data-keyword='${p.PLAKEYWORD}' data-userId='${p.USERID}'
 				     data-toggle="modal" data-target="#place_modal" style="float:right">상세보기</button>
 				     <c:if test="${p.PLASTATUS == 'N'}">
 				     <button type="button" class="btn btn-info"  style="float:right;margin-right:1%">승인요청중</button>  
@@ -257,6 +308,11 @@ function fn_modal(obj){
 		           <div class="col-md-1"></div>
 		        	<div class="col-md-10">
 		        	   <table style="width:100%">
+		        	   	  <tr>
+		        	   	  	<td style="width:15%">등록일</td>
+		        	   	  	<td>: </td>
+		        	   	  	<td id="plaDate"></td>	
+		        	   	  </tr>
 		        	   	  <tr>
 		        	   	  	<td style="width:15%">업체명</td>
 		        	   	  	<td>: </td>
@@ -305,12 +361,8 @@ function fn_modal(obj){
 		        	   	  <tr>
 		        	   	  	<td colspan="3"  align ="center">
 		        	   	  		 <div id="ThumbnailCarousel" class="carousel slide col-xs-12" data-ride="carousel">
-			  <div class="carousel-inner">
-			    <div class="carousel-item active">
-			      <div class="row" id="attachment">
-			          
-			      </div>
-			    </div>
+			  <div class="carousel-inner" id="attachmain">
+			  
 			  </div>
 			  
 			  <a class="carousel-control-prev "  href="#ThumbnailCarousel" role="button" data-slide="prev">
@@ -338,7 +390,7 @@ function fn_modal(obj){
 		        <!-- Modal footer -->
 		        <div class="modal-footer">
 		          <button type="button" class="btn btn-success">수정</button>
-		          <button type="button" class="btn btn-secondary" data-dismiss="modal">삭제</button>
+		          <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="fn_delete()">삭제</button>
 		        </div>
 		        
 		      
