@@ -11,35 +11,6 @@ table.post div#comList > div#inComment {width:100%;height:100px;}
 </style>
 
 <script type="text/javascript">
-/* 	 $(function(){
-		$(function(){
-	         $(".more-list").slice(0, 2).show(); // 최초 10개 선택
-	         $("#more-btn").click(function(e){ // Load More를 위한 클릭 이벤트e
-	         e.preventDefault();
-	         $(".more-list:hidden").slice(0, 14).show(); // 숨김 설정된 다음 10개를 선택하여 표시
-	         
-	          if($(".more-list:hidden").length == 0){ // 숨겨진 DIV가 있는지 체크
-	        	  //alert();
-	         } 
-	         
-	         });
-	      });
-	});  */
-/* 이미지 클릭하면 모달창 안에 이미지 뜨기 */
-$(function(){
-	var modal = document.getElementById('myModal');
-	var img = document.getElementById('list_pic');
-	var modalImg = document.getElementById("modalImg");
-	var captionText = document.getElementById("caption");
-	$('#list_pic').click(function(){
-	    modal.style.display = "block";
-	    modalImg.src = this.src;
-	    captionText.innerHTML = this.alt;
-	});
-	$("#close").click(function(){
-		 modal.style.display = "none";
-	});
-});
 
 /* 좋아요 작동안됨 */
 $(function(){
@@ -49,43 +20,13 @@ $(function(){
 	});
 });
 
-/* 이미지 누르면 댓글창 뜨게 안됨 */
-/* function showComment() {
-	$('#viewhidden').click(function(){
-		if($('#comment').is(":visible")) {
-			$('#comment').slideUp();
-		}
-		else {
-			$("#comment").slideDown();
-		}
-	});
-} */
-
-/* ajax 댓글 등록하기 */
- 
-/* function fn_comment(code) {
-	$.ajax({
-		type:'POST',
-		url : "${path}/community/addComment.do",
-		data : $("#comFrm").serialize(),
-		success : function(data) {
-			if(data=="success")
-			{
-				getCommentList(); //아래 함수임
-				$("#comWrite").val("");
-			}
-		},
-		error:function(request,status,error) {
-			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-		}
-	});
-} */
 
 /* ajax 댓글 조회하기 */
 
 var i;
 function showComment(obj) {
 	var communityno=$(obj).data("no");
+	alert(communityno);
 	$.ajax({
 		type : 'GET',
 		url : "${path}/community/commentList.do?community_no="+communityno,
@@ -93,8 +34,10 @@ function showComment(obj) {
 		success : function(data) {
 			if(data.commentList.length > 0) {
 				 for(var i=0;i<data.commentList.length;i++){
-					$('#comList').append("<div id='inComment'><p style='margin-left:1%;'><br>"+data.commentList[i].WRITER+" "+data.commentList[i].COMMUNITYDATE+"</p><p style='background-color:#E7E7E7;border:2px solid #E7E7E7;padding:10px;border-radius:30px;margin-left:1%;'>"+data.commentList[i].CONTENT+"</p></div></div><br>");
-				};   
+					 alert(data);
+					 $(".showComment").parents("tr").next("tr").find("div.comList").append("<div class='inComment'><p style='margin-left:1%;'><br>"+data.commentList[i].WRITER+" "+data.commentList[i].COMMUNITYDATE+"</p><p style='background-color:#E7E7E7;border:2px solid #E7E7E7;padding:10px;border-radius:30px;margin-left:1%;'>"+data.commentList[i].CONTENT+"</p></div></div><br>"); 
+				 	
+				 };   
 			}
 		
 			else {
@@ -104,15 +47,44 @@ function showComment(obj) {
 	});  
 }
 
-function moreList() {
+
+/* function writeComment(code) {
+
+	alert("ajax 전::"+code);
 	$.ajax({
-		url : "${path}/community/communityList.do",
-		type : "POST",
+		type : 'POST',
+		url : "${path}/community/commentWrite.do",
+		data : $('#commentFrm').serialize(),
 		dataType : "json",
+		success : function(data) {
+			
+			if(data=="success") {
+				showComment();
+				$('#comWrite').val('');
+			}
+		}
 		
 	});
-}
+} */
 
+
+function commentWrite(obj) {
+	var no=$(obj).data("no");
+	var content=$('.content').val();
+	var insertData="no="+no+"&content="+content;
+	alert(insertData);
+	$.ajax({
+		url : "${path}/community/commentWrite.do",
+		type : 'post',
+		data : insertData,
+		sucess:function(data) {
+			if(data==1) {
+				showComment();
+				$('$content').val('');
+			}
+		}
+	});
+}
 
 </script>
 <div class="main-menu"></div>
@@ -145,19 +117,19 @@ function moreList() {
 			</div>	
 			<div class="container">
 				<c:forEach items="${list}" var="c"> 
-				<input type="hidden" id="community_no" name="community_no" value="${c.COMMUNITYNO }">
+				<input id="community_no" name="community_no" value="${c.COMMUNITYNO }">
 				<table class="post" border="1" bordercolor="black">
 					<tr>
 						<td rowspan="5" width="50%">
 							<c:forEach items="${attList }" var="a">
 								<c:if test="${c.COMMUNITYNO eq a.COMMUNITYNO}"> 
-								   <c:forEach items="${fileCount }" var="fc">  
+								 <%--   <c:forEach items="${fileCount }" var="fc">  
 								   		<c:if test="${fc.COMMUNITYNO eq a.COMMUNITYNO}">
 											<c:if test="${fc.COUNT > 1}">  
 									  			<img src="https://icongr.am/jam/pictures.svg?size=30&color=black">
 											</c:if>  
 										</c:if>
-									</c:forEach> 
+									</c:forEach>  --%>
 									<c:forTokens items="${a.RENAMEDFILENAME }" delims="." var="v" varStatus="status">
 										<c:if test="${status.last }">
                                               <c:choose>
@@ -192,29 +164,37 @@ function moreList() {
 					<tr>
 						<td height="12%">
 						<c:forTokens items="${c.HASHTAG }" delims="," var="ht">
-							&nbsp<a id="hashTag" href="#hashTag">${ht }</a>&nbsp
+							&nbsp<a class="hashTag" name="hashTag" href="#hashTag">${ht }</a>&nbsp
 						</c:forTokens>
 						</td>
 					</tr>
 					<tr>
 						<td height="13%">
-							<button type="button" id="showComment" class="btn btn-outline-light" data-no="${c.COMMUNITYNO }" onclick="showComment(this)">
+							<button type="button" class="showComment" class="btn btn-outline-light" data-no="${c.COMMUNITYNO }" onclick="showComment(this)">
 								<img class="post-img button" src="https://icongr.am/jam/message.svg" style="height:50px;width:50px;float:left;"/>
 							</button>
-							<button type="button" id="like" class="btn btn-outline-light" onclick="like()">
-								<img class="post-img" id="like_check" style="height:50px;width:50px;" src="https://icongr.am/jam/heart.svg?size=30">
+							<button type="button" class="like btn btn-outline-light" onclick="like()">
+								<img class="post-img like_check" style="height:50px;width:50px;" src="https://icongr.am/jam/heart.svg?size=30">
 							</buttons>
 							<p class="post-thenumber" style="font-size:15px;float:right;">좋아요 ${c.LIKECOUNT}개</p><br>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2" >
-							<div id="comment" style="height:90px;width:auto;">
-								<input type="text" class="form-control" id="comWrite" name="comWrite" placeholder="댓글을 입력하세요" style="width:85%;margin-top:3%;margin-left:5%;float:left;">
-								<a class="btn btn-primary" onclick="writeComment()" style="float:right;margin-top:3%;margin-right:2%;">등록</a>
+							<div class="comment" style="height:90px;width:auto;">
+								<%-- <input type="hidden" id="communityno" name="communityno" value="${c.COMMUNITYNO }" > --%>
+								<%-- <input type="hidden" id="comWriter" name="comWriter" value="${memberLoggedIn.userId}"> --%>
+								<input type="text" class="form-control" id="content" name="content" placeholder="댓글을 입력하세요" style="width:85%;margin-top:3%;margin-left:5%;float:left;">
+								<a class="btn btn-primary" id="commentWrite" data-no="${c.COMMUNITYNO }" onclick="commentWrite(this)" style="float:right;margin-top:3%;margin-right:2%;">등록</a>
+				
+						<%-- <c:forEach items="${commentList }" var="cl">
+							<c:if test="${cl.COMMUNITYNO eq c.COMMUNITYNO }"> --%>
+							<div class="comList" style="width:90%;height:auto;margin-left:5%;margin-right:2%;margin-bottom:2%;">
+								
 							</div>
-							<div id="comList" style="width:90%;height:auto;margin-left:5%;margin-right:2%;margin-bottom:2%;">
-							</div>
+							<%-- </c:if>
+						</c:forEach> --%>
+						</div>
 						</td>
 					</tr>
 				</table><br><br>	
@@ -227,4 +207,3 @@ function moreList() {
 		</div>  -->
 		</div>
 </section>
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

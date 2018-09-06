@@ -27,4 +27,9 @@ public class MypageDaoImpl implements MypageDao {
 		return sqlSession.selectList("mypage.selectMenuList",plaNo);
 	}
 
+	@Override
+	public int placeDelete(SqlSessionTemplate sqlSession, int plaNo) {
+		return sqlSession.delete("mypage.placeDelete",plaNo);
+	}
+
 }
