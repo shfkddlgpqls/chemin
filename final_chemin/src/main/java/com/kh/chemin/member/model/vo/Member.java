@@ -1,9 +1,11 @@
+
 package com.kh.chemin.member.model.vo;
 
 import java.util.Arrays;
 import java.util.Date;
 
 public class Member {
+	
 	private String userId;
 	private String password;
 	private String userName;
@@ -32,7 +34,7 @@ public class Member {
 		this.renameImage = renameImage;
 	}
 
-
+	
 	public String getUserId() {
 		return userId;
 	}
@@ -115,9 +117,8 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [userId=" + userId + ", password=" + password + ", userName=" + userName
+		return "Member [ userId=" + userId + ", password=" + password + ", userName=" + userName
 				+ ", gender=" + gender + ", birthDay=" + birthDay + ", email=" + email + ", phone=" + phone + ", hobby="
 				+ hobby + ", originalImg=" + originalImg + ", renameImage=" + renameImage + "]";
 	}
 }
-
