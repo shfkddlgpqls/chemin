@@ -28,6 +28,10 @@
    			
    			<beans:bean id="loggerInterceptor" class="com.kh.chemin.common.interceptor.LoggerInterceptor"></beans:bean>
    		</interceptor>
+   		<interceptor>
+   			<mapping path="/community/**/*.do"/>
+   			<beans:bean id="LoginCheckInterceptor" class="com.kh.chemin.common.interceptor.LoginCheckInterceptor"></beans:bean>
+   		</interceptor>
 	</interceptors>
 	
 	 <!-- 파일 업로드 처리 객체 등록. resolver는 앞뒤로 붙여주는 애 -->

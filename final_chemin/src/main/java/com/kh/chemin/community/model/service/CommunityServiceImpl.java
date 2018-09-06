@@ -68,6 +68,11 @@ public class CommunityServiceImpl implements CommunityService {
 		return dao.commentList(sqlSession,communityno);
 	}
 
+	@Override
+	public int commentWrite(Comment comment) {
+		return dao.commentWrite(sqlSession,comment);
+	}
+
 	/*@Override
 	public int updateLikeCount(int community_no) {
 		return dao.updateLikeCount(sqlSession,community_no);

@@ -10,4 +10,5 @@ public interface MypageService {
 	List<Place> selectPlaceList(String userId);
 	List<PlaceAttachment> selectAttachList(int plaNo);
 	List<PlaceMenu> selectMenuList(int plaNo);
+	int placeDelete(int plaNo);
 }
