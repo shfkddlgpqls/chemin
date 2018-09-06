@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Date;
 
 public class Member {
-	private int userNo;
 	private String userId;
 	private String password;
 	private String userName;
@@ -18,10 +17,9 @@ public class Member {
 	
 	public Member() {}
 
-	public Member(int userNo, String userId, String password, String userName, String gender, Date birthDay,
+	public Member(String userId, String password, String userName, String gender, Date birthDay,
 			String email, String phone, String hobby, String originalImg, String renameImage) {
 		super();
-		this.userNo = userNo;
 		this.userId = userId;
 		this.password = password;
 		this.userName = userName;
@@ -34,13 +32,6 @@ public class Member {
 		this.renameImage = renameImage;
 	}
 
-	public int getUserNo() {
-		return userNo;
-	}
-
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
-	}
 
 	public String getUserId() {
 		return userId;
@@ -124,8 +115,9 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [userNo=" + userNo + ", userId=" + userId + ", password=" + password + ", userName=" + userName
+		return "Member [userId=" + userId + ", password=" + password + ", userName=" + userName
 				+ ", gender=" + gender + ", birthDay=" + birthDay + ", email=" + email + ", phone=" + phone + ", hobby="
 				+ hobby + ", originalImg=" + originalImg + ", renameImage=" + renameImage + "]";
 	}
 }
+

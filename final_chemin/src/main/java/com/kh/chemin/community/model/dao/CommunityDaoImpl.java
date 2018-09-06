@@ -48,4 +48,9 @@ public class CommunityDaoImpl implements CommunityDao {
 		return sqlSession.selectList("community.selectComment",communityno);
 	}
 
+	@Override
+	public int commentWrite(SqlSessionTemplate sqlSession,Comment comment) {
+		return sqlSession.insert("community.commentWrite",comment);
+	}
+
 }

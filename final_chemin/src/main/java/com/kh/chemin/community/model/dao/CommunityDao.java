@@ -18,5 +18,6 @@ public interface CommunityDao {
 	List<Map<String,Object>> fileCount(SqlSessionTemplate sqlSession);
 /*	int updateLikeCount(SqlSessionTemplate sqlSession,int community_no);*/
 	List<Comment> commentList(SqlSessionTemplate sqlSession,int communityno);
-
+	int commentWrite(SqlSessionTemplate sqlSession,Comment comment);
 }
+

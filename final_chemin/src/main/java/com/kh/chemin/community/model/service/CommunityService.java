@@ -14,5 +14,7 @@ public interface CommunityService {
 	int communityWriteEnd(Community community,List<Attachment> attList);
 	List<Map<String,Object>> fileCount();
 	List<Comment> commentList(int communityno);
+	int commentWrite(Comment comment);
 
 }
+
