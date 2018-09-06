@@ -82,6 +82,9 @@
             <li class="nav-item">
              <a class="nav-link js-scroll-trigger" href="${path}/community/communityList.do">Good Tip</a>
             </li>
+            <li class="nav-item">
+             <a class="nav-link js-scroll-trigger" href="${path}/ac_main.do">Acbook</a>
+            </li>
             
             
             <!-- 세션에 로그인한 정보가 없으면 보여지게 -->
