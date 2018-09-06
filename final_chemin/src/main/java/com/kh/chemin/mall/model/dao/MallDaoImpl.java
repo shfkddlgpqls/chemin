@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.chemin.mall.model.vo.Cart;
 import com.kh.chemin.mall.model.vo.Product;
 
 @Repository
@@ -33,6 +34,24 @@ public class MallDaoImpl implements MallDao {
 	@Override
 	public int insertCart(SqlSessionTemplate sqlSession, Map<String, Object> map) {
 		return sqlSession.insert("mall.insertCart", map);
+	}
+
+	// 장바구니의 상품 가져오기 (존재여부 확인)
+	@Override
+	public Cart selectCartItem(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+		return sqlSession.selectOne("mall.selectCartItem", map);
+	}
+
+	// 오래된 장바구니 데이터 삭제
+	@Override
+	public int deleteOldCart(SqlSessionTemplate sqlSession) {
+		return sqlSession.delete("mall.deleteOldCart");
+	}
+
+	// 장바구니 데이터 가져오기
+	@Override
+	public List<Map<String, Object>> selectCartList(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectList("mall.selectCartList", userId);
 	}
 
 }

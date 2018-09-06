@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.chemin.mall.model.vo.Cart;
 import com.kh.chemin.mall.model.vo.Product;
 
 public interface MallDao {
@@ -16,5 +17,11 @@ public interface MallDao {
 	Product selectProduct(SqlSessionTemplate sqlSession, int pno);
 
 	int insertCart(SqlSessionTemplate sqlSession, Map<String, Object> map);
+
+	Cart selectCartItem(SqlSessionTemplate sqlSession, Map<String, Object> map);
+
+	int deleteOldCart(SqlSessionTemplate sqlSession);
+
+	List<Map<String, Object>> selectCartList(SqlSessionTemplate sqlSession, String userId);
 
 }

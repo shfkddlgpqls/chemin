@@ -54,7 +54,7 @@ public class MallPageBar {
 	
 	
 	
-	public static String getPageMall(int cPage, int numPerPage, int totalContents, String url)
+	public static String getPageMall(int cPage, int numPerPage, int totalContents)
 	   {
 	      String pageBar="";
 	      int pageBarSize=5;

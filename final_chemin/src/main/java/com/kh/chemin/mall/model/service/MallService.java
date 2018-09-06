@@ -3,6 +3,7 @@ package com.kh.chemin.mall.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.kh.chemin.mall.model.vo.Cart;
 import com.kh.chemin.mall.model.vo.Product;
 
 public interface MallService {
@@ -14,5 +15,11 @@ public interface MallService {
 	Product selectProduct(int pno);
 
 	int insertCart(Map<String, Object> map);
+
+	Cart selectCartItem(Map<String, Object> map);
+
+	int deleteOldCart();
+
+	List<Map<String, Object>> selectCartList(String userId);
 
 }

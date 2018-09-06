@@ -49,8 +49,27 @@
 		where pno=#{pno}
 	</select>
 	
+	<!-- 장바구니의 상품 가져오기 (존재여부 확인) -->
+	<select id="selectCartItem" parameterType="map" resultType="cart">
+		select * from cart
+		where pno=#{pno} and userId=#{userId} and payYn='N'
+	</select>
+	
 	<!-- 장바구니 추가 -->
-	<insert id="insertCart"></insert>
+	<insert id="insertCart" parameterType="map">
+		insert into cart
+		values(cart_seq.nextval, #{userId}, #{orderNo}, #{pno}, #{amount}, default, #{totalPrice}, default)
+	</insert>
+
+	<!-- 오래된 장바구니 데이터 삭제 -->
+	<delete id="deleteOldCart">
+		delete from cart where payYn='N' and cDate <![CDATA[<=]]> to_char(sysdate-7,'YYYYMMDD')
+	</delete>
+	
+	<!-- 장바구니 데이터 가져오기 -->
+	<select id="selectCartList" parameterType="string" resultMap="mallMap">
+		select * from cart join product using(pno) where userId=#{userId} and payYn='N'
+	</select>
 
 </mapper>
 

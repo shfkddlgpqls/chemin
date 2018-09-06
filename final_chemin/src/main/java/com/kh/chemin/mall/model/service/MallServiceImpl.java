@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.chemin.mall.model.dao.MallDao;
+import com.kh.chemin.mall.model.vo.Cart;
 import com.kh.chemin.mall.model.vo.Product;
 
 @Service
@@ -40,6 +41,24 @@ public class MallServiceImpl implements MallService {
 	@Override
 	public int insertCart(Map<String, Object> map) {
 		return dao.insertCart(sqlSession, map);
+	}
+
+	// 장바구니의 상품 가져오기 (존재여부 확인)
+	@Override
+	public Cart selectCartItem(Map<String, Object> map) {
+		return dao.selectCartItem(sqlSession, map);
+	}
+
+	// 오래된 장바구니 데이터 삭제
+	@Override
+	public int deleteOldCart() {
+		return dao.deleteOldCart(sqlSession);
+	}
+
+	// 장바구니 데이터 가져오기
+	@Override
+	public List<Map<String, Object>> selectCartList(String userId) {
+		return dao.selectCartList(sqlSession, userId);
 	}
 
 }
