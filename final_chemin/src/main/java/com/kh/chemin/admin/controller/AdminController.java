@@ -72,6 +72,7 @@ public class AdminController {
 		return jsonStr;
 	}
 	
+	//장소삭제
 	@RequestMapping("/admin/adminPlaceDelete.do")
 	public ModelAndView placeDelete(int plaNo,String userId)
 	{
@@ -85,7 +86,49 @@ public class AdminController {
 		}else {
 			msg="장소가 삭제 되지 않았습니다.";
 		}
-		loc="/mypage/myPlaceList.do?userId="+userId;
+		loc="/admin/adminPlaceList.do?userId="+userId;
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		mv.addObject("result", result);
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	//장소 상태 변경
+	@RequestMapping("/admin/adminPlaceStatus.do")
+	public ModelAndView placeStatus(int plaNo, char plaStatus)
+	{
+		Map<String, Object> map = new HashMap<>();
+		map.put("plaNo", plaNo);
+		map.put("plaStatus", plaStatus);
+		int result = service.plaStatusChange(map);
+		
+		String msg="";
+		String loc="";
+		
+		if(plaStatus=='Y') {
+			if(result>0) {
+				msg="승인되었습니다.";
+			}else {
+				msg="승인이 되지 않았습니다.";
+			}
+		}else if(plaStatus=='N') {
+			if(result>0) {
+				msg="취소되었습니다.";
+			}else {
+				msg="취소 되지 않았습니다.";
+			}
+		}else if(plaStatus=='R'){
+			if(result>0) {
+				msg="승인 거절되었습니다.";
+			}else {
+				msg="승인 거절되지 않았습니다.";
+			}
+		}
+		
+		loc="/admin/adminPlaceList.do";
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("msg", msg);

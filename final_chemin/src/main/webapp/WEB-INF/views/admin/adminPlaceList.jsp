@@ -10,7 +10,7 @@
 <!-- admin css-->
     <link rel="stylesheet" type="text/css" href="${path}/resources/base/css/adminPage.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    
+
 <style>
 .gallery{
   width: 100%;
@@ -80,10 +80,24 @@ height:50px;
 <script>
 
 function fn_modal(obj){	
-	var plaNo = $(obj).data("no"); 	
-	
+	var plaNo = $(obj).data("no");
+	var status = $(obj).data("status"); 	
+
 	 plaDate.innerHTML = $(obj).data("date"); 
 	 plaDate.innerHTML += '<input type="hidden" name="subNo" value='+plaNo+'>';
+	 
+	 if(status=='N'){
+		 footer.innerHTML='<input type="button" name="approve" class="btn btn-success" value="승인하기" onclick="fn_approve()"/>';
+		 footer.innerHTML+='<input type="button" name="reject" class="btn btn-danger" value="승인거절" onclick="fn_reject()"/>';
+		 footer.innerHTML+='<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="fn_delete()">삭제</button>';
+	 }else if(status=='Y'){
+		 footer.innerHTML='<input type="button" name="cancle" class="btn btn-warning" value="승인취소" onclick="fn_cancle()">';
+		 footer.innerHTML+='<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="fn_delete()">삭제</button>';
+	 }else if(status=='R'){
+		 footer.innerHTML='<input type="button" name="cancle" class="btn btn-warning" value="승인거절취소" onclick="fn_cancle()">';
+		 footer.innerHTML+='<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="fn_delete()">삭제</button>';
+	 }
+	 
 	plaName.innerHTML = $(obj).data("name"); 	
  	plaPhone.innerHTML = $(obj).data("phone");
 	plaArea.innerHTML = $(obj).data("area");
@@ -178,7 +192,6 @@ function fn_delete(){
 	var plaNo = $('[name=subNo]').val();
 	swal({
 		  title: "정말로 삭제하시겠습니까?",
-		  text: "삭제 시 다시 내용을 되돌리실 수 없습니다 ㅠㅠ",
 		  icon: "warning",
 		  buttons: true,
 		  dangerMode: true,
@@ -191,6 +204,60 @@ function fn_delete(){
 		  }
 		});
 	
+}
+
+//승인버튼
+function fn_approve(){
+	var plaNo = $('[name=subNo]').val();
+	swal({
+		  title: "요청된 장소를 승인하시겠습니까?",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then((willDelete) => {
+		  if (willDelete) {
+			  location.href = "${path}/admin/adminPlaceStatus.do?plaNo="+plaNo+"&plaStatus="+'Y';
+		  } else {
+		    
+		  }
+		});
+}
+
+//승인취소버튼
+function fn_cancle(){
+	var plaNo = $('[name=subNo]').val();
+	swal({
+		  title: "승인 취소를 하시겠습니까?",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then((willDelete) => {
+		  if (willDelete) {
+			  location.href = "${path}/admin/adminPlaceStatus.do?plaNo="+plaNo+"&plaStatus="+'N';
+		  } else {
+		    
+		  }
+		});
+}
+
+//승인거절버튼
+function fn_reject(){
+	var plaNo = $('[name=subNo]').val();
+	swal({
+		  title: "승인 취소를 하시겠습니까?",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then((willDelete) => {
+		  if (willDelete) {
+			  location.href = "${path}/admin/adminPlaceStatus.do?plaNo="+plaNo+"&plaStatus="+'R';
+		  } else {
+		    
+		  }
+		});
 }
 </script>
     
@@ -256,9 +323,9 @@ function fn_delete(){
 				      
 				     <button type="button" class="btn btn-primary plaBtn" onclick="fn_modal(this)" data-no='${p.PLANO }' data-name='${p.PLANAME}' data-address='${p.PLAADDR }' data-date='${p.PLADATE}'
 				     data-category='${p.PLACATEGORY}' data-area='${p.PLAAREA}'	data-phone='${p.PLAPHONE }' data-content='${p.PLACONTENT}' data-time='${p.PLATIME}' data-keyword='${p.PLAKEYWORD}'
-				     data-toggle="modal" data-target="#place_modal" style="float:right">상세보기</button>
+				     data-status='${p.PLASTATUS}'	data-toggle="modal" data-target="#place_modal" style="float:right">상세보기</button>
 				     <c:if test="${p.PLASTATUS == 'N'}">
-				     <button type="button" class="btn btn-info"  style="float:right;margin-right:1%">승인하기</button>  
+				     <button type="button" class="btn btn-info"  style="float:right;margin-right:1%">승인대기</button>  
 				     </c:if>
 				      <c:if test="${p.PLASTATUS == 'Y'}">
 				     <button type="button" class="btn btn-success"  style="float:right;margin-right:1%">승인완료</button>  
@@ -371,12 +438,9 @@ function fn_delete(){
 				  </div>
 			    </div>
 		        <!-- Modal footer -->
-		        <div class="modal-footer">
-		          <button type="button" class="btn btn-success">수정</button>
-		         <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="fn_delete()">삭제</button>
-		        </div>
-		        
+		        <div class="modal-footer" id="footer">
 		      
+		        </div>
 		    </div>
 		  </div>
 		  </div>
