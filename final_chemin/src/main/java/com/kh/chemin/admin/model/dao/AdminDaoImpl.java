@@ -38,4 +38,9 @@ public class AdminDaoImpl implements AdminDao {
 		return sqlSession.update("admin.plaStatusChange",map);
 	}
 
+	@Override
+	public int adminReMsg(SqlSessionTemplate sqlSession, Map map) {
+		return sqlSession.update("admin.adminReMsg",map);
+	}
+
 }

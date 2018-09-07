@@ -120,12 +120,35 @@ public class AdminController {
 			}else {
 				msg="취소 되지 않았습니다.";
 			}
-		}else if(plaStatus=='R'){
+		}
+		
+		loc="/admin/adminPlaceList.do";
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("msg", msg);
+		mv.addObject("loc", loc);
+		mv.addObject("result", result);
+		mv.setViewName("common/msg");
+		return mv;
+	}
+	
+	
+	@RequestMapping("/admin/adminReMsg.do")
+	public ModelAndView adminReMsg(int plaNo, String plaReMsg, char plaStatus) 
+	{
+		Map<String, Object> map = new HashMap<>();
+		map.put("plaNo", plaNo);
+		map.put("plaReMsg", plaReMsg);
+		map.put("plaStatus", plaStatus);
+		int result = service.adminReMsg(map);
+		
+		String msg="";
+		String loc="";
+
 			if(result>0) {
 				msg="승인 거절되었습니다.";
 			}else {
 				msg="승인 거절되지 않았습니다.";
-			}
 		}
 		
 		loc="/admin/adminPlaceList.do";

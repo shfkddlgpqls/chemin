@@ -51,4 +51,10 @@ public class AdminServiceImpl implements AdminService {
 		return result;
 	}
 
+	@Override
+	public int adminReMsg(Map map) {
+		int result = dao.adminReMsg(sqlSession, map);
+		return result;
+	}
+
 }

@@ -75,29 +75,34 @@ border:1px solid black;
 tr{
 height:50px;
 }
+
+
 </style>
 
 <script>
 
 function fn_modal(obj){	
-	var plaNo = $(obj).data("no");
-	var status = $(obj).data("status"); 	
 
-	 plaDate.innerHTML = $(obj).data("date"); 
-	 plaDate.innerHTML += '<input type="hidden" name="subNo" value='+plaNo+'>';
+	var plaNo = $(obj).data("no");
+	var status = $(obj).data("status");
 	 
+	 //footer 버튼 승인상태에 따라 변화
 	 if(status=='N'){
-		 footer.innerHTML='<input type="button" name="approve" class="btn btn-success" value="승인하기" onclick="fn_approve()"/>';
-		 footer.innerHTML+='<input type="button" name="reject" class="btn btn-danger" value="승인거절" onclick="fn_reject()"/>';
-		 footer.innerHTML+='<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="fn_delete()">삭제</button>';
+		 detailFooter.innerHTML='<input type="button" name="approve" class="btn btn-success" value="승인하기" onclick="fn_approve()"/>';
+		 /* detailFooter.innerHTML+='<input type="button" name="reject" class="btn btn-danger" data-toggle="modal" data-target="#reMsg_modal" value="승인거절" />'; */
+		 detailFooter.innerHTML+='<input type="button" name="reject" class="btn btn-danger"  value="승인거절" onclick="fn_reject()"/>';
+		 detailFooter.innerHTML+='<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="fn_delete()">삭제</button>';
 	 }else if(status=='Y'){
-		 footer.innerHTML='<input type="button" name="cancle" class="btn btn-warning" value="승인취소" onclick="fn_cancle()">';
-		 footer.innerHTML+='<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="fn_delete()">삭제</button>';
+		 detailFooter.innerHTML='<input type="button" name="cancle" class="btn btn-warning" value="승인취소" onclick="fn_cancle()">';
+		 detailFooter.innerHTML+='<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="fn_delete()">삭제</button>';
 	 }else if(status=='R'){
-		 footer.innerHTML='<input type="button" name="cancle" class="btn btn-warning" value="승인거절취소" onclick="fn_cancle()">';
-		 footer.innerHTML+='<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="fn_delete()">삭제</button>';
+		 detailFooter.innerHTML='<input type="button" name="cancle" class="btn btn-warning" value="승인거절취소" onclick="fn_cancle()">';
+		 detailFooter.innerHTML+='<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="fn_delete()">삭제</button>';
 	 }
 	 
+	 plaDate.innerHTML = $(obj).data("date"); 
+	 plaDate.innerHTML += '<input type="hidden" name="subNo" value='+plaNo+'>';
+	 userId.innerHTML = $(obj).data("userid");  
 	plaName.innerHTML = $(obj).data("name"); 	
  	plaPhone.innerHTML = $(obj).data("phone");
 	plaArea.innerHTML = $(obj).data("area");
@@ -243,22 +248,33 @@ function fn_cancle(){
 }
 
 //승인거절버튼
-function fn_reject(){
+ function fn_reject(){
 	var plaNo = $('[name=subNo]').val();
-	swal({
-		  title: "승인 취소를 하시겠습니까?",
+    
+	 swal({
+		  title: "승인을 거절 하시겠습니까?",
 		  icon: "warning",
 		  buttons: true,
 		  dangerMode: true,
 		})
 		.then((willDelete) => {
 		  if (willDelete) {
-			  location.href = "${path}/admin/adminPlaceStatus.do?plaNo="+plaNo+"&plaStatus="+'R';
+			  $("#reMsg_modal").modal('show');
+			  $('#place_modal').modal('hide');
+			   /* location.href = "${path}/admin/adminPlaceStatus.do?plaNo="+plaNo+"&plaStatus="+'R'; */ 
 		  } else {
 		    
 		  }
-		});
+		}); 
+} 
+
+
+function fn_send(){
+	var plaNo = $('[name=subNo]').val();
+	var plaReMsg = $('[name=reMsg]').val();
+	 location.href = "${path}/admin/adminReMsg.do?plaNo="+plaNo+"&plaReMsg="+plaReMsg+"&plaStatus="+'R'; 	
 }
+
 </script>
     
 	<div class="admin">
@@ -323,7 +339,7 @@ function fn_reject(){
 				      
 				     <button type="button" class="btn btn-primary plaBtn" onclick="fn_modal(this)" data-no='${p.PLANO }' data-name='${p.PLANAME}' data-address='${p.PLAADDR }' data-date='${p.PLADATE}'
 				     data-category='${p.PLACATEGORY}' data-area='${p.PLAAREA}'	data-phone='${p.PLAPHONE }' data-content='${p.PLACONTENT}' data-time='${p.PLATIME}' data-keyword='${p.PLAKEYWORD}'
-				     data-status='${p.PLASTATUS}'	data-toggle="modal" data-target="#place_modal" style="float:right">상세보기</button>
+				     data-status='${p.PLASTATUS}' data-userid='${p.USERID}' data-toggle="modal" data-target="#place_modal" style="float:right">상세보기</button>
 				     <c:if test="${p.PLASTATUS == 'N'}">
 				     <button type="button" class="btn btn-info"  style="float:right;margin-right:1%">승인대기</button>  
 				     </c:if>
@@ -340,7 +356,7 @@ function fn_reject(){
 		  </div>	  	
 		</div> 	
 		
-		<!-- 리뷰하기 모달 -->
+		<!-- 장소 상세보기 모달 -->
 		 <!-- The Modal -->
 		  <div class="modal fade" id="place_modal">
 		    <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -362,6 +378,11 @@ function fn_reject(){
 		        	   	  	<td style="width:15%">등록일</td>
 		        	   	  	<td>: </td>
 		        	   	  	<td id="plaDate"></td>	
+		        	   	  </tr>
+		        	   	  <tr>
+		        	   	  	<td style="width:15%">등록자</td>
+		        	   	  	<td>: </td>
+		        	   	  	<td id="userId"></td>	
 		        	   	  </tr>
 		        	   	  <tr>
 		        	   	  	<td style="width:15%">업체명</td>
@@ -438,13 +459,47 @@ function fn_reject(){
 				  </div>
 			    </div>
 		        <!-- Modal footer -->
-		        <div class="modal-footer" id="footer">
+		        <div class="modal-footer" id="detailFooter">
 		      
 		        </div>
 		    </div>
 		  </div>
 		  </div>
-		  <!-- 리뷰하기 모달 끝 -->
+		  <!-- 장소 상세보기 모달 끝 -->
+		  
+		  
+		  
+		  <!-- 승인 거절 메세지 모달 -->
+		 <!-- The Modal -->
+		  <div class="modal fade" id="reMsg_modal">
+		    <div class="modal-dialog modal-dialog-centered">
+		      <div class="modal-content">
+		      
+		        <!-- Modal Header -->
+		        <div class="modal-header">
+		          <h4 class="modal-title text-center">승인 거절 이유</h4>
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        </div>
+		        
+		        <!-- Modal body -->
+		        <div class="modal-body">
+		          <div class="row">
+		           <div class="col-md-1"></div>
+		        	<div class="col-md-10">
+		        	   <textarea class="form-control" id="message-text" name="reMsg" style="width:100%; height:200px"></textarea>
+		        	</div>
+		     		<div class="col-md-1"></div>
+				  </div>
+			    </div>
+		        <!-- Modal footer -->
+		        <div class="modal-footer" id="footer">
+		      		<input type="button" name="send" class="btn btn-success" value="보내기" onclick="fn_send()">
+		      		<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+		        </div>
+		    </div>
+		  </div>
+		  </div>
+		  <!-- 승인 거절 메세지 모달 끝 -->
 </section>
 		
 		

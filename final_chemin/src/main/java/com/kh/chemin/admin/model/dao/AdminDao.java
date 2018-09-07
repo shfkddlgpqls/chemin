@@ -15,4 +15,5 @@ public interface AdminDao {
 	List<PlaceMenu> selectMenuList(SqlSessionTemplate sqlSession ,int plaNo);
 	int placeDelete(SqlSessionTemplate sqlSession, int plaNo);
 	int plaStatusChange(SqlSessionTemplate sqlSession, Map map);
+	int adminReMsg(SqlSessionTemplate sqlSession, Map map);
 }
