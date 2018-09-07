@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <c:set value="${pageContext.request.contextPath }" var="path"/>
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <style>
 /* .scale {
@@ -203,6 +203,12 @@ function fn_delete(){
 		});
 	
 }
+
+function fn_reMsg(msg){
+	$("#reMsg_modal").modal('show');
+	var plaMsg = $(msg).data("msg");
+	alert(plaMsg);
+}
 </script>
 <!-- 마이페이지 css-->
     <link rel="stylesheet" type="text/css" href="${path}/resources/base/css/mypage.css">
@@ -274,13 +280,15 @@ function fn_delete(){
 				     data-category='${p.PLACATEGORY}' data-area='${p.PLAAREA}'	data-phone='${p.PLAPHONE }' data-content='${p.PLACONTENT}' data-time='${p.PLATIME}' data-keyword='${p.PLAKEYWORD}' data-userId='${p.USERID}'
 				     data-toggle="modal" data-target="#place_modal" style="float:right">상세보기</button>
 				     <c:if test="${p.PLASTATUS == 'N'}">
-				     <button type="button" class="btn btn-info"  style="float:right;margin-right:1%">승인요청중</button>  
+				     <input type="button" class="btn btn-info"  style="float:right;margin-right:1%" value="승인요청중"/> 
 				     </c:if>
 				      <c:if test="${p.PLASTATUS == 'Y'}">
-				     <button type="button" class="btn btn-success"  style="float:right;margin-right:1%">승인완료</button>  
+				     <input type="button" class="btn btn-success"  style="float:right;margin-right:1%" value="승인완료"/>
 				     </c:if>
 				     <c:if test="${p.PLASTATUS == 'R'}">
-				     <button type="button" class="btn btn-danger"  style="float:right;margin-right:1%">승인거절</button>  
+				     <button type="button" class="btn btn-danger"  style="float:right;margin-right:1%" onclick="fn_reMsg(this)" data-msg='${p.PLAREMSG}'>
+				     	<i class="material-icons" style="font-size:1.2em">unsubscribe</i><span>승인거절</span>
+				     </button>
 				     </c:if>
 				    </div>
 				</div>
@@ -397,6 +405,40 @@ function fn_delete(){
 		  </div>
 		  </div>
 		  <!-- 리뷰하기 모달 끝 -->
+		  
+		  
+		  <!-- 승인 거절 메세지 모달 -->
+		 <!-- The Modal -->
+		  <div class="modal fade" id="reMsg_modal">
+		    <div class="modal-dialog modal-dialog-centered">
+		      <div class="modal-content">
+		      
+		        <!-- Modal Header -->
+		        <div class="modal-header">
+		          <h4 class="modal-title text-center">승인 거절 이유</h4>
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        </div>
+		        
+		        <!-- Modal body -->
+		        <div class="modal-body">
+		          <div class="row">
+		           <div class="col-md-1"></div>
+		        	<div class="col-md-10">
+		        	   <div value="djdjfjkdjfdjk">
+		        	   
+		        	   </div>
+		        	</div>
+		     		<div class="col-md-1"></div>
+				  </div>
+			    </div>
+		        <!-- Modal footer -->
+		        <div class="modal-footer" id="footer">
+		      		<button type="button" class="btn btn-info" data-dismiss="modal">확인</button>
+		        </div>
+		    </div>
+		  </div>
+		  </div>
+		  <!-- 승인 거절 메세지 모달 끝 -->
 </section>
 
 	<div class="text-center">

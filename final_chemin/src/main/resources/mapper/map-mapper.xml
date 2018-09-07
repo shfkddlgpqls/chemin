@@ -7,7 +7,7 @@
 		insert into place
 		values
 		(seq_place_no.nextval,#{userId},#{plaArea},#{plaCategory},#{plaName},#{orImg},#{reImg},#{plaPhone},#{plaAddr}
-		,#{plaTime},#{plaContent},#{plaKeyword},null,null,default,default)
+		,#{plaTime},#{plaContent},#{plaKeyword},null,null,default,default,null)
 		<selectKey keyProperty="plaNo" resultType="_int" order="AFTER">
 		 SELECT SEQ_PLACE_NO.CURRVAL FROM DUAL
 		</selectKey>

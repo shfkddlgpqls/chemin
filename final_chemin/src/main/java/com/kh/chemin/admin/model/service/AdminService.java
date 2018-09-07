@@ -13,4 +13,5 @@ public interface AdminService {
 	List<PlaceMenu> selectMenuList(int plaNo);
 	int placeDelete(int plaNo);
 	int plaStatusChange(Map map);
+	int adminReMsg(Map map);
 }
