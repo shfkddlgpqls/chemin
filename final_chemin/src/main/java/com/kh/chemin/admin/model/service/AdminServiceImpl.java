@@ -1,6 +1,7 @@
 package com.kh.chemin.admin.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,12 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int placeDelete(int plaNo) {
 		int result = dao.placeDelete(sqlSession,plaNo);
+		return result;
+	}
+
+	@Override
+	public int plaStatusChange(Map map) {
+		int result = dao.plaStatusChange(sqlSession,map);
 		return result;
 	}
 

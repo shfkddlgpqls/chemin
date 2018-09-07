@@ -1,6 +1,7 @@
 package com.kh.chemin.admin.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -30,6 +31,11 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public int placeDelete(SqlSessionTemplate sqlSession, int plaNo) {
 		return sqlSession.delete("admin.placeDelete",plaNo);
+	}
+
+	@Override
+	public int plaStatusChange(SqlSessionTemplate sqlSession, Map map) {
+		return sqlSession.update("admin.plaStatusChange",map);
 	}
 
 }

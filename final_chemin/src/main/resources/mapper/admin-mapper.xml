@@ -20,4 +20,8 @@
 	<delete id="placeDelete" parameterType="_int">
 	   delete place where PLANO = #{plaNo}
 	</delete>
+	
+	<update id="plaStatusChange" parameterType="map">
+		update place set PLASTATUS =#{plaStatus} where PLANO = #{plaNo}
+	</update>
 </mapper>
